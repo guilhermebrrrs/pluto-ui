@@ -1,12 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { App, ServerOffline } from "pages";
 import { ChakraProvider } from "@chakra-ui/react";
+import { GlobalStyles } from "components";
+import { App, ServerOffline } from "pages";
+import { definitions } from "./utils";
 
 (async () => {
   try {
     ReactDOM.render(
-      <ChakraProvider>
+      <ChakraProvider resetCSS theme={definitions.theme}>
+        <GlobalStyles />
         <App />
       </ChakraProvider>,
       document.getElementById("root")

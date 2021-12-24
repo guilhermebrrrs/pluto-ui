@@ -1,16 +1,11 @@
 import { FunctionComponent } from "react";
+import { AppRouter } from "router";
 
 const App: FunctionComponent = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-          <br />
-          Learn React
-        </p>
-      </header>
-    </div>
+    <>
+      <AppRouter />
+    </>
   );
 };
 
