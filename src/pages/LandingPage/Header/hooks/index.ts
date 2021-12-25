@@ -1,0 +1,1 @@
+export { useLandingPageheaderProps } from "./useLandingPageheaderProps";

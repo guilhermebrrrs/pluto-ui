@@ -6,7 +6,7 @@ const ServerOffline: FunctionComponent = () => (
   <ChakraProvider>
     <Flex height="100vh" width="100vw">
       <Text fontSize={definitions.fontSize.biggest}>Ooops...</Text>
-      <Text fontSize={definitions.fontSize.normal}>
+      <Text fontSize={definitions.fontSize.default}>
         Acho que este serviço está fora do ar!
       </Text>
     </Flex>

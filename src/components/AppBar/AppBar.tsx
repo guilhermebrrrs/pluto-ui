@@ -12,7 +12,7 @@ const AppBar: FunctionComponent = () => (
     padding={definitions.spacing.largest}
     width="100vw"
   >
-    <Text size={definitions.fontSize.normal}>RecicloApp</Text>
+    <Text size={definitions.fontSize.default}>RecicloApp</Text>
   </Flex>
 );
 

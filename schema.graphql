@@ -178,8 +178,7 @@ enum WeekDays {
 
 input AuthenticateUserInput {
   email: String!
-  newPassword: String!
-  oldPassword: String!
+  password: String!
 }
 
 input CreateUserInput {

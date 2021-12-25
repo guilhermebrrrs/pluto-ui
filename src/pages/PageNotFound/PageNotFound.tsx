@@ -6,7 +6,7 @@ const PageNotFound: FunctionComponent = () => (
   <Flex
     alignItems={definitions.alignItems.center}
     flexDirection="column"
-    gap={definitions.spacing.normal}
+    gap={definitions.spacing.default}
     height="100vh"
     justifyContent={definitions.justifyContent.center}
     width="100vw"
@@ -17,7 +17,7 @@ const PageNotFound: FunctionComponent = () => (
     >
       ... 404 :S
     </Text>
-    <Text fontSize={definitions.fontSize.normal}>
+    <Text fontSize={definitions.fontSize.default}>
       Página não encontrada.
       <br />
       Verifique novamente o endereço digitado.

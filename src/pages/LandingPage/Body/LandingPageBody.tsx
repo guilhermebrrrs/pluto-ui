@@ -7,13 +7,13 @@ const LandingPageBody: FunctionComponent = () => (
     alignItems={definitions.alignItems.center}
     gap={definitions.spacing.largest}
     flexDirection="column"
-    padding={definitions.spacing.larger}
-    width="75%"
+    maxWidth="1440px"
+    width="1440px"
   >
     <Flex
       alignItems={definitions.alignItems.start}
       flexDirection="column"
-      gap={definitions.spacing.normal}
+      gap={definitions.spacing.default}
       width="100%"
     >
       <Text
@@ -24,7 +24,7 @@ const LandingPageBody: FunctionComponent = () => (
         What is Lorem Ipsum?
       </Text>
       <Text
-        fontSize={definitions.fontSize.normal}
+        fontSize={definitions.fontSize.default}
         fontWeight={definitions.fontWeight.fontWeight500}
         width="65%"
       >
@@ -42,7 +42,7 @@ const LandingPageBody: FunctionComponent = () => (
     <Flex
       alignItems={definitions.alignItems.end}
       flexDirection="column"
-      gap={definitions.spacing.normal}
+      gap={definitions.spacing.default}
       width="100%"
     >
       <Text
@@ -53,7 +53,7 @@ const LandingPageBody: FunctionComponent = () => (
         Where does it come from?
       </Text>
       <Text
-        fontSize={definitions.fontSize.normal}
+        fontSize={definitions.fontSize.default}
         fontWeight={definitions.fontWeight.fontWeight500}
         width="65%"
       >
@@ -78,7 +78,7 @@ const LandingPageBody: FunctionComponent = () => (
     <Flex
       alignItems={definitions.alignItems.start}
       flexDirection="column"
-      gap={definitions.spacing.normal}
+      gap={definitions.spacing.default}
       width="100%"
     >
       <Text
@@ -89,7 +89,7 @@ const LandingPageBody: FunctionComponent = () => (
         Why do we use it?
       </Text>
       <Text
-        fontSize={definitions.fontSize.normal}
+        fontSize={definitions.fontSize.default}
         fontWeight={definitions.fontWeight.fontWeight500}
         width="65%"
       >
@@ -107,7 +107,7 @@ const LandingPageBody: FunctionComponent = () => (
     <Flex
       alignItems={definitions.alignItems.end}
       flexDirection="column"
-      gap={definitions.spacing.normal}
+      gap={definitions.spacing.default}
       width="100%"
     >
       <Text
@@ -118,7 +118,7 @@ const LandingPageBody: FunctionComponent = () => (
         Where can I get some?
       </Text>
       <Text
-        fontSize={definitions.fontSize.normal}
+        fontSize={definitions.fontSize.default}
         fontWeight={definitions.fontWeight.fontWeight500}
         width="65%"
       >
