@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const AUTHENTICATE_USER = gql`
+const AUTHENTICATE_USER = gql`
   query authenticateUser($authenticateUserInput: AuthenticateUserInput) {
     authenticateUser(authenticateUserInput: $authenticateUserInput) {
       _id
@@ -13,3 +13,5 @@ export const AUTHENTICATE_USER = gql`
     }
   }
 `;
+
+export { AUTHENTICATE_USER };

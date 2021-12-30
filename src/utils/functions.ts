@@ -8,4 +8,12 @@ const initApolloClient = () => {
   });
 };
 
-export { initApolloClient };
+const transformEnumValue = (item: string) =>
+  item
+    .split("_")
+    .map(
+      (item: string) => item.charAt(0) + item.substring(1).toLocaleLowerCase()
+    )
+    .join(" ");
+
+export { initApolloClient, transformEnumValue };

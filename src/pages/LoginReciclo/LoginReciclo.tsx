@@ -11,23 +11,31 @@ import {
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 import { MdFactCheck } from "react-icons/md";
+import { Waves } from "components";
 import { definitions } from "utils";
 import { useLoginRecicloProps } from "./hooks";
 
 const LoginReciclo: FunctionComponent = () => {
-  const { email, handleLogin, loading, password, setEmail, setPassword } =
-    useLoginRecicloProps();
+  const {
+    email,
+    handleLogin,
+    loading,
+    password,
+    setEmail,
+    setPassword,
+    toRegisterReciclo,
+  } = useLoginRecicloProps();
 
   return (
     <Flex
       alignItems={definitions.alignItems.center}
-      backgroundColor="gray.300"
+      backgroundColor="green.500"
       height="100vh"
       justifyContent={definitions.justifyContent.center}
       width="100vw"
     >
       <Flex
-        backgroundColor="gray.100"
+        backgroundColor="gray.50"
         borderColor="gray.600"
         borderRadius="8px"
         borderWidth="2px"
@@ -77,6 +85,7 @@ const LoginReciclo: FunctionComponent = () => {
               placeholder="Password"
               onChange={setPassword}
               value={password}
+              type="password"
               width="400px"
             />
           </InputGroup>
@@ -108,6 +117,7 @@ const LoginReciclo: FunctionComponent = () => {
               borderWidth="2px"
               colorScheme="green"
               leftIcon={<MdFactCheck size="24px" />}
+              onClick={toRegisterReciclo}
               variant="outline"
             >
               <Text>Clique aqui para se cadastrar</Text>
@@ -120,6 +130,7 @@ const LoginReciclo: FunctionComponent = () => {
           </Link>
         </Flex>
       </Flex>
+      <Waves />
     </Flex>
   );
 };

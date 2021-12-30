@@ -4,7 +4,7 @@ import { definitions } from "utils";
 import { useLandingPageheaderProps } from "./hooks";
 
 const LandingPageHeader: FunctionComponent = () => {
-  const { toLogin } = useLandingPageheaderProps();
+  const { toLogin, toRegister } = useLandingPageheaderProps();
 
   return (
     <Flex
@@ -28,7 +28,7 @@ const LandingPageHeader: FunctionComponent = () => {
           Sistema Pluto
         </Text>
         <Flex gap={definitions.spacing.small}>
-          <Button colorScheme="green" variant="solid">
+          <Button colorScheme="green" onClick={toRegister} variant="solid">
             Cadastrar
           </Button>
           <Button colorScheme="green" onClick={toLogin} variant="solid">

@@ -1,19 +1,34 @@
 import { FunctionComponent } from "react";
-import { Flex, Text } from "@chakra-ui/react";
-import { definitions } from "utils";
+import { AppBarContent, AppColetasDrawer, AppRecicloDrawer } from "components";
+import { AppType, OrganizationUser, User } from "types";
+import { useAppBarProps } from "./useAppBarProps";
 
-const AppBar: FunctionComponent = () => (
-  <Flex
-    alignItems={definitions.alignItems.center}
-    borderBottomWidth="2px"
-    borderBottomColor="lightgray"
-    height="7vh"
-    justifyContent={definitions.justifyContent.spaceBetween}
-    padding={definitions.spacing.largest}
-    width="100vw"
-  >
-    <Text size={definitions.fontSize.default}>RecicloApp</Text>
-  </Flex>
-);
+const AppBar: FunctionComponent = () => {
+  const { app, closeDrawer, isOpen, openDrawer, loggedUser } = useAppBarProps();
+
+  return (
+    <>
+      <AppBarContent
+        app={app}
+        loggedUser={loggedUser}
+        openDrawer={openDrawer}
+      />
+      {app === AppType.APP_COLETAS && (
+        <AppColetasDrawer
+          closeDrawer={closeDrawer}
+          isOpen={isOpen}
+          loggedUser={loggedUser as OrganizationUser}
+        />
+      )}
+      {app === AppType.APP_RECICLO && (
+        <AppRecicloDrawer
+          closeDrawer={closeDrawer}
+          isOpen={isOpen}
+          loggedUser={loggedUser as User}
+        />
+      )}
+    </>
+  );
+};
 
 export default AppBar;

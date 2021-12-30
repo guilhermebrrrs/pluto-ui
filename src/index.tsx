@@ -1,21 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { ChakraProvider } from "@chakra-ui/react";
+import { ApolloProvider } from "@apollo/client";
 import { GlobalStyles } from "components";
 import { App, ServerOffline } from "pages";
-import { definitions } from "./utils";
-import { ApolloProvider } from "@apollo/client";
-import { initApolloClient } from "./apollo/client";
+import { AppAuthenticationContextProvider } from "providers";
+import { definitions, initApolloClient } from "utils";
 
 (async () => {
   try {
     ReactDOM.render(
-      <ChakraProvider resetCSS theme={definitions.theme}>
-        <GlobalStyles />
-        <ApolloProvider client={initApolloClient()}>
-          <App />
-        </ApolloProvider>
-      </ChakraProvider>,
+      <AppAuthenticationContextProvider>
+        <ChakraProvider resetCSS theme={definitions.theme}>
+          <GlobalStyles />
+          <ApolloProvider client={initApolloClient()}>
+            <App />
+          </ApolloProvider>
+        </ChakraProvider>
+      </AppAuthenticationContextProvider>,
       document.getElementById("root")
     );
   } catch (e: any) {

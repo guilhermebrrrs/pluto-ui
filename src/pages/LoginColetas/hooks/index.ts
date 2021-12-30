@@ -1,0 +1,1 @@
+export { useLoginColetasProps } from "./useLoginColetasProps";

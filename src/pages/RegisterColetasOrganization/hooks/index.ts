@@ -1,0 +1,1 @@
+export { useRegisterColetasOrganizationProps } from "./useRegisterColetasOrganizationProps";

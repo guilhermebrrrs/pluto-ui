@@ -1,8 +1,9 @@
 import { FunctionComponent } from "react";
+import { Link as RTDLink } from "react-router-dom";
 import { Button, Flex, Link, Text } from "@chakra-ui/react";
+import { Waves } from "components";
 import { definitions } from "utils";
 import { useLoginProps } from "./hooks";
-import { Link as RTDLink } from "react-router-dom";
 
 const Login: FunctionComponent = () => {
   const { toLoginColetas, toLoginReciclo } = useLoginProps();
@@ -10,7 +11,7 @@ const Login: FunctionComponent = () => {
   return (
     <Flex
       alignItems={definitions.alignItems.center}
-      backgroundColor="gray.300"
+      backgroundColor="green.500"
       height="100vh"
       justifyContent={definitions.justifyContent.center}
       width="100vw"
@@ -42,6 +43,7 @@ const Login: FunctionComponent = () => {
           <Text>Voltar para Landing Page</Text>
         </Link>
       </Flex>
+      <Waves />
     </Flex>
   );
 };

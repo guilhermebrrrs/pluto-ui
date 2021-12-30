@@ -1,27 +1,26 @@
 import { ChangeEvent, useCallback, useContext, useMemo, useState } from "react";
-import { useLazyQuery } from "@apollo/client";
 import { useNavigate } from "react-router";
-import { AUTHENTICATE_USER } from "data";
-import { User } from "types";
-import { AppRecicloAuthenticationContext } from "contexts";
+import { useLazyQuery } from "@apollo/client";
 import { useToast } from "@chakra-ui/react";
+import { AppAuthenticationContext } from "contexts";
+import { AUTHENTICATE_USER } from "data";
+import { AppType, User } from "types";
+import { setIntoLocalStorage, LOGGED_USER } from "utils";
 
 const useLoginRecicloProps = () => {
   const toast = useToast();
   const navigate = useNavigate();
-  const { setUser } = useContext(AppRecicloAuthenticationContext);
+  const { setApp, setLoggedUser } = useContext(AppAuthenticationContext);
   const [email, setEmailState] = useState<string>();
   const [password, setPasswordState] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [
-    getAuthenticateUser,
-    { data: { authenticateUser: user = {} as User } = {} },
-  ] = useLazyQuery(AUTHENTICATE_USER, {
-    variables: {
-      authenticateUserInput: { email: email, password: password },
-    },
-  });
+  const [fetchQuery, { data: { authenticateUser: user = {} as User } = {} }] =
+    useLazyQuery(AUTHENTICATE_USER, {
+      variables: {
+        authenticateUserInput: { email, password },
+      },
+    });
 
   const setEmail = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
@@ -37,13 +36,20 @@ const useLoginRecicloProps = () => {
 
   const validate = useMemo(() => user?._id != null, [user]);
 
+  const toRegisterReciclo = useCallback(
+    () => navigate("/register/reciclo"),
+    [navigate]
+  );
+
   const handleLogin = useCallback(async () => {
     setLoading(true);
-    getAuthenticateUser && (await getAuthenticateUser());
+    fetchQuery && (await fetchQuery());
 
     if (validate) {
-      setUser && setUser(user);
-      navigate("/app/reciclo");
+      setLoggedUser && setLoggedUser(user as User);
+      setApp && setApp(AppType.APP_RECICLO);
+      setIntoLocalStorage(LOGGED_USER, user);
+      navigate("/app/reciclo/dashboard");
       setLoading(false);
       return;
     }
@@ -80,10 +86,11 @@ const useLoginRecicloProps = () => {
     });
   }, [
     email,
-    getAuthenticateUser,
+    fetchQuery,
     navigate,
     password,
-    setUser,
+    setApp,
+    setLoggedUser,
     toast,
     user,
     validate,
@@ -96,6 +103,7 @@ const useLoginRecicloProps = () => {
     password,
     setEmail,
     setPassword,
+    toRegisterReciclo,
   };
 };
 

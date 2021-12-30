@@ -1,1 +1,1 @@
-export { default as AppRecicloAuthenticationProvider } from "./AppRecicloAuthenticationProvider";
+export { default as AppAuthenticationContextProvider } from "./AppAuthenticationContextProvider";

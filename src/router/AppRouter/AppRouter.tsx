@@ -7,35 +7,40 @@ import {
   MainLayout,
 } from "components";
 import {
+  Dashboard,
   LandingPage,
   Login,
   LoginColetas,
   LoginReciclo,
   PageNotFound,
+  Register,
+  RegisterColetasOrganization,
+  RegisterColetasUser,
+  RegisterReciclo,
 } from "pages";
-import { AppRecicloAuthenticationProvider } from "../../providers";
 
 const AppRouter: FunctionComponent = () => (
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<LandingPage />} />
+        <Route path="/app/reciclo" element={<AppRecicloMainLayout />}>
+          <Route path="/app/reciclo/dashboard" element={<Dashboard />} />
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/login/coletas" element={<LoginColetas />} />
+        <Route path="/login/reciclo" element={<LoginReciclo />} />
+        <Route path="/register" element={<Register />} />
         <Route
-          path="/login/reciclo"
-          element={
-            <AppRecicloAuthenticationProvider>
-              <LoginReciclo />
-            </AppRecicloAuthenticationProvider>
-          }
+          path="/register/coletas/organization"
+          element={<RegisterColetasOrganization />}
         />
-        <Route path="/app/coletas" element={<AppColetasMainLayout />}>
-          <Route />
-        </Route>
-        <Route path="/app/reciclo" element={<AppRecicloMainLayout />}>
-          <Route />
-        </Route>
+        <Route
+          path="/register/coletas/user"
+          element={<RegisterColetasUser />}
+        />
+        <Route path="/register/reciclo" element={<RegisterReciclo />} />
+        <Route path="/app/coletas" element={<AppColetasMainLayout />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

@@ -70,6 +70,14 @@ interface CreateUserInput {
   password: string;
 }
 
+interface CreateOrganizationInput {
+  email: string;
+  cpfCnpj?: string;
+  name: string;
+  password: string;
+  organizationType: OrganizationType;
+}
+
 interface DateMetadata {
   createdAt?: Date;
   updatedAt?: Date;
@@ -81,6 +89,14 @@ interface Organization extends BaseUser {
   cpfCnpj?: string;
   organizationType?: OrganizationType;
   users?: OrganizationUser[];
+}
+
+interface OrganizationRegistrationValidation {
+  cpfCnpjAlreadyExists: boolean;
+  emailAlreadyExists: boolean;
+  organizationNameAlreadyExists: boolean;
+  passwordConstraintDoesntMatch: boolean;
+  registrationSucceeded: boolean;
 }
 
 interface OrganizationUser
@@ -131,7 +147,9 @@ export type {
   CollectionRequest,
   CollectionRequestMaterial,
   CreateUserInput,
+  CreateOrganizationInput,
   Organization,
+  OrganizationRegistrationValidation,
   OrganizationUser,
   OrganizationUserLoginKey,
   UpdateUserPasswordInput,

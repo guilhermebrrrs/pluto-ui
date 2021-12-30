@@ -1,12 +1,6 @@
 import { FunctionComponent } from "react";
 import { AppRouter } from "router";
 
-const App: FunctionComponent = () => {
-  return (
-    <>
-      <AppRouter />
-    </>
-  );
-};
+const App: FunctionComponent = () => <AppRouter />;
 
 export default App;

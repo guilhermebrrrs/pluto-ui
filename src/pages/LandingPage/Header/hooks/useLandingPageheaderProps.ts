@@ -4,8 +4,9 @@ import { useNavigate } from "react-router";
 const useLandingPageheaderProps = () => {
   const navigate = useNavigate();
   const toLogin = useCallback(() => navigate("/login"), [navigate]);
+  const toRegister = useCallback(() => navigate("/register"), [navigate]);
 
-  return { toLogin };
+  return { toLogin, toRegister };
 };
 
 export { useLandingPageheaderProps };

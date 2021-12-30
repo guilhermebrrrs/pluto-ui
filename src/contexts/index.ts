@@ -1,1 +1,1 @@
-export { AppRecicloAuthenticationContext } from "./AppRecicloAuthenticationContext";
+export { AppAuthenticationContext } from "./AppAuthenticationContext";

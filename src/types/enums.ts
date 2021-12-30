@@ -1,3 +1,8 @@
+enum AppType {
+  APP_COLETAS,
+  APP_RECICLO,
+}
+
 enum CollectionStatus {
   ACCEPTED,
   CANCELED,
@@ -21,9 +26,9 @@ enum MaterialType {
 }
 
 enum OrganizationType {
-  CATADOR,
-  COOPERATIVA,
-  EMPRESA_PRIVADA,
+  CATADOR = "CATADOR",
+  COOPERATIVA = "COOPERATIVA",
+  EMPRESA_PRIVADA = "EMPRESA_PRIVADA",
 }
 
 enum WeekDays {
@@ -36,4 +41,4 @@ enum WeekDays {
   SATURDAY,
 }
 
-export { CollectionStatus, MaterialType, OrganizationType, WeekDays };
+export { AppType, CollectionStatus, MaterialType, OrganizationType, WeekDays };

@@ -68,7 +68,8 @@ type CollectionRequestMaterial {
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput): String
+  createOrganization(createOrganizationInput: CreateOrganizationInput): OrganizationRegistrationValidation
+  createUser(createUserInput: CreateUserInput): Boolean
   updateUserPassword(updateUserPasswordInput: UpdateUserPasswordInput): String
 }
 
@@ -84,6 +85,14 @@ type Organization {
   password: String
   updatedAt: String
   users: [OrganizationUser]
+}
+
+type OrganizationRegistrationValidation {
+  cpfCnpjAlreadyExists: Boolean
+  emailAlreadyExists: Boolean
+  organizationNameAlreadyExists: Boolean
+  passwordConstraintDoesntMatch: Boolean
+  registrationSucceeded: Boolean
 }
 
 type OrganizationUser {
@@ -110,6 +119,7 @@ type OrganizationUserLoginKey {
 
 type Query {
   authenticateUser(authenticateUserInput: AuthenticateUserInput): User
+  findAllOrganizations: [Organization]
   findAllUsers: [User]
   findUserById(id: ID!): User
 }
@@ -178,6 +188,14 @@ enum WeekDays {
 
 input AuthenticateUserInput {
   email: String!
+  password: String!
+}
+
+input CreateOrganizationInput {
+  cpfCnpj: String
+  email: String!
+  name: String!
+  organizationType: OrganizationType!
   password: String!
 }
 

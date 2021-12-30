@@ -1,0 +1,1 @@
+export { useRegisterRecicloProps } from "./useRegisterRecicloProps";
