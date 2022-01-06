@@ -23,7 +23,7 @@ const Login: FunctionComponent = () => {
         borderRadius="8px"
         borderWidth="2px"
         flexDirection="column"
-        gap={definitions.spacing.default}
+        gap={definitions.spacing.smaller}
         padding={definitions.spacing.default}
       >
         <Text

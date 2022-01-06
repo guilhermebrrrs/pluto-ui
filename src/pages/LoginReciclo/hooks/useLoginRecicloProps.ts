@@ -1,4 +1,10 @@
-import { ChangeEvent, useCallback, useContext, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router";
 import { useLazyQuery } from "@apollo/client";
 import { useToast } from "@chakra-ui/react";
@@ -14,6 +20,7 @@ const useLoginRecicloProps = () => {
   const [email, setEmailState] = useState<string>();
   const [password, setPasswordState] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [triggerRedirect, setTriggerRedirect] = useState<boolean>(false);
 
   const [fetchQuery, { data: { authenticateUser: user = {} as User } = {} }] =
     useLazyQuery(AUTHENTICATE_USER, {
@@ -34,8 +41,6 @@ const useLoginRecicloProps = () => {
     []
   );
 
-  const validate = useMemo(() => user?._id != null, [user]);
-
   const toRegisterReciclo = useCallback(
     () => navigate("/register/reciclo"),
     [navigate]
@@ -44,13 +49,19 @@ const useLoginRecicloProps = () => {
   const handleLogin = useCallback(async () => {
     setLoading(true);
     fetchQuery && (await fetchQuery());
+    setTriggerRedirect(true);
+  }, [fetchQuery]);
 
-    if (validate) {
+  const validate = useCallback(() => {
+    const isValid = !!user?._id ?? null;
+
+    if (isValid) {
       setLoggedUser && setLoggedUser(user as User);
       setApp && setApp(AppType.APP_RECICLO);
       setIntoLocalStorage(LOGGED_USER, user);
       navigate("/app/reciclo/dashboard");
       setLoading(false);
+      setTriggerRedirect(false);
       return;
     }
 
@@ -62,6 +73,8 @@ const useLoginRecicloProps = () => {
         duration: 7500,
         isClosable: true,
       });
+      setLoading(false);
+      setTriggerRedirect(false);
       return;
     }
 
@@ -73,6 +86,8 @@ const useLoginRecicloProps = () => {
         duration: 7500,
         isClosable: true,
       });
+      setLoading(false);
+      setTriggerRedirect(false);
       return;
     }
 
@@ -84,14 +99,18 @@ const useLoginRecicloProps = () => {
       duration: 7500,
       isClosable: true,
     });
+  }, [email, navigate, password, setApp, setLoggedUser, toast, user]);
+
+  useEffect(() => {
+    if (triggerRedirect) validate();
   }, [
     email,
-    fetchQuery,
     navigate,
     password,
     setApp,
     setLoggedUser,
     toast,
+    triggerRedirect,
     user,
     validate,
   ]);

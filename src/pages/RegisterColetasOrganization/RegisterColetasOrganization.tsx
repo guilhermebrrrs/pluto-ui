@@ -168,7 +168,7 @@ const RegisterColetasOrganization: FunctionComponent = () => {
                   <InputRightElement color="gray.600">
                     <Tooltip label={passwordInputLabel}>
                       <IconButton
-                        aria-label="ver senha"
+                        aria-label="Ver senha"
                         onClick={toggleShowPassword}
                         size="sm"
                       >

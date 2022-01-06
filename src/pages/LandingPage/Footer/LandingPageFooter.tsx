@@ -7,7 +7,7 @@ const LandingPageFooter: FunctionComponent = () => (
     alignItems={definitions.alignItems.center}
     backgroundColor="green.500"
     justifyContent={definitions.justifyContent.center}
-    padding={definitions.spacing.default}
+    padding={definitions.spacing.larger}
     width="100%"
   >
     <Flex maxWidth="1440px" width="1440px">

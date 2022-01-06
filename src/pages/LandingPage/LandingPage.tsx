@@ -13,7 +13,7 @@ const LandingPage: FunctionComponent = () => {
       alignItems={definitions.alignItems.center}
       flexDirection="column"
       gap={definitions.spacing.largest}
-      width="100vw"
+      width="100%"
     >
       <LandingPageHeader />
       <LandingPageBody />

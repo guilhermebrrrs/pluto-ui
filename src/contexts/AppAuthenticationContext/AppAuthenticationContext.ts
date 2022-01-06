@@ -1,9 +1,9 @@
 import { createContext, Dispatch, SetStateAction } from "react";
-import { AppType, OrganizationUser, User } from "types";
+import { AppType, Organization, OrganizationUser, User } from "types";
 
 interface AppAuthenticationContextProps {
   app: AppType | null;
-  loggedUser: User | OrganizationUser | null;
+  loggedUser: User | Organization | OrganizationUser | null;
   setApp?: Dispatch<SetStateAction<AppType | null>>;
   setLoggedUser?: Dispatch<SetStateAction<User | OrganizationUser | null>>;
 }

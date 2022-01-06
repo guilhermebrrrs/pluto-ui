@@ -16,10 +16,20 @@ import { useLoginColetasProps } from "./hooks";
 import { definitions } from "utils";
 
 const LoginColetas: FunctionComponent = () => {
-  const {} = useLoginColetasProps();
+  const {
+    email,
+    handleLogin,
+    loading,
+    password,
+    organizationEmail,
+    setEmail,
+    setOrganizationEmail,
+    setPassword,
+    toRegister,
+  } = useLoginColetasProps();
 
-  return <Text>Teste</Text>;
-  /*<Flex
+  return (
+    <Flex
       alignItems={definitions.alignItems.center}
       backgroundColor="green.500"
       height="100vh"
@@ -36,7 +46,7 @@ const LoginColetas: FunctionComponent = () => {
         <Flex
           alignItems={definitions.alignItems.center}
           flexDirection="column"
-          gap={definitions.spacing.default}
+          gap={definitions.spacing.smaller}
         >
           <Flex
             alignItems={definitions.alignItems.center}
@@ -63,9 +73,9 @@ const LoginColetas: FunctionComponent = () => {
             <Input
               borderColor="gray.300"
               focusBorderColor="gray.700"
-              placeholder="E-mail Organização"
-              onChange={setEmail}
-              value={email}
+              placeholder="E-mail da Organização"
+              onChange={setOrganizationEmail}
+              value={organizationEmail}
               width="400px"
             />
           </InputGroup>
@@ -74,7 +84,7 @@ const LoginColetas: FunctionComponent = () => {
             <Input
               borderColor="gray.300"
               focusBorderColor="gray.700"
-              placeholder="E-mail"
+              placeholder="E-mail do Usuário"
               onChange={setEmail}
               value={email}
               width="400px"
@@ -85,7 +95,7 @@ const LoginColetas: FunctionComponent = () => {
             <Input
               borderColor="gray.300"
               focusBorderColor="gray.700"
-              placeholder="Password"
+              placeholder="Senha"
               onChange={setPassword}
               value={password}
               type="password"
@@ -120,6 +130,7 @@ const LoginColetas: FunctionComponent = () => {
               borderWidth="2px"
               colorScheme="green"
               leftIcon={<MdFactCheck size="24px" />}
+              onClick={toRegister}
               variant="outline"
             >
               <Text>Clique aqui para se cadastrar</Text>
@@ -133,7 +144,8 @@ const LoginColetas: FunctionComponent = () => {
         </Flex>
       </Flex>
       <Waves />
-    </Flex>*/
+    </Flex>
+  );
 };
 
 export default LoginColetas;

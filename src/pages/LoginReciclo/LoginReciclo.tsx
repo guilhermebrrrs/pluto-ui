@@ -44,7 +44,7 @@ const LoginReciclo: FunctionComponent = () => {
         <Flex
           alignItems={definitions.alignItems.center}
           flexDirection="column"
-          gap={definitions.spacing.default}
+          gap={definitions.spacing.smaller}
         >
           <Flex
             alignItems={definitions.alignItems.center}

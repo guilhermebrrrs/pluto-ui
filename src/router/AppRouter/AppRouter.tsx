@@ -1,11 +1,7 @@
 import { FunctionComponent } from "react";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import {
-  AppColetasMainLayout,
-  AppRecicloMainLayout,
-  MainLayout,
-} from "components";
+import { AppColetasMainLayout, AppRecicloMainLayout } from "components";
 import {
   Dashboard,
   LandingPage,
@@ -22,7 +18,7 @@ import {
 const AppRouter: FunctionComponent = () => (
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<MainLayout />}>
+      <Route path="/">
         <Route index element={<LandingPage />} />
         <Route path="/app/reciclo" element={<AppRecicloMainLayout />}>
           <Route path="/app/reciclo/dashboard" element={<Dashboard />} />

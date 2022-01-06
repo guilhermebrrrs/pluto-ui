@@ -69,6 +69,7 @@ type CollectionRequestMaterial {
 
 type Mutation {
   createOrganization(createOrganizationInput: CreateOrganizationInput): OrganizationRegistrationValidation
+  createOrganizationUser(createOrganizationUserInput: CreateOrganizationUserInput): OrganizationUserRegistrationValidation
   createUser(createUserInput: CreateUserInput): Boolean
   updateUserPassword(updateUserPasswordInput: UpdateUserPasswordInput): String
 }
@@ -99,13 +100,11 @@ type OrganizationUser {
   _id: ID
   collectionRequests: [CollectionRequest]
   createdAt: String
-  email: String
-  isActive: Boolean
   name: String
   organization: Organization
-  password: String
   responsibleForCollectionPaths: [CollectionPath]
   updatedAt: String
+  userLoginKeys: [OrganizationUserLoginKey]
 }
 
 type OrganizationUserLoginKey {
@@ -117,8 +116,21 @@ type OrganizationUserLoginKey {
   password: String
 }
 
+type OrganizationUserRegistrationValidation {
+  emailAlreadyExists: Boolean
+  emailAndOrganizationAlreadyExists: Boolean
+  noOrganizationFound: Boolean
+  organizationNameAlreadyExists: Boolean
+  organizationWithSameNameAlreadyExists: Boolean
+  passwordConstraintDoesntMatch: Boolean
+  registrationSucceeded: Boolean
+}
+
 type Query {
+  authenticateOrganization(authenticateOrganizationInput: AuthenticateOrganizationInput): Organization
+  authenticateOrganizationUser(authenticateOrganizationUserInput: AuthenticateOrganizationUserInput): OrganizationUser
   authenticateUser(authenticateUserInput: AuthenticateUserInput): User
+  findAllOrganizationUsers: [OrganizationUser]
   findAllOrganizations: [Organization]
   findAllUsers: [User]
   findUserById(id: ID!): User
@@ -186,6 +198,17 @@ enum WeekDays {
   WEDNESDAY
 }
 
+input AuthenticateOrganizationInput {
+  organizationEmail: String!
+  password: String!
+}
+
+input AuthenticateOrganizationUserInput {
+  email: String!
+  organizationEmail: String!
+  password: String!
+}
+
 input AuthenticateUserInput {
   email: String!
   password: String!
@@ -197,6 +220,13 @@ input CreateOrganizationInput {
   name: String!
   organizationType: OrganizationType!
   password: String!
+}
+
+input CreateOrganizationUserInput {
+  email: String!
+  organizationEmail: String!
+  password: String!
+  username: String!
 }
 
 input CreateUserInput {

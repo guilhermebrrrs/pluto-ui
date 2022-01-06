@@ -65,7 +65,7 @@ const AppBarContent: FunctionComponent<AppBarContentProps> = ({
             size="md"
           />
         </PopoverTrigger>
-        <PopoverContent width="170px">
+        <PopoverContent width="250px">
           <PopoverHeader>
             <Text
               fontFamily="Lato"

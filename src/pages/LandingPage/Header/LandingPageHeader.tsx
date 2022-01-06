@@ -11,8 +11,8 @@ const LandingPageHeader: FunctionComponent = () => {
       backgroundColor="green.500"
       flexDirection="column"
       height="45vh"
-      width="100%"
       padding={definitions.spacing.larger}
+      width="100%"
     >
       <Flex
         alignItems={definitions.alignItems.center}

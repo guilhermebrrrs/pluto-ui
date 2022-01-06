@@ -12,16 +12,27 @@ interface Address extends DateMetadata {
   userLocation?: UserLocation;
 }
 
+interface AuthenticateOrganizationInput {
+  organizationEmail: string;
+  password: string;
+}
+
+interface AuthenticateOrganizationUserInput {
+  email: string;
+  organizationEmail: string;
+  password: string;
+}
+
 interface AuthenticateUserInput {
   email: string;
   password: string;
 }
 
 interface BaseUser extends DateMetadata {
-  email?: string;
+  email: string;
   isActive?: boolean;
-  name?: string;
-  password?: string;
+  name: string;
+  password: string;
 }
 
 interface CollectionPath extends DateMetadata {
@@ -64,6 +75,13 @@ interface CollectionRequestMaterial extends DateMetadata {
   materialType?: MaterialType;
 }
 
+interface CreateOrganizationUserInput {
+  email: string;
+  username: string;
+  organizationEmail: string;
+  password: string;
+}
+
 interface CreateUserInput {
   email: string;
   name: string;
@@ -83,14 +101,6 @@ interface DateMetadata {
   updatedAt?: Date;
 }
 
-interface Organization extends BaseUser {
-  _id?: string;
-  collectionRequests?: CollectionRequest[];
-  cpfCnpj?: string;
-  organizationType?: OrganizationType;
-  users?: OrganizationUser[];
-}
-
 interface OrganizationRegistrationValidation {
   cpfCnpjAlreadyExists: boolean;
   emailAlreadyExists: boolean;
@@ -99,10 +109,28 @@ interface OrganizationRegistrationValidation {
   registrationSucceeded: boolean;
 }
 
-interface OrganizationUser
-  extends Omit<BaseUser, "email" & "isActive" & "password"> {
+interface OrganizationUserRegistrationValidation {
+  emailAlreadyExists: boolean;
+  emailAndOrganizationAlreadyExists: boolean;
+  noOrganizationFound: boolean;
+  organizationNameAlreadyExists: boolean;
+  organizationWithSameNameAlreadyExists: boolean;
+  passwordConstraintDoesntMatch: boolean;
+  registrationSucceeded: boolean;
+}
+
+interface Organization extends BaseUser {
   _id?: string;
-  collectionRequests: CollectionRequest[];
+  collectionRequests?: CollectionRequest[];
+  cpfCnpj?: string;
+  organizationType: OrganizationType;
+  users?: OrganizationUser[];
+}
+
+interface OrganizationUser
+  extends Omit<BaseUser, "email" | "isActive" | "password"> {
+  _id?: string;
+  collectionRequests?: CollectionRequest[];
   organization?: Organization;
   responsibleForCollectionPaths?: CollectionPath[];
   userLoginKeys?: OrganizationUserLoginKey[];
@@ -110,10 +138,10 @@ interface OrganizationUser
 
 interface OrganizationUserLoginKey {
   _id: string;
-  organization?: Organization;
-  email?: string;
+  organization: Organization;
+  email: string;
   isActive?: boolean;
-  password?: string;
+  password: string;
   organizationUser: OrganizationUser;
 }
 
@@ -141,15 +169,19 @@ interface UserLocation extends DateMetadata {
 
 export type {
   Address,
+  AuthenticateOrganizationInput,
+  AuthenticateOrganizationUserInput,
   AuthenticateUserInput,
   CollectionPath,
   CollectionPoint,
   CollectionRequest,
   CollectionRequestMaterial,
-  CreateUserInput,
   CreateOrganizationInput,
+  CreateOrganizationUserInput,
+  CreateUserInput,
   Organization,
   OrganizationRegistrationValidation,
+  OrganizationUserRegistrationValidation,
   OrganizationUser,
   OrganizationUserLoginKey,
   UpdateUserPasswordInput,

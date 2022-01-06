@@ -1,9 +1,7 @@
 import { gql } from "@apollo/client";
 
 const CREATE_ORGANIZATION = gql`
-  mutation createOrganization(
-    $createOrganizationInput: CreateOrganizationInput
-  ) {
+  mutation ($createOrganizationInput: CreateOrganizationInput) {
     createOrganization(createOrganizationInput: $createOrganizationInput) {
       cpfCnpjAlreadyExists
       emailAlreadyExists
@@ -13,7 +11,7 @@ const CREATE_ORGANIZATION = gql`
 `;
 
 const CREATE_USER = gql`
-  mutation createUser($createUserInput: CreateUserInput) {
+  mutation ($createUserInput: CreateUserInput) {
     createUser(createUserInput: $createUserInput)
   }
 `;
