@@ -1,1 +1,1 @@
-export { default as AppRecicloMainLayout } from "./RecicloMainLayout";
+export { default as AppMainLayout } from "./RecicloMainLayout";

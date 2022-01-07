@@ -20,7 +20,7 @@ import {
   Organization,
   OrganizationUser,
 } from "types";
-import { LOGGED_USER, setIntoLocalStorage } from "utils";
+import { APP_TYPE, LOGGED_USER, setIntoLocalStorage } from "utils";
 
 const useLoginColetasProps = () => {
   const toast = useToast();
@@ -98,14 +98,15 @@ const useLoginColetasProps = () => {
       !!(authenticateOrganization ?? authenticateOrganizationUser)?._id ?? null;
 
     if (isValid) {
-      setApp && setApp(AppType.APP_RECICLO);
+      setApp && setApp(AppType.APP_COLETAS);
+      setIntoLocalStorage(APP_TYPE, AppType.APP_COLETAS);
       setIntoLocalStorage(
         LOGGED_USER,
         authenticateOrganization ?? authenticateOrganizationUser
       );
       setLoggedUser &&
         setLoggedUser(authenticateOrganization ?? authenticateOrganizationUser);
-      navigate("/app/reciclo/dashboard");
+      navigate("/app/coletas/dashboard");
       setLoading(false);
       setTriggerRedirect(false);
       return;

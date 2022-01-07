@@ -11,6 +11,8 @@ const AppAuthenticationContextProvider: FunctionComponent = ({ children }) => {
     () => getFromLocalStorage(LOGGED_USER) ?? null
   );
 
+  console.log(app, loggedUser);
+
   return (
     <AppAuthenticationContext.Provider
       value={{ app, loggedUser, setApp, setLoggedUser }}

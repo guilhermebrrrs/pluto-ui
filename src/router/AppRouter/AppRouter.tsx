@@ -1,10 +1,12 @@
 import { FunctionComponent } from "react";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import { AppColetasMainLayout, AppRecicloMainLayout } from "components";
+import { AppMainLayout } from "components";
 import {
-  Dashboard,
+  DashboardColetas,
+  DashboardReciclo,
   LandingPage,
+  ListingUsers,
   Login,
   LoginColetas,
   LoginReciclo,
@@ -20,8 +22,10 @@ const AppRouter: FunctionComponent = () => (
     <Routes>
       <Route path="/">
         <Route index element={<LandingPage />} />
-        <Route path="/app/reciclo" element={<AppRecicloMainLayout />}>
-          <Route path="/app/reciclo/dashboard" element={<Dashboard />} />
+        <Route path="/app" element={<AppMainLayout />}>
+          <Route path="/app/coletas/dashboard" element={<DashboardColetas />} />
+          <Route path="/app/coletas/usuarios" element={<ListingUsers />} />
+          <Route path="/app/reciclo/dashboard" element={<DashboardReciclo />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/login/coletas" element={<LoginColetas />} />
@@ -36,7 +40,6 @@ const AppRouter: FunctionComponent = () => (
           element={<RegisterColetasUser />}
         />
         <Route path="/register/reciclo" element={<RegisterReciclo />} />
-        <Route path="/app/coletas" element={<AppColetasMainLayout />} />
         <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>

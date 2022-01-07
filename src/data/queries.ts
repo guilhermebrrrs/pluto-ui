@@ -44,7 +44,6 @@ const AUTHENTICATE_ORGANIZATION_USER = gql`
         isActive
         password
       }
-      __typename
     }
   }
 `;

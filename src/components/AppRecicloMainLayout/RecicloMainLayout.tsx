@@ -2,12 +2,23 @@ import { FunctionComponent, memo } from "react";
 import { Outlet } from "react-router";
 import { Flex } from "@chakra-ui/react";
 import { AppBar } from "components";
+import { definitions } from "utils";
 
-const AppRecicloMainLayout: FunctionComponent = () => (
-  <Flex flexDirection="column" width="100%">
+const AppMainLayout: FunctionComponent = () => (
+  <Flex
+    alignItems={definitions.alignItems.center}
+    flexDirection="column"
+    width="100%"
+  >
     <AppBar />
-    <Outlet />
+    <Flex
+      margin={`${definitions.spacing.default} 0`}
+      maxWidth="1440px"
+      width="100%"
+    >
+      <Outlet />
+    </Flex>
   </Flex>
 );
 
-export default memo(AppRecicloMainLayout);
+export default memo(AppMainLayout);
