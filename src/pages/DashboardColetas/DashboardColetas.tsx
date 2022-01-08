@@ -10,7 +10,7 @@ const DashboardColetas: FunctionComponent = () => {
       width="100%"
     >
       <Text
-        fontFamily="Lato"
+        fontFamily={definitions.fontFamily.default}
         fontSize={definitions.fontSize.bigger}
         fontWeight={definitions.fontWeight.bold}
       >

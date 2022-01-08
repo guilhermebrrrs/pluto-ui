@@ -16,6 +16,7 @@ import { setIntoLocalStorage, LOGGED_USER, APP_TYPE } from "utils";
 const useLoginRecicloProps = () => {
   const toast = useToast();
   const navigate = useNavigate();
+
   const { setApp, setLoggedUser } = useContext(AppAuthenticationContext);
   const [email, setEmailState] = useState<string>();
   const [password, setPasswordState] = useState<string>();

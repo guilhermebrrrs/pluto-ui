@@ -14,6 +14,7 @@ const AUTHENTICATE_ORGANIZATION = gql`
       organizationType
       password
       updatedAt
+      __typename
     }
   }
 `;
@@ -39,11 +40,7 @@ const AUTHENTICATE_ORGANIZATION_USER = gql`
         updatedAt
       }
       updatedAt
-      userLoginKeys {
-        email
-        isActive
-        password
-      }
+      __typename
     }
   }
 `;
@@ -62,8 +59,33 @@ const AUTHENTICATE_USER = gql`
   }
 `;
 
+const FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID = gql`
+  query ($findAllOrganizationUsersByOrganizationIdId: ID!) {
+    findAllOrganizationUsersByOrganizationId(
+      id: $findAllOrganizationUsersByOrganizationIdId
+    ) {
+      _id
+      createdAt
+      name
+      updatedAt
+      organization {
+        _id
+        createdAt
+        cpfCnpj
+        email
+        isActive
+        name
+        organizationType
+        password
+        updatedAt
+      }
+    }
+  }
+`;
+
 export {
   AUTHENTICATE_ORGANIZATION,
   AUTHENTICATE_ORGANIZATION_USER,
   AUTHENTICATE_USER,
+  FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID,
 };

@@ -54,14 +54,14 @@ const LoginColetas: FunctionComponent = () => {
             width="100%"
           >
             <Text
-              fontFamily="Lato"
+              fontFamily={definitions.fontFamily.default}
               fontSize={definitions.fontSize.biggest}
               fontWeight={definitions.fontWeight.bold}
             >
               Pluto
             </Text>
             <Text
-              fontFamily="Lato"
+              fontFamily={definitions.fontFamily.default}
               fontSize={definitions.fontSize.big}
               fontWeight={definitions.fontWeight.bold}
             >
@@ -104,7 +104,10 @@ const LoginColetas: FunctionComponent = () => {
           </InputGroup>
           <Flex justifyContent={definitions.justifyContent.end} width="100%">
             <Link>
-              <Text fontFamily="Lato" fontSize={definitions.fontSize.small}>
+              <Text
+                fontFamily={definitions.fontFamily.default}
+                fontSize={definitions.fontSize.small}
+              >
                 Esqueci minha senha
               </Text>
             </Link>
@@ -123,7 +126,10 @@ const LoginColetas: FunctionComponent = () => {
             gap={definitions.spacing.smallest}
             width="100%"
           >
-            <Text fontFamily="Lato" fontSize={definitions.fontSize.small}>
+            <Text
+              fontFamily={definitions.fontFamily.default}
+              fontSize={definitions.fontSize.small}
+            >
               Ainda não tem cadastro no sistema?
             </Text>
             <Button
@@ -137,7 +143,10 @@ const LoginColetas: FunctionComponent = () => {
             </Button>
           </Flex>
           <Link as={RTDLink} to="/login">
-            <Text fontFamily="Lato" fontSize={definitions.fontSize.small}>
+            <Text
+              fontFamily={definitions.fontFamily.default}
+              fontSize={definitions.fontSize.small}
+            >
               Voltar
             </Text>
           </Link>

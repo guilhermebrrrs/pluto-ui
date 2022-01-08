@@ -47,7 +47,7 @@ const AppBarContent: FunctionComponent<AppBarContentProps> = ({
           <MdMenu size="24px" />
         </Button>
         <Text
-          fontFamily="Lato"
+          fontFamily={definitions.fontFamily.default}
           fontSize={definitions.fontSize.default}
           fontWeight={definitions.fontWeight.bold}
         >
@@ -68,7 +68,7 @@ const AppBarContent: FunctionComponent<AppBarContentProps> = ({
         <PopoverContent width="250px">
           <PopoverHeader>
             <Text
-              fontFamily="Lato"
+              fontFamily={definitions.fontFamily.default}
               fontWeight={definitions.fontWeight.bold}
               noOfLines={1}
             >

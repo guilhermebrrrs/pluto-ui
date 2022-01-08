@@ -9,7 +9,7 @@ import {
   OrganizationRegistrationValidation,
   OrganizationType,
 } from "types";
-import { transformEnumValue } from "utils";
+import { isSomeItemOfArrayNullOrBlank, transformEnumValue } from "utils";
 
 const useRegisterColetasOrganizationProps = () => {
   const [cpfCnpj, setCpfCnpjState] = useState<string>("");
@@ -22,6 +22,7 @@ const useRegisterColetasOrganizationProps = () => {
 
   const toast = useToast();
   const navigate = useNavigate();
+
   const [
     fetchMutation,
     {
@@ -45,39 +46,47 @@ const useRegisterColetasOrganizationProps = () => {
     () => setShowPassword(!showPassword),
     [showPassword]
   );
+
   const passwordInputIcon = useMemo(
     () => (showPassword ? <ViewIcon /> : <ViewOffIcon />),
     [showPassword]
   );
+
   const passwordInputLabel = useMemo(
     () => (showPassword ? "Ocultar senha" : "Mostrar senha"),
     [showPassword]
   );
+
   const setCpfCnpj = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setCpfCnpjState(value),
     []
   );
+
   const setEmail = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setEmailState(value),
     []
   );
+
   const setOrganizationName = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setOrganizationNameState(value),
     []
   );
+
   const setOrganizationType = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLSelectElement>) =>
       setOrganizationTypeState(value as unknown as OrganizationType),
     []
   );
+
   const setPassword = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setPasswordState(value),
     []
   );
+
   const organizationTypeOptions = useMemo(
     () =>
       Object.values(OrganizationType).map((item: OrganizationType) => (
@@ -88,17 +97,16 @@ const useRegisterColetasOrganizationProps = () => {
 
   const isFieldsInvalid = useMemo(
     () =>
-      !cpfCnpj ||
-      cpfCnpj === "" ||
-      !email ||
-      email === "" ||
-      !organizationName ||
-      organizationName === "" ||
-      !organizationType ||
-      !password ||
-      password === "",
+      isSomeItemOfArrayNullOrBlank([
+        cpfCnpj,
+        email,
+        organizationName,
+        organizationType,
+        password,
+      ]),
     [cpfCnpj, email, organizationName, organizationType, password]
   );
+
   const showErrorMessages = useCallback(() => {
     if (createOrganization.cpfCnpjAlreadyExists) {
       toast({
@@ -119,6 +127,7 @@ const useRegisterColetasOrganizationProps = () => {
       });
     }
   }, [toast, createOrganization]);
+
   const handleRegistration = useCallback(async () => {
     if (isFieldsInvalid) {
       toast({
@@ -135,7 +144,7 @@ const useRegisterColetasOrganizationProps = () => {
 
   useEffect(() => {
     if (createOrganization?.registrationSucceeded)
-      setTimeout(() => navigate("/login/coletas/organization"), 10000);
+      setTimeout(() => navigate("/login/coletas"), 10000);
     else showErrorMessages();
   }, [navigate, showErrorMessages, createOrganization]);
 
@@ -149,6 +158,7 @@ const useRegisterColetasOrganizationProps = () => {
     password,
     passwordInputIcon,
     passwordInputLabel,
+    registrationSucceeded: createOrganization?.registrationSucceeded ?? null,
     setCpfCnpj,
     setEmail,
     setOrganizationName,
@@ -156,7 +166,6 @@ const useRegisterColetasOrganizationProps = () => {
     setPassword,
     showPassword,
     toggleShowPassword,
-    registrationSucceeded: createOrganization?.registrationSucceeded ?? null,
   };
 };
 

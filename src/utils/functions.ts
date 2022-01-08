@@ -8,6 +8,20 @@ const initApolloClient = () => {
   });
 };
 
+const isNullOrBlank = (item: Object | string | number | boolean | null) => {
+  switch (item) {
+    case null:
+    case typeof item === "string" && item === "":
+      return true;
+    default:
+      return false;
+  }
+};
+
+const isSomeItemOfArrayNullOrBlank = (
+  items: Array<Object | string | number | boolean | null>
+) => items.filter((item) => isNullOrBlank(item)).length > 0;
+
 const transformEnumValue = (item: string) =>
   item
     .split("_")
@@ -16,4 +30,9 @@ const transformEnumValue = (item: string) =>
     )
     .join(" ");
 
-export { initApolloClient, transformEnumValue };
+export {
+  initApolloClient,
+  isNullOrBlank,
+  isSomeItemOfArrayNullOrBlank,
+  transformEnumValue,
+};

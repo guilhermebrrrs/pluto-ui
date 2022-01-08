@@ -38,14 +38,14 @@ const AppRecicloDrawer: FunctionComponent<AppRecicloDrawerProps> = ({
         width="100%"
       >
         <Text
-          fontFamily="Lato"
+          fontFamily={definitions.fontFamily.default}
           fontSize={definitions.fontSize.biggest}
           fontWeight={definitions.fontWeight.bold}
         >
           Pluto
         </Text>
         <Text
-          fontFamily="Lato"
+          fontFamily={definitions.fontFamily.default}
           fontSize={definitions.fontSize.default}
           fontWeight={definitions.fontWeight.bold}
         >
@@ -64,7 +64,7 @@ const AppRecicloDrawer: FunctionComponent<AppRecicloDrawerProps> = ({
           width="100%"
         >
           <Text
-            fontFamily="Lato"
+            fontFamily={definitions.fontFamily.default}
             fontSize={definitions.fontSize.small}
             fontWeight={definitions.fontWeight.bold}
             noOfLines={1}

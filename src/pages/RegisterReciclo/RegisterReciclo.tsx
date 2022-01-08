@@ -68,14 +68,14 @@ const RegisterReciclo: FunctionComponent = () => {
               justifyContent={definitions.justifyContent.center}
             >
               <Text
-                fontFamily="Lato"
+                fontFamily={definitions.fontFamily.default}
                 fontSize={definitions.fontSize.biggest}
                 fontWeight={definitions.fontWeight.bold}
               >
                 Pluto
               </Text>
               <Text
-                fontFamily="Lato"
+                fontFamily={definitions.fontFamily.default}
                 fontSize={definitions.fontSize.default}
                 fontWeight={definitions.fontWeight.bold}
               >
@@ -139,7 +139,7 @@ const RegisterReciclo: FunctionComponent = () => {
                   width="400px"
                 >
                   <Text
-                    fontFamily="Lato"
+                    fontFamily={definitions.fontFamily.default}
                     fontSize={definitions.fontSize.small}
                     fontWeight={definitions.fontWeight.bold}
                   >
@@ -147,7 +147,10 @@ const RegisterReciclo: FunctionComponent = () => {
                   </Text>
                 </Button>
                 <Link as={RTDLink} to="/register">
-                  <Text fontFamily="Lato" fontSize={definitions.fontSize.small}>
+                  <Text
+                    fontFamily={definitions.fontFamily.default}
+                    fontSize={definitions.fontSize.small}
+                  >
                     Voltar
                   </Text>
                 </Link>
@@ -162,12 +165,18 @@ const RegisterReciclo: FunctionComponent = () => {
             alignItems={definitions.alignItems.center}
           >
             <MdSentimentDissatisfied size={64} />
-            <Text fontFamily="Lato" fontSize={definitions.fontSize.default}>
+            <Text
+              fontFamily={definitions.fontFamily.default}
+              fontSize={definitions.fontSize.default}
+            >
               Por algum motivo não foi possível cadastrar o usuário. Tente
               novamente!
             </Text>
             <Link as={RTDLink} to="/register">
-              <Text fontFamily="Lato" fontSize={definitions.fontSize.small}>
+              <Text
+                fontFamily={definitions.fontFamily.default}
+                fontSize={definitions.fontSize.small}
+              >
                 Voltar
               </Text>
             </Link>
@@ -180,10 +189,16 @@ const RegisterReciclo: FunctionComponent = () => {
             alignItems={definitions.alignItems.center}
           >
             <MdSentimentVerySatisfied size={64} />
-            <Text fontFamily="Lato" fontSize={definitions.fontSize.default}>
+            <Text
+              fontFamily={definitions.fontFamily.default}
+              fontSize={definitions.fontSize.default}
+            >
               Usuário criado! Você será redirecionado para página de login!
             </Text>
-            <Text fontFamily="Lato" fontSize={definitions.fontSize.default}>
+            <Text
+              fontFamily={definitions.fontFamily.default}
+              fontSize={definitions.fontSize.default}
+            >
               Aguarde...
             </Text>
           </Flex>

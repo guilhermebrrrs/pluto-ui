@@ -10,7 +10,6 @@ const LandingPageHeader: FunctionComponent = () => {
     <Flex
       backgroundColor="green.500"
       flexDirection="column"
-      height="45vh"
       padding={definitions.spacing.larger}
       width="100%"
     >
@@ -21,7 +20,7 @@ const LandingPageHeader: FunctionComponent = () => {
       >
         <Text
           color="gray.50"
-          fontFamily="Lato"
+          fontFamily={definitions.fontFamily.default}
           fontSize={definitions.fontSize.biggest}
           fontWeight={definitions.fontWeight.bold}
         >

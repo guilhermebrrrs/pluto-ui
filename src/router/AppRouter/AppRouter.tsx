@@ -6,14 +6,13 @@ import {
   DashboardColetas,
   DashboardReciclo,
   LandingPage,
-  ListingUsers,
+  Users,
   Login,
   LoginColetas,
   LoginReciclo,
   PageNotFound,
   Register,
   RegisterColetasOrganization,
-  RegisterColetasUser,
   RegisterReciclo,
 } from "pages";
 
@@ -24,7 +23,7 @@ const AppRouter: FunctionComponent = () => (
         <Route index element={<LandingPage />} />
         <Route path="/app" element={<AppMainLayout />}>
           <Route path="/app/coletas/dashboard" element={<DashboardColetas />} />
-          <Route path="/app/coletas/usuarios" element={<ListingUsers />} />
+          <Route path="/app/coletas/usuarios" element={<Users />} />
           <Route path="/app/reciclo/dashboard" element={<DashboardReciclo />} />
         </Route>
         <Route path="/login" element={<Login />} />
@@ -32,12 +31,8 @@ const AppRouter: FunctionComponent = () => (
         <Route path="/login/reciclo" element={<LoginReciclo />} />
         <Route path="/register" element={<Register />} />
         <Route
-          path="/register/coletas/organization"
+          path="/register/coletas"
           element={<RegisterColetasOrganization />}
-        />
-        <Route
-          path="/register/coletas/user"
-          element={<RegisterColetasUser />}
         />
         <Route path="/register/reciclo" element={<RegisterReciclo />} />
         <Route path="*" element={<PageNotFound />} />

@@ -17,6 +17,9 @@ const definitions = {
     stretch: "stretch",
     unsafe: "unsafe",
   },
+  fontFamily: {
+    default: "Lato",
+  },
   fontSize: {
     smallest: "8px",
     smaller: "12px",

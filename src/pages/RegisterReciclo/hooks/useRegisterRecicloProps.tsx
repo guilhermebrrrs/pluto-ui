@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/react";
 import { CREATE_USER } from "data";
+import { isSomeItemOfArrayNullOrBlank } from "utils";
 
 const useRegisterRecicloProps = () => {
   const navigate = useNavigate();
@@ -31,24 +32,29 @@ const useRegisterRecicloProps = () => {
     () => setShowPassword(!showPassword),
     [showPassword]
   );
+
   const passwordInputIcon = useMemo(
     () => (showPassword ? <ViewIcon /> : <ViewOffIcon />),
     [showPassword]
   );
+
   const passwordInputLabel = useMemo(
     () => (showPassword ? "Ocultar senha" : "Mostrar senha"),
     [showPassword]
   );
+
   const setEmail = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setEmailState(value),
     []
   );
+
   const setName = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setNameState(value),
     []
   );
+
   const setPassword = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setPasswordState(value),
@@ -56,15 +62,10 @@ const useRegisterRecicloProps = () => {
   );
 
   const isFieldsInvalid = useMemo(
-    () =>
-      !email ||
-      email === "" ||
-      !name ||
-      name === "" ||
-      !password ||
-      password === "",
+    () => !isSomeItemOfArrayNullOrBlank([email, name, password]),
     [email, name, password]
   );
+
   const handleRegistration = useCallback(async () => {
     if (isFieldsInvalid) {
       toast({

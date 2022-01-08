@@ -13,7 +13,7 @@ const LandingPageFooter: FunctionComponent = () => (
     <Flex maxWidth="1440px" width="1440px">
       <Text
         color="gray.50"
-        fontFamily="Lato"
+        fontFamily={definitions.fontFamily.default}
         fontSize={definitions.fontSize.small}
         fontWeight={definitions.fontWeight.bold}
       >

@@ -5,12 +5,7 @@ const useRegisterProps = () => {
   const navigate = useNavigate();
 
   const toRegisterColetasOrganization = useCallback(
-    () => navigate("/register/coletas/organization"),
-    [navigate]
-  );
-
-  const toRegisterColetasUser = useCallback(
-    () => navigate("/register/coletas/user"),
+    () => navigate("/register/coletas"),
     [navigate]
   );
 
@@ -21,7 +16,6 @@ const useRegisterProps = () => {
 
   return {
     toRegisterColetasOrganization,
-    toRegisterColetasUser,
     toRegisterReciclo,
   };
 };

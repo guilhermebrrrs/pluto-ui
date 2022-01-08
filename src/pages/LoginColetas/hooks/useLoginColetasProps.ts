@@ -90,9 +90,6 @@ const useLoginColetasProps = () => {
     organizationEmail,
   ]);
 
-  console.log(authenticateOrganization);
-  console.log(authenticateOrganizationUser);
-
   const validate = useCallback(() => {
     const isValid =
       !!(authenticateOrganization ?? authenticateOrganizationUser)?._id ?? null;

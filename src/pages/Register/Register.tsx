@@ -6,11 +6,8 @@ import { definitions } from "utils";
 import { useRegisterProps } from "./hooks";
 
 const Register: FunctionComponent = () => {
-  const {
-    toRegisterColetasOrganization,
-    toRegisterColetasUser,
-    toRegisterReciclo,
-  } = useRegisterProps();
+  const { toRegisterColetasOrganization, toRegisterReciclo } =
+    useRegisterProps();
 
   return (
     <Flex
@@ -42,14 +39,14 @@ const Register: FunctionComponent = () => {
               justifyContent={definitions.justifyContent.center}
             >
               <Text
-                fontFamily="Lato"
+                fontFamily={definitions.fontFamily.default}
                 fontSize={definitions.fontSize.biggest}
                 fontWeight={definitions.fontWeight.bold}
               >
                 Pluto
               </Text>
               <Text
-                fontFamily="Lato"
+                fontFamily={definitions.fontFamily.default}
                 fontSize={definitions.fontSize.default}
                 fontWeight={definitions.fontWeight.bold}
               >
@@ -70,13 +67,6 @@ const Register: FunctionComponent = () => {
               >
                 <Text>Cadastrar Organização</Text>
               </Button>
-              <Button
-                colorScheme="green"
-                onClick={toRegisterColetasUser}
-                width="275px"
-              >
-                <Text>Cadastrar Usuário Organização</Text>
-              </Button>
             </Flex>
           </Flex>
           <Flex backgroundColor="gray.600" height="available" width="2px" />
@@ -92,14 +82,14 @@ const Register: FunctionComponent = () => {
               justifyContent={definitions.justifyContent.center}
             >
               <Text
-                fontFamily="Lato"
+                fontFamily={definitions.fontFamily.default}
                 fontSize={definitions.fontSize.biggest}
                 fontWeight={definitions.fontWeight.bold}
               >
                 Pluto
               </Text>
               <Text
-                fontFamily="Lato"
+                fontFamily={definitions.fontFamily.default}
                 fontSize={definitions.fontSize.default}
                 fontWeight={definitions.fontWeight.bold}
               >
@@ -123,7 +113,10 @@ const Register: FunctionComponent = () => {
         </Flex>
         <Flex justifyContent={definitions.justifyContent.center} width="100%">
           <Link as={RTDLink} to="/">
-            <Text fontFamily="Lato" fontSize={definitions.fontSize.small}>
+            <Text
+              fontFamily={definitions.fontFamily.default}
+              fontSize={definitions.fontSize.small}
+            >
               Voltar para Landing Page
             </Text>
           </Link>

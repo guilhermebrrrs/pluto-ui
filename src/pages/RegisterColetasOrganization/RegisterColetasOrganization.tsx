@@ -75,14 +75,14 @@ const RegisterColetasOrganization: FunctionComponent = () => {
               justifyContent={definitions.justifyContent.center}
             >
               <Text
-                fontFamily="Lato"
+                fontFamily={definitions.fontFamily.default}
                 fontSize={definitions.fontSize.biggest}
                 fontWeight={definitions.fontWeight.bold}
               >
                 Pluto
               </Text>
               <Text
-                fontFamily="Lato"
+                fontFamily={definitions.fontFamily.default}
                 fontSize={definitions.fontSize.default}
                 fontWeight={definitions.fontWeight.bold}
               >
@@ -96,7 +96,7 @@ const RegisterColetasOrganization: FunctionComponent = () => {
                 gap={definitions.spacing.smaller}
               >
                 <Text
-                  fontFamily="Lato"
+                  fontFamily={definitions.fontFamily.default}
                   fontSize={definitions.fontSize.small}
                   fontWeight={definitions.fontWeight.bold}
                 >
@@ -185,7 +185,7 @@ const RegisterColetasOrganization: FunctionComponent = () => {
               width="400px"
             >
               <Text
-                fontFamily="Lato"
+                fontFamily={definitions.fontFamily.default}
                 fontSize={definitions.fontSize.small}
                 fontWeight={definitions.fontWeight.bold}
               >
@@ -193,7 +193,10 @@ const RegisterColetasOrganization: FunctionComponent = () => {
               </Text>
             </Button>
             <Link as={RTDLink} to="/register">
-              <Text fontFamily="Lato" fontSize={definitions.fontSize.small}>
+              <Text
+                fontFamily={definitions.fontFamily.default}
+                fontSize={definitions.fontSize.small}
+              >
                 Voltar
               </Text>
             </Link>
@@ -206,10 +209,16 @@ const RegisterColetasOrganization: FunctionComponent = () => {
             alignItems={definitions.alignItems.center}
           >
             <MdSentimentVerySatisfied size={64} />
-            <Text fontFamily="Lato" fontSize={definitions.fontSize.default}>
+            <Text
+              fontFamily={definitions.fontFamily.default}
+              fontSize={definitions.fontSize.default}
+            >
               Organização criada! Você será redirecionado para página de login!
             </Text>
-            <Text fontFamily="Lato" fontSize={definitions.fontSize.default}>
+            <Text
+              fontFamily={definitions.fontFamily.default}
+              fontSize={definitions.fontSize.default}
+            >
               Aguarde...
             </Text>
           </Flex>

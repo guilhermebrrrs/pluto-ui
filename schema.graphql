@@ -104,16 +104,6 @@ type OrganizationUser {
   organization: Organization
   responsibleForCollectionPaths: [CollectionPath]
   updatedAt: String
-  userLoginKeys: [OrganizationUserLoginKey]
-}
-
-type OrganizationUserLoginKey {
-  _id: ID
-  email: String
-  isActive: Boolean
-  organization: Organization
-  organizationUser: OrganizationUser
-  password: String
 }
 
 type OrganizationUserRegistrationValidation {
@@ -131,6 +121,7 @@ type Query {
   authenticateOrganizationUser(authenticateOrganizationUserInput: AuthenticateOrganizationUserInput): OrganizationUser
   authenticateUser(authenticateUserInput: AuthenticateUserInput): User
   findAllOrganizationUsers: [OrganizationUser]
+  findAllOrganizationUsersByOrganizationId(id: ID!): [OrganizationUser]
   findAllOrganizations: [Organization]
   findAllUsers: [User]
   findUserById(id: ID!): User

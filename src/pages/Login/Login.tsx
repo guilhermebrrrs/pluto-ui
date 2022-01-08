@@ -27,7 +27,7 @@ const Login: FunctionComponent = () => {
         padding={definitions.spacing.default}
       >
         <Text
-          fontFamily="Lato"
+          fontFamily={definitions.fontFamily.default}
           fontSize={definitions.fontSize.biggest}
           fontWeight={definitions.fontWeight.bold}
         >
