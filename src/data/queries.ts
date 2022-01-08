@@ -60,10 +60,8 @@ const AUTHENTICATE_USER = gql`
 `;
 
 const FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID = gql`
-  query ($findAllOrganizationUsersByOrganizationIdId: ID!) {
-    findAllOrganizationUsersByOrganizationId(
-      id: $findAllOrganizationUsersByOrganizationIdId
-    ) {
+  query ($id: ID!) {
+    findAllOrganizationUsersByOrganizationId(id: $id) {
       _id
       createdAt
       name

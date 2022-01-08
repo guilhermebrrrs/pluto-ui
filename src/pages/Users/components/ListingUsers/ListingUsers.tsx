@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, memo } from "react";
 import { Flex, Text } from "@chakra-ui/react";
 import { EditUserCard } from "components";
 import { OrganizationUser } from "types";
@@ -6,7 +6,7 @@ import { definitions } from "utils";
 import { useUsersProps } from "./hooks";
 
 const ListingUsers: FunctionComponent = () => {
-  const { organizationUsers } = useUsersProps();
+  const { sortedOrganizationUsers } = useUsersProps();
 
   return (
     <Flex
@@ -21,11 +21,18 @@ const ListingUsers: FunctionComponent = () => {
       padding={definitions.spacing.small}
       width="100%"
     >
-      <Flex flex={1} flexDirection="column" height="100%" width="100%">
-        {organizationUsers?.length > 0 ? (
-          organizationUsers.map((organizationUser: OrganizationUser) => (
-            <EditUserCard organizationUser={organizationUser} />
-          ))
+      <Flex flex={1} flexDirection="column" overflowY="auto" maxHeight="100%">
+        {sortedOrganizationUsers?.length > 0 ? (
+          <Flex flexDirection="column" gap={definitions.spacing.small}>
+            {sortedOrganizationUsers.map(
+              (organizationUser: OrganizationUser) => (
+                <EditUserCard
+                  key={organizationUser._id}
+                  organizationUser={organizationUser}
+                />
+              )
+            )}
+          </Flex>
         ) : (
           <Text fontFamily={definitions.fontFamily.default}>
             Nenhum usuário cadastrado nesta organização.
@@ -40,4 +47,4 @@ const ListingUsers: FunctionComponent = () => {
   );
 };
 
-export default ListingUsers;
+export default memo(ListingUsers);

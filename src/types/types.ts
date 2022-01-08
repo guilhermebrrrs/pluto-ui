@@ -78,9 +78,9 @@ interface CollectionRequestMaterial extends DateMetadata {
 
 interface CreateOrganizationUserInput {
   email: string;
-  username: string;
   organizationEmail: string;
   password: string;
+  username: string;
 }
 
 interface CreateUserInput {

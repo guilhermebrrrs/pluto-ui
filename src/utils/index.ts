@@ -4,7 +4,8 @@ export {
   initApolloClient,
   isNullOrBlank,
   isSomeItemOfArrayNullOrBlank,
-  transformEnumValue,
+  sortByString,
+  transformEnumValueToCapitalizeString,
 } from "./functions";
 export {
   clearLocalStorage,

@@ -8,7 +8,7 @@ const initApolloClient = () => {
   });
 };
 
-const isNullOrBlank = (item: Object | string | number | boolean | null) => {
+const isNullOrBlank = (item: any) => {
   switch (item) {
     case null:
     case typeof item === "string" && item === "":
@@ -18,11 +18,13 @@ const isNullOrBlank = (item: Object | string | number | boolean | null) => {
   }
 };
 
-const isSomeItemOfArrayNullOrBlank = (
-  items: Array<Object | string | number | boolean | null>
-) => items.filter((item) => isNullOrBlank(item)).length > 0;
+const isSomeItemOfArrayNullOrBlank = (items: any[]) =>
+  items.filter((item) => isNullOrBlank(item)).length > 0;
 
-const transformEnumValue = (item: string) =>
+const sortByString = (a: string = "", b: string = "") =>
+  a === b ? (a < b ? -1 : 1) : 0;
+
+const transformEnumValueToCapitalizeString = (item: string) =>
   item
     .split("_")
     .map(
@@ -34,5 +36,6 @@ export {
   initApolloClient,
   isNullOrBlank,
   isSomeItemOfArrayNullOrBlank,
-  transformEnumValue,
+  sortByString,
+  transformEnumValueToCapitalizeString,
 };

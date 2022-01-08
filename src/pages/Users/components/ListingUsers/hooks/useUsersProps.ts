@@ -1,8 +1,9 @@
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { AppAuthenticationContext } from "contexts";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID } from "data";
 import { Organization, OrganizationUser } from "types";
+import { sortByString } from "utils";
 
 const useUsersProps = () => {
   const { loggedUser } = useContext(AppAuthenticationContext);
@@ -14,16 +15,28 @@ const useUsersProps = () => {
     return (loggedUser as Organization)?._id;
   }, [loggedUser]);
 
-  const {
-    data: {
-      findAllOrganizationUsersByOrganizationId:
-        organizationUsers = [] as OrganizationUser[],
-    } = {},
-  } = useQuery(FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID, {
+  const [
+    fetchQuery,
+    {
+      data: {
+        findAllOrganizationUsersByOrganizationId:
+          organizationUsers = [] as OrganizationUser[],
+      } = {},
+    },
+  ] = useLazyQuery(FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID, {
     variables: { id: organizationId },
   });
 
-  return { organizationUsers };
+  useEffect(() => {
+    organizationId && fetchQuery();
+  }, [fetchQuery, organizationId]);
+
+  return {
+    sortedOrganizationUsers: [...organizationUsers].sort(
+      ({ name: a }: OrganizationUser, { name: b }: OrganizationUser) =>
+        sortByString(a, b)
+    ),
+  };
 };
 
 export { useUsersProps };

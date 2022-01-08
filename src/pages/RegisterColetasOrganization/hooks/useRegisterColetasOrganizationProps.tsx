@@ -9,7 +9,10 @@ import {
   OrganizationRegistrationValidation,
   OrganizationType,
 } from "types";
-import { isSomeItemOfArrayNullOrBlank, transformEnumValue } from "utils";
+import {
+  isSomeItemOfArrayNullOrBlank,
+  transformEnumValueToCapitalizeString,
+} from "utils";
 
 const useRegisterColetasOrganizationProps = () => {
   const [cpfCnpj, setCpfCnpjState] = useState<string>("");
@@ -90,7 +93,9 @@ const useRegisterColetasOrganizationProps = () => {
   const organizationTypeOptions = useMemo(
     () =>
       Object.values(OrganizationType).map((item: OrganizationType) => (
-        <option value={item}>{transformEnumValue(item)}</option>
+        <option value={item}>
+          {transformEnumValueToCapitalizeString(item)}
+        </option>
       )),
     []
   );
