@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { AppAuthenticationContext } from "contexts";
 import { useLazyQuery } from "@apollo/client";
 import { FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID } from "data";
@@ -7,6 +7,9 @@ import { sortByString } from "utils";
 
 const useUsersProps = () => {
   const { loggedUser } = useContext(AppAuthenticationContext);
+
+  const [selectedOrganizationUser, setSelectedOrganizationUser] =
+    useState<OrganizationUser | null>(null);
 
   const organizationId = useMemo(() => {
     if (loggedUser?.__typename === "OrganizationUser")
@@ -31,11 +34,22 @@ const useUsersProps = () => {
     organizationId && fetchQuery();
   }, [fetchQuery, organizationId]);
 
+  const sortedOrganizationUsers = useMemo(
+    () =>
+      [...organizationUsers].sort(
+        ({ name: a }: OrganizationUser, { name: b }: OrganizationUser) =>
+          sortByString(a, b)
+      ),
+    [organizationUsers]
+  );
+
+  const cancelEdit = useCallback(() => setSelectedOrganizationUser(null), []);
+
   return {
-    sortedOrganizationUsers: [...organizationUsers].sort(
-      ({ name: a }: OrganizationUser, { name: b }: OrganizationUser) =>
-        sortByString(a, b)
-    ),
+    cancelEdit,
+    selectedOrganizationUser,
+    setSelectedOrganizationUser,
+    sortedOrganizationUsers,
   };
 };
 

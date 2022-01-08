@@ -12,7 +12,7 @@ import {
 import { ListingUsers, RegisterOrganizationUser } from "./components";
 import { useUsersProps } from "./hooks";
 
-const Users: FunctionComponent = () => {
+const UserManagement: FunctionComponent = () => {
   const { selectebTabStyle } = useUsersProps();
 
   return (
@@ -31,8 +31,22 @@ const Users: FunctionComponent = () => {
       <Flex>
         <Tabs isFitted variant="enclosed" width="100%">
           <TabList>
-            <Tab _selected={selectebTabStyle}>Listar Usuários</Tab>
-            <Tab _selected={selectebTabStyle}>Cadastrar Usuário</Tab>
+            <Tab _selected={selectebTabStyle}>
+              <Text
+                fontFamily={definitions.fontFamily.default}
+                fontWeight={definitions.fontWeight.bold}
+              >
+                Listar Usuários
+              </Text>
+            </Tab>
+            <Tab _selected={selectebTabStyle}>
+              <Text
+                fontFamily={definitions.fontFamily.default}
+                fontWeight={definitions.fontWeight.bold}
+              >
+                Cadastrar Usuário
+              </Text>
+            </Tab>
           </TabList>
           <TabPanels>
             <TabPanel padding={0}>
@@ -48,4 +62,4 @@ const Users: FunctionComponent = () => {
   );
 };
 
-export default Users;
+export default UserManagement;

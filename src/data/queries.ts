@@ -28,6 +28,7 @@ const AUTHENTICATE_ORGANIZATION_USER = gql`
     ) {
       _id
       createdAt
+      email
       name
       organization {
         _id
@@ -64,7 +65,9 @@ const FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID = gql`
     findAllOrganizationUsersByOrganizationId(id: $id) {
       _id
       createdAt
+      email
       name
+      password
       updatedAt
       organization {
         _id

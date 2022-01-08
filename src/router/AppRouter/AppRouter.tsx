@@ -6,7 +6,7 @@ import {
   DashboardColetas,
   DashboardReciclo,
   LandingPage,
-  Users,
+  UserManagement,
   Login,
   LoginColetas,
   LoginReciclo,
@@ -23,7 +23,7 @@ const AppRouter: FunctionComponent = () => (
         <Route index element={<LandingPage />} />
         <Route path="/app" element={<AppMainLayout />}>
           <Route path="/app/coletas/dashboard" element={<DashboardColetas />} />
-          <Route path="/app/coletas/usuarios" element={<Users />} />
+          <Route path="/app/coletas/usuarios" element={<UserManagement />} />
           <Route path="/app/reciclo/dashboard" element={<DashboardReciclo />} />
         </Route>
         <Route path="/login" element={<Login />} />

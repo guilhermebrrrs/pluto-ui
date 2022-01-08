@@ -100,8 +100,10 @@ type OrganizationUser {
   _id: ID
   collectionRequests: [CollectionRequest]
   createdAt: String
+  email: String
   name: String
   organization: Organization
+  password: String
   responsibleForCollectionPaths: [CollectionPath]
   updatedAt: String
 }

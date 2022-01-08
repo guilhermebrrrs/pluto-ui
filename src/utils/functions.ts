@@ -21,8 +21,7 @@ const isNullOrBlank = (item: any) => {
 const isSomeItemOfArrayNullOrBlank = (items: any[]) =>
   items.filter((item) => isNullOrBlank(item)).length > 0;
 
-const sortByString = (a: string = "", b: string = "") =>
-  a === b ? (a < b ? -1 : 1) : 0;
+const sortByString = (a: string, b: string) => (a > b ? (a < b ? 1 : 0) : -1);
 
 const transformEnumValueToCapitalizeString = (item: string) =>
   item

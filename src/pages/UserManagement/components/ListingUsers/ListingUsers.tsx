@@ -1,12 +1,17 @@
 import { FunctionComponent, memo } from "react";
 import { Flex, Text } from "@chakra-ui/react";
-import { EditUserCard } from "components";
+import { EditUser, UserCard } from "./components";
 import { OrganizationUser } from "types";
 import { definitions } from "utils";
 import { useUsersProps } from "./hooks";
 
 const ListingUsers: FunctionComponent = () => {
-  const { sortedOrganizationUsers } = useUsersProps();
+  const {
+    cancelEdit,
+    selectedOrganizationUser,
+    setSelectedOrganizationUser,
+    sortedOrganizationUsers,
+  } = useUsersProps();
 
   return (
     <Flex
@@ -26,9 +31,10 @@ const ListingUsers: FunctionComponent = () => {
           <Flex flexDirection="column" gap={definitions.spacing.small}>
             {sortedOrganizationUsers.map(
               (organizationUser: OrganizationUser) => (
-                <EditUserCard
+                <UserCard
                   key={organizationUser._id}
                   organizationUser={organizationUser}
+                  setSelectedOrganizationUser={setSelectedOrganizationUser}
                 />
               )
             )}
@@ -41,7 +47,12 @@ const ListingUsers: FunctionComponent = () => {
       </Flex>
       <Flex backgroundColor="gray.500" height="100%" width="2px" />
       <Flex flex={1} height="100%">
-        Desenvolvendo
+        {selectedOrganizationUser && (
+          <EditUser
+            cancelEdit={cancelEdit}
+            selectedOrganizationUser={selectedOrganizationUser}
+          />
+        )}
       </Flex>
     </Flex>
   );
