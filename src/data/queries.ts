@@ -66,6 +66,7 @@ const FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID = gql`
       _id
       createdAt
       email
+      isActive
       name
       password
       updatedAt

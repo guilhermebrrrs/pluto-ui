@@ -1,5 +1,4 @@
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
-import { FaTrashAlt } from "react-icons/fa";
 import { MdModeEdit } from "react-icons/md";
 import { Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import { OrganizationUser } from "types";
@@ -46,17 +45,6 @@ const UserCard: FunctionComponent<EditUserCardProps> = ({
         </Text>
       </Flex>
       <Flex gap={definitions.spacing.smallest}>
-        <Tooltip label="Remover">
-          <IconButton
-            aria-label="remover usuário"
-            colorScheme="blackAlpha"
-            onClick={() => {}}
-            size="sm"
-            _hover={{ backgroundColor: "red.500" }}
-          >
-            <FaTrashAlt />
-          </IconButton>
-        </Tooltip>
         <Tooltip label="Editar">
           <IconButton
             aria-label="editar usuário"

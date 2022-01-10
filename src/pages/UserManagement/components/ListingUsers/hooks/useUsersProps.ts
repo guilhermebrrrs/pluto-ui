@@ -45,6 +45,8 @@ const useUsersProps = () => {
 
   const cancelEdit = useCallback(() => setSelectedOrganizationUser(null), []);
 
+  console.log(selectedOrganizationUser);
+
   return {
     cancelEdit,
     selectedOrganizationUser,

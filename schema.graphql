@@ -71,6 +71,8 @@ type Mutation {
   createOrganization(createOrganizationInput: CreateOrganizationInput): OrganizationRegistrationValidation
   createOrganizationUser(createOrganizationUserInput: CreateOrganizationUserInput): OrganizationUserRegistrationValidation
   createUser(createUserInput: CreateUserInput): Boolean
+  deleteOrganizationUserById(id: ID): String
+  updateOrganizationUserPersonalData(updateOrganizationUserPersonalDataInput: UpdateOrganizationUserPersonalDataInput): String
   updateUserPassword(updateUserPasswordInput: UpdateUserPasswordInput): String
 }
 
@@ -101,6 +103,7 @@ type OrganizationUser {
   collectionRequests: [CollectionRequest]
   createdAt: String
   email: String
+  isActive: Boolean
   name: String
   organization: Organization
   password: String
@@ -226,6 +229,18 @@ input CreateUserInput {
   email: String!
   name: String!
   password: String!
+}
+
+input OrganizationUserPersonalDataInput {
+  email: String!
+  isActive: Boolean!
+  name: String!
+  password: String!
+}
+
+input UpdateOrganizationUserPersonalDataInput {
+  _id: String!
+  data: OrganizationUserPersonalDataInput!
 }
 
 input UpdateUserPasswordInput {

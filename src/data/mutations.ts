@@ -11,7 +11,7 @@ const CREATE_ORGANIZATION = gql`
 `;
 
 const CREATE_ORGANIZATION_USER = gql`
-  mutation Mutation($createOrganizationUserInput: CreateOrganizationUserInput) {
+  mutation ($createOrganizationUserInput: CreateOrganizationUserInput) {
     createOrganizationUser(
       createOrganizationUserInput: $createOrganizationUserInput
     ) {
@@ -32,4 +32,15 @@ const CREATE_USER = gql`
   }
 `;
 
-export { CREATE_ORGANIZATION, CREATE_ORGANIZATION_USER, CREATE_USER };
+const DELETE_ORGANIZATION_USER_BY_ID = gql`
+  mutation ($id: ID) {
+    deleteOrganizationUserById(id: $id)
+  }
+`;
+
+export {
+  CREATE_ORGANIZATION,
+  CREATE_ORGANIZATION_USER,
+  CREATE_USER,
+  DELETE_ORGANIZATION_USER_BY_ID,
+};
