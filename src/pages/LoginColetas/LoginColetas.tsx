@@ -1,4 +1,5 @@
 import { FunctionComponent } from "react";
+import { Link as RTDLink } from "react-router-dom";
 import {
   Button,
   Flex,
@@ -8,12 +9,11 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
-import { EmailIcon, LockIcon } from "@chakra-ui/icons";
+import { EmailIcon } from "@chakra-ui/icons";
 import { MdFactCheck } from "react-icons/md";
-import { Link as RTDLink } from "react-router-dom";
-import { Waves } from "components";
-import { useLoginColetasProps } from "./hooks";
+import { PasswordInput, Waves } from "components";
 import { definitions } from "utils";
+import { useLoginColetasProps } from "./hooks";
 
 const LoginColetas: FunctionComponent = () => {
   const {
@@ -90,18 +90,15 @@ const LoginColetas: FunctionComponent = () => {
               width="400px"
             />
           </InputGroup>
-          <InputGroup>
-            <InputLeftElement color="gray.600" children={<LockIcon />} />
-            <Input
-              borderColor="gray.300"
-              focusBorderColor="gray.700"
-              placeholder="Senha"
-              onChange={setPassword}
-              value={password}
-              type="password"
-              width="400px"
-            />
-          </InputGroup>
+          <PasswordInput
+            backgroundColor="gray.50"
+            borderColor="gray.300"
+            focusBorderColor="gray.700"
+            onChange={setPassword}
+            placeholder="Senha"
+            value={password}
+            width="400px"
+          />
           <Flex justifyContent={definitions.justifyContent.end} width="100%">
             <Link>
               <Text

@@ -1,0 +1,1 @@
+export { useAppRecicloDrawerProps } from "./useAppRecicloDrawerProps";

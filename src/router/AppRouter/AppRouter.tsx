@@ -6,7 +6,7 @@ import {
   DashboardColetas,
   DashboardReciclo,
   LandingPage,
-  UserManagement,
+  OrganizationUserManagement,
   Login,
   LoginColetas,
   LoginReciclo,
@@ -14,6 +14,7 @@ import {
   Register,
   RegisterColetasOrganization,
   RegisterReciclo,
+  UserLocationManagement,
 } from "pages";
 
 const AppRouter: FunctionComponent = () => (
@@ -23,8 +24,15 @@ const AppRouter: FunctionComponent = () => (
         <Route index element={<LandingPage />} />
         <Route path="/app" element={<AppMainLayout />}>
           <Route path="/app/coletas/dashboard" element={<DashboardColetas />} />
-          <Route path="/app/coletas/usuarios" element={<UserManagement />} />
+          <Route
+            path="/app/coletas/usuarios"
+            element={<OrganizationUserManagement />}
+          />
           <Route path="/app/reciclo/dashboard" element={<DashboardReciclo />} />
+          <Route
+            path="/app/reciclo/locations"
+            element={<UserLocationManagement />}
+          />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/login/coletas" element={<LoginColetas />} />

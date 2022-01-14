@@ -1,5 +1,4 @@
 import { FunctionComponent } from "react";
-import { definitions } from "utils";
 import {
   Flex,
   Tab,
@@ -9,11 +8,11 @@ import {
   Tabs,
   Text,
 } from "@chakra-ui/react";
-import { ListingUsers, RegisterOrganizationUser } from "./components";
-import { useUsersProps } from "./hooks";
+import { definitions } from "utils";
+import { useUserLocationManagementProps } from "./hooks";
 
-const UserManagement: FunctionComponent = () => {
-  const { selectebTabStyle } = useUsersProps();
+const UserLocationManagement: FunctionComponent = () => {
+  const { selectebTabStyle } = useUserLocationManagementProps();
 
   return (
     <Flex
@@ -49,12 +48,8 @@ const UserManagement: FunctionComponent = () => {
             </Tab>
           </TabList>
           <TabPanels>
-            <TabPanel padding={0}>
-              <ListingUsers />
-            </TabPanel>
-            <TabPanel padding={0}>
-              <RegisterOrganizationUser />
-            </TabPanel>
+            <TabPanel padding={0}>Teste</TabPanel>
+            <TabPanel padding={0}>Teste</TabPanel>
           </TabPanels>
         </Tabs>
       </Flex>
@@ -62,4 +57,4 @@ const UserManagement: FunctionComponent = () => {
   );
 };
 
-export default UserManagement;
+export default UserLocationManagement;

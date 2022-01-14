@@ -9,9 +9,9 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
-import { EmailIcon, LockIcon } from "@chakra-ui/icons";
+import { EmailIcon } from "@chakra-ui/icons";
 import { MdFactCheck } from "react-icons/md";
-import { Waves } from "components";
+import { PasswordInput, Waves } from "components";
 import { definitions } from "utils";
 import { useLoginRecicloProps } from "./hooks";
 
@@ -77,18 +77,15 @@ const LoginReciclo: FunctionComponent = () => {
               width="400px"
             />
           </InputGroup>
-          <InputGroup>
-            <InputLeftElement color="gray.600" children={<LockIcon />} />
-            <Input
-              borderColor="gray.300"
-              focusBorderColor="gray.700"
-              placeholder="Password"
-              onChange={setPassword}
-              value={password}
-              type="password"
-              width="400px"
-            />
-          </InputGroup>
+          <PasswordInput
+            backgroundColor="gray.50"
+            borderColor="gray.300"
+            focusBorderColor="gray.700"
+            onChange={setPassword}
+            placeholder="Senha"
+            value={password}
+            width="400px"
+          />
           <Flex justifyContent={definitions.justifyContent.end} width="100%">
             <Link>
               <Text

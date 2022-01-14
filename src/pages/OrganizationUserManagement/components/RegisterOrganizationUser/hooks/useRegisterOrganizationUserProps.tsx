@@ -20,7 +20,7 @@ import {
   OrganizationUser,
   OrganizationUserRegistrationValidation,
 } from "types";
-import { isSomeItemOfArrayNullOrBlank } from "utils";
+import { capitalizeName, isSomeItemOfArrayNullOrBlank } from "utils";
 
 const useRegisterOrganizationUserProps = () => {
   const toast = useToast();
@@ -52,7 +52,7 @@ const useRegisterOrganizationUserProps = () => {
         email,
         organizationEmail,
         password,
-        username,
+        username: username ? capitalizeName(username) : "",
       } as CreateOrganizationUserInput,
     },
     refetchQueries: [FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID],
@@ -138,15 +138,20 @@ const useRegisterOrganizationUserProps = () => {
   }, [fetchMutation, isFieldsInvalid, toast]);
 
   useEffect(() => {
-    createOrganizationUser?.registrationSucceeded
-      ? toast({
-          title: "Cadastro realizado!",
-          description: "O usuário será listado na aba de listagem.",
-          status: "success",
-          duration: 7500,
-          isClosable: true,
-        })
-      : showErrorMessages();
+    if (createOrganizationUser?.registrationSucceeded) {
+      toast({
+        title: "Cadastro realizado!",
+        description: "O usuário será listado na aba de listagem.",
+        status: "success",
+        duration: 7500,
+        isClosable: true,
+      });
+      setEmailState("");
+      setPasswordState("");
+      setUsernameState("");
+      return;
+    }
+    showErrorMessages();
   }, [createOrganizationUser, showErrorMessages, toast]);
 
   return {

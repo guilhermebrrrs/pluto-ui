@@ -1,1 +1,0 @@
-export { useUsersProps } from "./useUsersProps";

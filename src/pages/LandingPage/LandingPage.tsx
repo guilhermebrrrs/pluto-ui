@@ -1,13 +1,11 @@
 import { FunctionComponent } from "react";
 import { Flex } from "@chakra-ui/react";
+import { definitions } from "utils";
 import { LandingPageBody } from "./Body";
 import { LandingPageFooter } from "./Footer";
 import { LandingPageHeader } from "./Header";
-import { definitions } from "utils";
 
 const LandingPage: FunctionComponent = () => {
-  console.log(process.env.REACT_APP_GRAPHQL_URL);
-
   return (
     <Flex
       alignItems={definitions.alignItems.center}

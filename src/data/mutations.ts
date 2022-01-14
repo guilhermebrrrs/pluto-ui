@@ -38,9 +38,20 @@ const DELETE_ORGANIZATION_USER_BY_ID = gql`
   }
 `;
 
+const UPDATE_ORGANIZATION_USER_PERSONAL_DATA = gql`
+  mutation (
+    $updateOrganizationUserPersonalDataInput: UpdateOrganizationUserPersonalDataInput
+  ) {
+    updateOrganizationUserPersonalData(
+      updateOrganizationUserPersonalDataInput: $updateOrganizationUserPersonalDataInput
+    )
+  }
+`;
+
 export {
   CREATE_ORGANIZATION,
   CREATE_ORGANIZATION_USER,
   CREATE_USER,
   DELETE_ORGANIZATION_USER_BY_ID,
+  UPDATE_ORGANIZATION_USER_PERSONAL_DATA,
 };

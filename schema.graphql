@@ -71,8 +71,8 @@ type Mutation {
   createOrganization(createOrganizationInput: CreateOrganizationInput): OrganizationRegistrationValidation
   createOrganizationUser(createOrganizationUserInput: CreateOrganizationUserInput): OrganizationUserRegistrationValidation
   createUser(createUserInput: CreateUserInput): Boolean
-  deleteOrganizationUserById(id: ID): String
-  updateOrganizationUserPersonalData(updateOrganizationUserPersonalDataInput: UpdateOrganizationUserPersonalDataInput): String
+  deleteOrganizationUserById(id: ID): Boolean
+  updateOrganizationUserPersonalData(updateOrganizationUserPersonalDataInput: UpdateOrganizationUserPersonalDataInput): Boolean
   updateUserPassword(updateUserPasswordInput: UpdateUserPasswordInput): String
 }
 

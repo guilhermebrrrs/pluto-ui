@@ -2,7 +2,7 @@ import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import { OrganizationUser } from "types";
-import { definitions } from "utils";
+import { capitalizeName, definitions } from "utils";
 import { useEditUserCardProps } from "./hooks";
 
 interface EditUserCardProps {
@@ -35,7 +35,7 @@ const UserCard: FunctionComponent<EditUserCardProps> = ({
           fontFamily={definitions.fontFamily.default}
           fontWeight={definitions.fontWeight.bold}
         >
-          Nome: {organizationUser.name}
+          Nome: {capitalizeName(organizationUser.name)}
         </Text>
         <Text
           fontFamily={definitions.fontFamily.default}

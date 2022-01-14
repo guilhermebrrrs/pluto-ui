@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-const useUsersProps = () => {
+const useOrganizationUserManagementProps = () => {
   const selectebTabStyle = useMemo(
     () => ({
       bg: "gray.200",
@@ -14,4 +14,4 @@ const useUsersProps = () => {
   return { selectebTabStyle };
 };
 
-export { useUsersProps };
+export { useOrganizationUserManagementProps };
