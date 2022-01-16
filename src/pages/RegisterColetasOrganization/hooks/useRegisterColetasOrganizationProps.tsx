@@ -93,8 +93,8 @@ const useRegisterColetasOrganizationProps = () => {
   const organizationTypeOptions = useMemo(
     () =>
       Object.values(OrganizationType).map((item: OrganizationType) => (
-        <option value={item}>
-          {transformEnumValueToCapitalizeString(item)}
+        <option value={item.toString()}>
+          {transformEnumValueToCapitalizeString(item.toString())}
         </option>
       )),
     []

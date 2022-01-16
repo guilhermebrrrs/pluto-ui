@@ -2,8 +2,8 @@ import { FunctionComponent, memo } from "react";
 import { Flex, Text } from "@chakra-ui/react";
 import { OrganizationUser } from "types";
 import { definitions } from "utils";
-import { EditUser, UserCard } from "./components";
-import { useUsersProps } from "./hooks";
+import { EditUser, UserCard } from "./";
+import { useUsersProps } from "../hooks";
 
 const ListingOrganizationUsers: FunctionComponent = () => {
   const {

@@ -12,8 +12,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { EmailIcon } from "@chakra-ui/icons";
-import { useEditUserProps } from "./hooks";
-import { RemoveUserModal } from "./components";
+import { RemoveUserModal } from "./";
+import { useEditUserProps } from "../hooks";
 
 interface EditUserProps {
   cancelEdit: () => void;

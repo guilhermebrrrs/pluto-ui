@@ -4,6 +4,8 @@ export { definitions } from "./definitions";
 export {
   capitalizeName,
   capitalizeString,
+  getMaterialTypeLabel,
+  getWeekDayLabel,
   initApolloClient,
   isNullOrBlank,
   isSomeItemOfArrayNullOrBlank,

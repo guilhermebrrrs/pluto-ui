@@ -7,7 +7,6 @@ import {
   useState,
 } from "react";
 import { useMutation } from "@apollo/client";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/react";
 import { AppAuthenticationContext } from "contexts";
 import {
@@ -28,7 +27,6 @@ const useRegisterOrganizationUserProps = () => {
 
   const [email, setEmailState] = useState<string>("");
   const [password, setPasswordState] = useState<string>("");
-  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [username, setUsernameState] = useState<string>("");
 
   const organizationEmail = useMemo(() => {
@@ -74,21 +72,6 @@ const useRegisterOrganizationUserProps = () => {
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setUsernameState(value),
     []
-  );
-
-  const toggleShowPassword = useCallback(
-    () => setShowPassword(!showPassword),
-    [showPassword]
-  );
-
-  const passwordInputIcon = useMemo(
-    () => (showPassword ? <ViewIcon /> : <ViewOffIcon />),
-    [showPassword]
-  );
-
-  const passwordInputLabel = useMemo(
-    () => (showPassword ? "Ocultar senha" : "Mostrar senha"),
-    [showPassword]
   );
 
   const isFieldsInvalid = useMemo(
@@ -158,13 +141,9 @@ const useRegisterOrganizationUserProps = () => {
     email,
     handleRegistration,
     password,
-    passwordInputIcon,
-    passwordInputLabel,
     setEmail,
     setPassword,
     setUserName,
-    showPassword,
-    toggleShowPassword,
     username,
   };
 };

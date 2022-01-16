@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { definitions } from "utils";
+import { ListingUserLocations, RegisterUserLocation } from "./components";
 import { useUserLocationManagementProps } from "./hooks";
 
 const UserLocationManagement: FunctionComponent = () => {
@@ -25,7 +26,7 @@ const UserLocationManagement: FunctionComponent = () => {
         fontSize={definitions.fontSize.bigger}
         fontWeight={definitions.fontWeight.bold}
       >
-        Usuários
+        Locais
       </Text>
       <Flex>
         <Tabs isFitted variant="enclosed" width="100%">
@@ -35,7 +36,7 @@ const UserLocationManagement: FunctionComponent = () => {
                 fontFamily={definitions.fontFamily.default}
                 fontWeight={definitions.fontWeight.bold}
               >
-                Listar Usuários
+                Listar Locais
               </Text>
             </Tab>
             <Tab _selected={selectebTabStyle}>
@@ -43,13 +44,17 @@ const UserLocationManagement: FunctionComponent = () => {
                 fontFamily={definitions.fontFamily.default}
                 fontWeight={definitions.fontWeight.bold}
               >
-                Cadastrar Usuário
+                Cadastrar Locais
               </Text>
             </Tab>
           </TabList>
           <TabPanels>
-            <TabPanel padding={0}>Teste</TabPanel>
-            <TabPanel padding={0}>Teste</TabPanel>
+            <TabPanel padding={0}>
+              <ListingUserLocations />
+            </TabPanel>
+            <TabPanel padding={0}>
+              <RegisterUserLocation />
+            </TabPanel>
           </TabPanels>
         </Tabs>
       </Flex>

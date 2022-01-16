@@ -1,4 +1,5 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
+import { MaterialType } from "../types";
 
 const capitalizeName = (item: string) => {
   item = item.trim();
@@ -33,6 +34,31 @@ const isNullOrBlank = (item: any) => {
 const isSomeItemOfArrayNullOrBlank = (items: any[]) =>
   items.filter((item) => isNullOrBlank(item)).length > 0;
 
+const getMaterialTypeLabel = (materialType: MaterialType) =>
+  ({
+    GLASS: "Vidros",
+    HAZARDOUS_MATERIALS: "Materiais Perigosos",
+    HOSPITAL_WASTE: "Lixo Hospitalar",
+    METALS: "Metais",
+    NON_RECYCLABLE: "Não-reciclável",
+    ORGANIC_WASTE: "Lixo Orgânico",
+    PAPERS: "Papéis",
+    PLASTICS: "Plásticos",
+    RADIOACTIVE_MATERIALS: "Materiais Radioativos",
+    WOODS: "Madeiras",
+  }[materialType.toString()]);
+
+const getWeekDayLabel = (weekDay: string) =>
+  ({
+    SUNDAY: "Domingo",
+    MONDAY: "Segunda-feira",
+    TUESDAY: "Terça-feira",
+    WEDNESDAY: "Quarta-feira",
+    THURSDAY: "Quinta-feira",
+    FRIDAY: "Sexta-feira",
+    SATURDAY: "Sábado",
+  }[weekDay]);
+
 const sortByString = (a: string, b: string) => {
   a = a.toLocaleUpperCase();
   b = b.toLocaleUpperCase();
@@ -49,6 +75,8 @@ const transformEnumValueToCapitalizeString = (item: string) =>
 export {
   capitalizeName,
   capitalizeString,
+  getMaterialTypeLabel,
+  getWeekDayLabel,
   initApolloClient,
   isNullOrBlank,
   isSomeItemOfArrayNullOrBlank,

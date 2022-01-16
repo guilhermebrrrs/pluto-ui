@@ -19,6 +19,17 @@ type Address {
   userLocation: UserLocation
 }
 
+type AvailableDayAndTime {
+  day: WeekDays
+  maxTime: AvailableTime
+  minTime: AvailableTime
+}
+
+type AvailableTime {
+  hour: Int
+  minutes: Int
+}
+
 type CollectionPath {
   _id: ID
   collectionPathResponsibleOrganizationUser: OrganizationUser
@@ -147,6 +158,7 @@ type User {
 type UserLocation {
   _id: ID
   address: Address
+  availableDaysAndTimes: [AvailableDayAndTime]
   collectionRequests: [CollectionRequest]
   createdAt: String
   latitude: Float

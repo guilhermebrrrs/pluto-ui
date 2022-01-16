@@ -1,4 +1,9 @@
-import { CollectionStatus, MaterialType, OrganizationType } from "./enums";
+import {
+  CollectionStatus,
+  MaterialType,
+  OrganizationType,
+  WeekDays,
+} from "./enums";
 
 interface Address extends DateMetadata {
   _id?: string;
@@ -27,6 +32,17 @@ interface AuthenticateUserInput {
   email: string;
   password: string;
 }
+
+type AvailableDayAndTime = {
+  weekDay: WeekDays;
+  maxTime: AvailableTime;
+  minTime: AvailableTime;
+};
+
+type AvailableTime = {
+  hour: number | string;
+  minutes: number | string;
+};
 
 interface BaseUser extends DateMetadata {
   email: string;
@@ -174,6 +190,8 @@ export type {
   AuthenticateOrganizationInput,
   AuthenticateOrganizationUserInput,
   AuthenticateUserInput,
+  AvailableDayAndTime,
+  AvailableTime,
   CollectionPath,
   CollectionPoint,
   CollectionRequest,

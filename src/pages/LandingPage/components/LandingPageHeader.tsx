@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { definitions } from "utils";
-import { useLandingPageheaderProps } from "./hooks";
+import { useLandingPageheaderProps } from "../hooks";
 
 const LandingPageHeader: FunctionComponent = () => {
   const { toLogin, toRegister } = useLandingPageheaderProps();

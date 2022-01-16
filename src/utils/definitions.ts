@@ -67,6 +67,8 @@ const definitions = {
     unset: "unset",
   },
   spacing: {
+    nano: "2px",
+    micro: "4px",
     smallest: "8px",
     smaller: "12px",
     small: "16px",

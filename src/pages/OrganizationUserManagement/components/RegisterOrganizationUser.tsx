@@ -1,32 +1,26 @@
 import { FunctionComponent } from "react";
 import { MdPerson } from "react-icons/md";
-import { EmailIcon, LockIcon } from "@chakra-ui/icons";
+import { EmailIcon } from "@chakra-ui/icons";
 import {
   Button,
   Flex,
-  IconButton,
   Input,
   InputGroup,
   InputLeftElement,
-  InputRightElement,
   Text,
-  Tooltip,
 } from "@chakra-ui/react";
+import { PasswordInput } from "components";
 import { definitions } from "utils";
-import { useRegisterOrganizationUserProps } from "./hooks";
+import { useRegisterOrganizationUserProps } from "../hooks";
 
 const RegisterOrganizationUser: FunctionComponent = () => {
   const {
     email,
     handleRegistration,
     password,
-    passwordInputIcon,
-    passwordInputLabel,
     setEmail,
     setPassword,
     setUserName,
-    showPassword,
-    toggleShowPassword,
     username,
   } = useRegisterOrganizationUserProps();
 
@@ -75,30 +69,15 @@ const RegisterOrganizationUser: FunctionComponent = () => {
             width="100%"
           />
         </InputGroup>
-        <InputGroup>
-          <InputLeftElement color="gray.600" children={<LockIcon />} />
-          <Input
-            backgroundColor="gray.50"
-            borderColor="gray.300"
-            focusBorderColor="gray.700"
-            placeholder="Senha"
-            onChange={setPassword}
-            type={showPassword ? "text" : "password"}
-            value={password}
-            width="100%"
-          />
-          <InputRightElement color="gray.600">
-            <Tooltip label={passwordInputLabel}>
-              <IconButton
-                aria-label="ver senha"
-                onClick={toggleShowPassword}
-                size="sm"
-              >
-                {passwordInputIcon}
-              </IconButton>
-            </Tooltip>
-          </InputRightElement>
-        </InputGroup>
+        <PasswordInput
+          backgroundColor="gray.50"
+          borderColor="gray.300"
+          focusBorderColor="gray.700"
+          placeholder="Senha"
+          onChange={setPassword}
+          value={password}
+          width="100%"
+        />
         <Button colorScheme="green" onClick={handleRegistration} width="100%">
           <Text
             fontFamily="Lato"
