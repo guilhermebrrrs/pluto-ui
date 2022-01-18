@@ -12,6 +12,7 @@ type Address {
   complement: String
   country: String
   createdAt: String
+  district: String
   number: String
   state: String
   street: String
@@ -82,6 +83,7 @@ type Mutation {
   createOrganization(createOrganizationInput: CreateOrganizationInput): OrganizationRegistrationValidation
   createOrganizationUser(createOrganizationUserInput: CreateOrganizationUserInput): OrganizationUserRegistrationValidation
   createUser(createUserInput: CreateUserInput): Boolean
+  createUserLocation(createUserLocationInput: CreateUserLocationInput): Boolean
   deleteOrganizationUserById(id: ID): Boolean
   updateOrganizationUserPersonalData(updateOrganizationUserPersonalDataInput: UpdateOrganizationUserPersonalDataInput): Boolean
   updateUserPassword(updateUserPasswordInput: UpdateUserPasswordInput): String
@@ -139,6 +141,7 @@ type Query {
   findAllOrganizationUsers: [OrganizationUser]
   findAllOrganizationUsersByOrganizationId(id: ID!): [OrganizationUser]
   findAllOrganizations: [Organization]
+  findAllUserLocationsByUserId(id: ID!): [UserLocation]
   findAllUsers: [User]
   findUserById(id: ID!): User
 }
@@ -241,6 +244,35 @@ input CreateUserInput {
   email: String!
   name: String!
   password: String!
+}
+
+input CreateUserLocationAddressInput {
+  cep: String!
+  city: String!
+  complement: String
+  country: String!
+  district: String!
+  number: String!
+  state: String!
+  street: String!
+}
+
+input CreateUserLocationAvailableDaysAndTimesInput {
+  maxTime: CreateUserLocationAvailableTimeInput!
+  minTime: CreateUserLocationAvailableTimeInput!
+  weekDay: WeekDays!
+}
+
+input CreateUserLocationAvailableTimeInput {
+  hour: Int!
+  minutes: Int!
+}
+
+input CreateUserLocationInput {
+  address: CreateUserLocationAddressInput!
+  availableDaysAndTimes: [CreateUserLocationAvailableDaysAndTimesInput]!
+  placename: String!
+  userId: ID!
 }
 
 input OrganizationUserPersonalDataInput {

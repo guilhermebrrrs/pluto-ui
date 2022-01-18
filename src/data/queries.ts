@@ -85,9 +85,45 @@ const FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID = gql`
   }
 `;
 
+const FIND_ALL_USER_LOCATION_BY_USER_ID = gql`
+  query ($id: ID!) {
+    findAllUserLocationsByUserId(id: $id) {
+      _id
+      address {
+        _id
+        cep
+        city
+        complement
+        country
+        createdAt
+        district
+        number
+        state
+        street
+        updatedAt
+      }
+      availableDaysAndTimes {
+        day
+        maxTime {
+          hour
+          minutes
+        }
+        minTime {
+          hour
+          minutes
+        }
+      }
+      createdAt
+      placename
+      updatedAt
+    }
+  }
+`;
+
 export {
   AUTHENTICATE_ORGANIZATION,
   AUTHENTICATE_ORGANIZATION_USER,
   AUTHENTICATE_USER,
   FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID,
+  FIND_ALL_USER_LOCATION_BY_USER_ID,
 };

@@ -13,8 +13,29 @@ import { definitions } from "utils";
 import { useRegisterUserLocationProps } from "../hooks";
 
 const RegisterUserLocation: FunctionComponent = () => {
-  const { weekDaysOptions, weekDayTimesOptions } =
-    useRegisterUserLocationProps();
+  const {
+    cep,
+    city,
+    complement,
+    country,
+    handleRegister,
+    placename,
+    district,
+    street,
+    state,
+    number,
+    setCep,
+    setCity,
+    setComplement,
+    setCountry,
+    setDistrict,
+    setNumber,
+    setPlacename,
+    setState,
+    setStreet,
+    weekDaysOptions,
+    weekDayTimesOptions,
+  } = useRegisterUserLocationProps();
 
   return (
     <Flex
@@ -61,8 +82,8 @@ const RegisterUserLocation: FunctionComponent = () => {
                   focusBorderColor="gray.700"
                   margin="1px"
                   placeholder="Nome de Local"
-                  onChange={() => {}}
-                  value={undefined}
+                  onChange={setPlacename}
+                  value={placename}
                   width="100%"
                 />
               </InputGroup>
@@ -75,13 +96,13 @@ const RegisterUserLocation: FunctionComponent = () => {
                   focusBorderColor="gray.700"
                   margin="1px"
                   placeholder="Logradouro"
-                  onChange={() => {}}
-                  value={undefined}
+                  onChange={setStreet}
+                  value={street}
                   width="100%"
                 />
               </InputGroup>
             </GridItem>
-            <GridItem colSpan={5}>
+            <GridItem colSpan={4}>
               <InputGroup>
                 <Input
                   backgroundColor="gray.50"
@@ -89,8 +110,22 @@ const RegisterUserLocation: FunctionComponent = () => {
                   focusBorderColor="gray.700"
                   margin="1px"
                   placeholder="Complemento"
-                  onChange={() => {}}
-                  value={undefined}
+                  onChange={setComplement}
+                  value={complement}
+                  width="100%"
+                />
+              </InputGroup>
+            </GridItem>
+            <GridItem colSpan={1}>
+              <InputGroup>
+                <Input
+                  backgroundColor="gray.50"
+                  borderColor="gray.300"
+                  focusBorderColor="gray.700"
+                  margin="1px"
+                  placeholder="CEP"
+                  onChange={setCep}
+                  value={cep}
                   width="100%"
                 />
               </InputGroup>
@@ -103,8 +138,8 @@ const RegisterUserLocation: FunctionComponent = () => {
                   focusBorderColor="gray.700"
                   margin="1px"
                   placeholder="Bairro"
-                  onChange={() => {}}
-                  value={undefined}
+                  onChange={setDistrict}
+                  value={district}
                   width="100%"
                 />
               </InputGroup>
@@ -117,13 +152,13 @@ const RegisterUserLocation: FunctionComponent = () => {
                   focusBorderColor="gray.700"
                   margin="1px"
                   placeholder="Número"
-                  onChange={() => {}}
-                  value={undefined}
+                  onChange={setNumber}
+                  value={number}
                   width="100%"
                 />
               </InputGroup>
             </GridItem>
-            <GridItem colSpan={4}>
+            <GridItem colSpan={3}>
               <InputGroup>
                 <Input
                   backgroundColor="gray.50"
@@ -131,8 +166,8 @@ const RegisterUserLocation: FunctionComponent = () => {
                   focusBorderColor="gray.700"
                   margin="1px"
                   placeholder="Cidade"
-                  onChange={() => {}}
-                  value={undefined}
+                  onChange={setCity}
+                  value={city}
                   width="100%"
                 />
               </InputGroup>
@@ -145,8 +180,22 @@ const RegisterUserLocation: FunctionComponent = () => {
                   focusBorderColor="gray.700"
                   margin="1px"
                   placeholder="Estado"
-                  onChange={() => {}}
-                  value={undefined}
+                  onChange={setState}
+                  value={state}
+                  width="100%"
+                />
+              </InputGroup>
+            </GridItem>
+            <GridItem colSpan={1}>
+              <InputGroup>
+                <Input
+                  backgroundColor="gray.50"
+                  borderColor="gray.300"
+                  focusBorderColor="gray.700"
+                  margin="1px"
+                  placeholder="País"
+                  onChange={setCountry}
+                  value={country}
                   width="100%"
                 />
               </InputGroup>
@@ -242,6 +291,7 @@ const RegisterUserLocation: FunctionComponent = () => {
       <Flex justifyContent={definitions.justifyContent.flexEnd} width="100%">
         <Button
           colorScheme="blackAlpha"
+          onClick={handleRegister}
           _hover={{ backgroundColor: "green.500" }}
         >
           Cadastrar Local

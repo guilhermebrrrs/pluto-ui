@@ -32,6 +32,12 @@ const CREATE_USER = gql`
   }
 `;
 
+const CREATE_USER_LOCATION = gql`
+  mutation ($createUserLocationInput: CreateUserLocationInput) {
+    createUserLocation(createUserLocationInput: $createUserLocationInput)
+  }
+`;
+
 const DELETE_ORGANIZATION_USER_BY_ID = gql`
   mutation ($id: ID) {
     deleteOrganizationUserById(id: $id)
@@ -52,6 +58,7 @@ export {
   CREATE_ORGANIZATION,
   CREATE_ORGANIZATION_USER,
   CREATE_USER,
+  CREATE_USER_LOCATION,
   DELETE_ORGANIZATION_USER_BY_ID,
   UPDATE_ORGANIZATION_USER_PERSONAL_DATA,
 };

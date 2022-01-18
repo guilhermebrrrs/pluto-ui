@@ -11,6 +11,7 @@ interface Address extends DateMetadata {
   city?: string;
   complement?: string;
   country?: string;
+  district?: string;
   number?: string;
   state?: string;
   street?: string;
@@ -33,16 +34,16 @@ interface AuthenticateUserInput {
   password: string;
 }
 
-type AvailableDayAndTime = {
+interface AvailableDayAndTime {
   weekDay: WeekDays;
   maxTime: AvailableTime;
   minTime: AvailableTime;
-};
+}
 
-type AvailableTime = {
+interface AvailableTime {
   hour: number | string;
   minutes: number | string;
-};
+}
 
 interface BaseUser extends DateMetadata {
   email: string;
@@ -94,15 +95,44 @@ interface CollectionRequestMaterial extends DateMetadata {
 
 interface CreateOrganizationUserInput {
   email: string;
+  username: string;
   organizationEmail: string;
   password: string;
-  username: string;
 }
 
 interface CreateUserInput {
   email: string;
   name: string;
   password: string;
+}
+
+interface CreateUserLocationAddressInput {
+  cep: string;
+  city: string;
+  complement?: string;
+  country: string;
+  district: string;
+  number: string;
+  state: string;
+  street: string;
+}
+
+interface CreateUserLocationAvailableDaysAndTimesInput {
+  weekDay: WeekDays;
+  maxTime: CreateUserLocationAvailableTimeInput;
+  minTime: CreateUserLocationAvailableTimeInput;
+}
+
+interface CreateUserLocationAvailableTimeInput {
+  hour: number;
+  minutes: number;
+}
+
+interface CreateUserLocationInput {
+  userId: string;
+  address: CreateUserLocationAddressInput;
+  availableDaysAndTimes: [CreateUserLocationAvailableDaysAndTimesInput];
+  placename: String;
 }
 
 interface CreateOrganizationInput {
@@ -147,7 +177,7 @@ interface Organization extends BaseUser {
 interface OrganizationUser extends BaseUser {
   _id?: string;
   collectionRequests?: CollectionRequest[];
-  organization: Organization;
+  organization?: Organization;
   responsibleForCollectionPaths?: CollectionPath[];
 }
 
@@ -178,6 +208,7 @@ interface User extends BaseUser {
 interface UserLocation extends DateMetadata {
   _id?: string;
   address?: Address;
+  availableDaysAndTimes: AvailableDayAndTime[];
   collectionRequests?: CollectionRequest[];
   latitude?: number;
   longitude?: number;
@@ -199,12 +230,16 @@ export type {
   CreateOrganizationInput,
   CreateOrganizationUserInput,
   CreateUserInput,
+  CreateUserLocationAddressInput,
+  CreateUserLocationAvailableDaysAndTimesInput,
+  CreateUserLocationAvailableTimeInput,
+  CreateUserLocationInput,
   Organization,
   OrganizationRegistrationValidation,
+  OrganizationUserRegistrationValidation,
   OrganizationUser,
   OrganizationUserPersonalDataInput,
   UpdateOrganizationUserPersonalDataInput,
-  OrganizationUserRegistrationValidation,
   UpdateUserPasswordInput,
   User,
   UserLocation,

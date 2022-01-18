@@ -10,7 +10,7 @@ import { useLazyQuery } from "@apollo/client";
 import { useToast } from "@chakra-ui/react";
 import { AppAuthenticationContext } from "contexts";
 import { AUTHENTICATE_USER } from "data";
-import { AppType, User } from "types";
+import { AppType, AuthenticateUserInput, User } from "types";
 import { setIntoLocalStorage, LOGGED_USER, APP_TYPE } from "utils";
 
 const useLoginRecicloProps = () => {
@@ -26,7 +26,7 @@ const useLoginRecicloProps = () => {
   const [fetchQuery, { data: { authenticateUser: user = {} as User } = {} }] =
     useLazyQuery(AUTHENTICATE_USER, {
       variables: {
-        authenticateUserInput: { email, password },
+        authenticateUserInput: { email, password } as AuthenticateUserInput,
       },
     });
 
