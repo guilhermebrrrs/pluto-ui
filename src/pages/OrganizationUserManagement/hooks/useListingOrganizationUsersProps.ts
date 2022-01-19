@@ -1,11 +1,11 @@
 import { useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { AppAuthenticationContext } from "contexts";
 import { useLazyQuery } from "@apollo/client";
+import { AppAuthenticationContext } from "contexts";
 import { FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID } from "data";
 import { Organization, OrganizationUser } from "types";
 import { sortByString } from "utils";
 
-const useUsersProps = () => {
+const useListingOrganizationUsersProps = () => {
   const { loggedUser } = useContext(AppAuthenticationContext);
 
   const [selectedOrganizationUser, setSelectedOrganizationUser] =
@@ -53,4 +53,4 @@ const useUsersProps = () => {
   };
 };
 
-export { useUsersProps };
+export { useListingOrganizationUsersProps };

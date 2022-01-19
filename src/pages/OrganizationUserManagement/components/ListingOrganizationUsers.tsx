@@ -3,7 +3,7 @@ import { Flex, Text } from "@chakra-ui/react";
 import { OrganizationUser } from "types";
 import { definitions } from "utils";
 import { EditUser, UserCard } from "./";
-import { useUsersProps } from "../hooks";
+import { useListingOrganizationUsersProps } from "../hooks";
 
 const ListingOrganizationUsers: FunctionComponent = () => {
   const {
@@ -11,7 +11,7 @@ const ListingOrganizationUsers: FunctionComponent = () => {
     selectedOrganizationUser,
     setSelectedOrganizationUser,
     sortedOrganizationUsers,
-  } = useUsersProps();
+  } = useListingOrganizationUsersProps();
 
   return (
     <Flex

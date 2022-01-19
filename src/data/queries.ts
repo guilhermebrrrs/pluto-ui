@@ -103,7 +103,7 @@ const FIND_ALL_USER_LOCATION_BY_USER_ID = gql`
         updatedAt
       }
       availableDaysAndTimes {
-        day
+        weekDay
         maxTime {
           hour
           minutes

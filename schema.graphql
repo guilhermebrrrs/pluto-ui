@@ -21,9 +21,9 @@ type Address {
 }
 
 type AvailableDayAndTime {
-  day: WeekDays
   maxTime: AvailableTime
   minTime: AvailableTime
+  weekDay: WeekDays
 }
 
 type AvailableTime {
@@ -58,8 +58,8 @@ type CollectionRequest {
   _id: ID
   acceptedBy: OrganizationUser
   canceledOrCompletedBy: OrganizationUser
-  collectedRequestMaterials: [CollectionRequestMaterial]
   collectionPoint: CollectionPoint
+  collectionRequestMaterials: [CollectionRequestMaterial]
   collectionStatus: CollectionStatus
   createdAt: String
   createdBy: User

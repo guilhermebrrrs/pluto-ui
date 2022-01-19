@@ -354,27 +354,28 @@ const useRegisterUserLocationProps = () => {
     variables: {
       createUserLocationInput: {
         address: {
-          cep,
-          city,
-          country,
-          complement,
-          district,
-          number,
-          street,
-          state,
+          cep: cep.trim(),
+          city: city.trim(),
+          country: country.trim(),
+          complement: complement.trim(),
+          district: district.trim(),
+          number: number.trim(),
+          street: street.trim(),
+          state: state.trim(),
         },
         availableDaysAndTimes: availableDaysAndTimes.map(
-          (availableDayAndTime) => ({
-            ...availableDayAndTime,
-            maxTime: {
-              hour: Number(availableDayAndTime.maxTime.hour),
-              minutes: Number(availableDayAndTime.maxTime.minutes),
-            },
-            minTime: {
-              hour: Number(availableDayAndTime.minTime.hour),
-              minutes: Number(availableDayAndTime.minTime.minutes),
-            },
-          })
+          (availableDayAndTime) =>
+            ({
+              ...availableDayAndTime,
+              maxTime: {
+                hour: Number(availableDayAndTime.maxTime.hour),
+                minutes: Number(availableDayAndTime.maxTime.minutes),
+              },
+              minTime: {
+                hour: Number(availableDayAndTime.minTime.hour),
+                minutes: Number(availableDayAndTime.minTime.minutes),
+              },
+            } as AvailableDayAndTime)
         ),
         placename,
         userId: loggedUser?._id,
