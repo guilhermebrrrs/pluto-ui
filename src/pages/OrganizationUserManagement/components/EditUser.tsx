@@ -1,7 +1,4 @@
-import { PasswordInput } from "components";
 import { FunctionComponent } from "react";
-import { OrganizationUser } from "types";
-import { definitions } from "utils";
 import {
   Button,
   Checkbox,
@@ -12,6 +9,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { EmailIcon } from "@chakra-ui/icons";
+import { PasswordInput } from "components";
+import { OrganizationUser } from "types";
+import { definitions } from "utils";
 import { RemoveUserModal } from "./";
 import { useEditUserProps } from "../hooks";
 
@@ -28,7 +28,7 @@ const EditUser: FunctionComponent<EditUserProps> = ({
     closeRemoveUserModal,
     email,
     isActive,
-    isOpenedRemoveUserModal,
+    isRemoveUserModalOpened,
     name,
     openRemoveUserModal,
     password,
@@ -130,8 +130,7 @@ const EditUser: FunctionComponent<EditUserProps> = ({
         </Flex>
       </Flex>
       <RemoveUserModal
-        cancel={cancel}
-        isOpen={isOpenedRemoveUserModal}
+        isOpen={isRemoveUserModalOpened}
         onClose={closeRemoveUserModal}
         removeUser={removerUser}
       />

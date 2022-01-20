@@ -26,11 +26,15 @@ const ListingUserLocations: FunctionComponent = () => {
       padding={definitions.spacing.small}
       width="100%"
     >
-      <Flex flex={1} flexDirection="column" overflowY="auto" maxHeight="100%">
+      <Flex flex={1} flexDirection="column" maxHeight="100%" overflowY="auto">
         {userLocations?.length > 0 ? (
           <Flex flexDirection="column" gap={definitions.spacing.small}>
             {userLocations.map((userLocation: UserLocation) => (
-              <UserLocationCard userLocation={userLocation} />
+              <UserLocationCard
+                key={userLocation._id}
+                selectedUserLocation={userLocation}
+                setSelectedUserLocation={setSelectedUserLocation}
+              />
             ))}
           </Flex>
         ) : (

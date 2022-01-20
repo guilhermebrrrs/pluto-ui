@@ -5,6 +5,8 @@ schema {
   mutation: Mutation
 }
 
+union UserOrOrganizationUser = OrganizationUser | User
+
 type Address {
   _id: ID
   cep: String
@@ -57,7 +59,7 @@ type CollectionPoint {
 type CollectionRequest {
   _id: ID
   acceptedBy: OrganizationUser
-  canceledOrCompletedBy: OrganizationUser
+  canceledOrCompletedBy: UserOrOrganizationUser
   collectionPoint: CollectionPoint
   collectionRequestMaterials: [CollectionRequestMaterial]
   collectionStatus: CollectionStatus
@@ -73,7 +75,7 @@ type CollectionRequestMaterial {
   _id: ID
   amount: Float
   collectionRequest: CollectionRequest
-  createAt: String
+  createdAt: String
   description: String
   materialType: MaterialType
   updatedAt: String
@@ -163,6 +165,7 @@ type UserLocation {
   address: Address
   availableDaysAndTimes: [AvailableDayAndTime]
   collectionRequests: [CollectionRequest]
+  comments: String
   createdAt: String
   latitude: Float
   longitude: Float

@@ -1,17 +1,17 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { OrganizationUser } from "types";
 
-interface useEditUserCardHookProps {
+interface UseEditUserCardHookProps {
   organizationUser: OrganizationUser | null;
   setSelectedOrganizationUser: Dispatch<
     SetStateAction<OrganizationUser | null>
   >;
 }
 
-const useEditUserCardProps = ({
+const useUserCardProps = ({
   organizationUser,
   setSelectedOrganizationUser,
-}: useEditUserCardHookProps) => {
+}: UseEditUserCardHookProps) => {
   const setOrganizationUser = useCallback(
     () =>
       organizationUser && setSelectedOrganizationUser({ ...organizationUser }),
@@ -21,4 +21,4 @@ const useEditUserCardProps = ({
   return { setOrganizationUser };
 };
 
-export { useEditUserCardProps };
+export { useUserCardProps };

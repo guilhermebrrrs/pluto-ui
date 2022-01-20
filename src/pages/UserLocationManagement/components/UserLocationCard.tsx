@@ -1,16 +1,24 @@
-import { FunctionComponent } from "react";
+import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import { UserLocation } from "types";
 import { definitions } from "utils";
+import { useUserLocationCardProps } from "../hooks";
 
 interface UserLocationCardProps {
-  userLocation: UserLocation;
+  setSelectedUserLocation: Dispatch<SetStateAction<UserLocation | null>>;
+  selectedUserLocation: UserLocation;
 }
 
 const UserLocationCard: FunctionComponent<UserLocationCardProps> = ({
-  userLocation,
+  setSelectedUserLocation,
+  selectedUserLocation,
 }) => {
+  const { setUserLocation } = useUserLocationCardProps({
+    selectedUserLocation,
+    setSelectedUserLocation,
+  });
+
   return (
     <Flex
       borderColor="gray.500"
@@ -25,19 +33,19 @@ const UserLocationCard: FunctionComponent<UserLocationCardProps> = ({
           fontFamily={definitions.fontFamily.default}
           fontWeight={definitions.fontWeight.bold}
         >
-          Nome do Local: {userLocation.placename}
+          Nome do Local: {selectedUserLocation.placename}
         </Text>
         <Text
           fontFamily={definitions.fontFamily.default}
           fontWeight={definitions.fontWeight.bold}
         >
-          {`Endereço: ${userLocation.address?.street}, ${userLocation.address?.number} - ${userLocation.address?.district}`}
+          {`Endereço: ${selectedUserLocation.address?.street}, ${selectedUserLocation.address?.number} - ${selectedUserLocation.address?.district}`}
         </Text>
         <Text
           fontFamily={definitions.fontFamily.default}
           fontWeight={definitions.fontWeight.bold}
         >
-          {`${userLocation.address?.city} - ${userLocation.address?.state}`}
+          {`${selectedUserLocation.address?.city} - ${selectedUserLocation.address?.state}`}
         </Text>
       </Flex>
       <Flex gap={definitions.spacing.smallest}>
@@ -45,7 +53,7 @@ const UserLocationCard: FunctionComponent<UserLocationCardProps> = ({
           <IconButton
             aria-label="editar local"
             colorScheme="blackAlpha"
-            onClick={() => {}}
+            onClick={setUserLocation}
             size="sm"
             _hover={{ backgroundColor: "green.500" }}
           >

@@ -3,7 +3,7 @@ import { MdModeEdit } from "react-icons/md";
 import { Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import { OrganizationUser } from "types";
 import { capitalizeName, definitions } from "utils";
-import { useEditUserCardProps } from "../hooks";
+import { useUserCardProps } from "../hooks";
 
 interface EditUserCardProps {
   organizationUser: OrganizationUser;
@@ -16,7 +16,7 @@ const UserCard: FunctionComponent<EditUserCardProps> = ({
   organizationUser,
   setSelectedOrganizationUser,
 }) => {
-  const { setOrganizationUser } = useEditUserCardProps({
+  const { setOrganizationUser } = useUserCardProps({
     organizationUser,
     setSelectedOrganizationUser,
   });

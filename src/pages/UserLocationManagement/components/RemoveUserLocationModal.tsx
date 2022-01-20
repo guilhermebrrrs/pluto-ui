@@ -14,21 +14,20 @@ import {
 import { MdWarningAmber } from "react-icons/md";
 import { definitions } from "utils";
 
-interface RemoveUserModalProps {
+interface RemoveUserLocationModalProps {
+  cancel: () => void;
   isOpen: boolean;
   onClose: () => void;
-  removeUser: () => void;
+  removeUserLocation: () => void;
 }
 
-const RemoveUserModal: FunctionComponent<RemoveUserModalProps> = ({
-  isOpen,
-  onClose,
-  removeUser,
-}) => (
+const RemoveUserLocationModal: FunctionComponent<
+  RemoveUserLocationModalProps
+> = ({ cancel, isOpen, onClose, removeUserLocation }) => (
   <Modal isCentered isOpen={isOpen} onClose={onClose}>
     <ModalOverlay />
     <ModalContent>
-      <ModalHeader>Remover Usuário</ModalHeader>
+      <ModalHeader>Remover Local</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
         <Flex
@@ -44,7 +43,7 @@ const RemoveUserModal: FunctionComponent<RemoveUserModalProps> = ({
             fontWeight={definitions.fontWeight.bold}
             textAlign="center"
           >
-            Ao confirmar esta ação o usuário será removido permanentemente.
+            Ao confirmar esta ação o local será removido permanentemente.
           </Text>
           <Text
             fontFamily={definitions.fontFamily.default}
@@ -52,7 +51,7 @@ const RemoveUserModal: FunctionComponent<RemoveUserModalProps> = ({
             fontWeight={definitions.fontWeight.bold}
             textAlign="center"
           >
-            Deseja remover este usuário?
+            Deseja remover este local?
           </Text>
         </Flex>
       </ModalBody>
@@ -67,10 +66,10 @@ const RemoveUserModal: FunctionComponent<RemoveUserModalProps> = ({
           </Button>
           <Button
             colorScheme="blackAlpha"
-            onClick={removeUser}
+            onClick={() => {}}
             _hover={{ backgroundColor: "gray.500" }}
           >
-            Remover Usuário
+            Remover Local
           </Button>
         </Flex>
       </ModalFooter>
@@ -78,4 +77,4 @@ const RemoveUserModal: FunctionComponent<RemoveUserModalProps> = ({
   </Modal>
 );
 
-export default RemoveUserModal;
+export default RemoveUserLocationModal;

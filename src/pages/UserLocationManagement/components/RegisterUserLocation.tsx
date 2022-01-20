@@ -16,16 +16,16 @@ const RegisterUserLocation: FunctionComponent = () => {
   const {
     cep,
     city,
+    comments,
     complement,
     country,
     handleRegister,
     placename,
     district,
-    street,
-    state,
     number,
     setCep,
     setCity,
+    setComments,
     setComplement,
     setCountry,
     setDistrict,
@@ -33,6 +33,8 @@ const RegisterUserLocation: FunctionComponent = () => {
     setPlacename,
     setState,
     setStreet,
+    state,
+    street,
     weekDaysOptions,
     weekDayTimesOptions,
   } = useRegisterUserLocationProps();
@@ -281,7 +283,9 @@ const RegisterUserLocation: FunctionComponent = () => {
             <Textarea
               backgroundColor="gray.100"
               height="100%"
+              onChange={setComments}
               resize="none"
+              value={comments}
               width="100%"
             />
           </Flex>

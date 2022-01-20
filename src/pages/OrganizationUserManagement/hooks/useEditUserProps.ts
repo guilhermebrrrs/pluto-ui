@@ -23,7 +23,7 @@ const useEditUserProps = ({
 }: useEditUserHookProps) => {
   const toast = useToast();
 
-  const [isOpenedRemoveUserModal, setIsOpenedRemoveUserModal] =
+  const [isRemoveUserModalOpened, setIsRemoveUserModalOpened] =
     useState<boolean>(false);
 
   const [email, setEmailState] = useState<string>(
@@ -164,18 +164,18 @@ const useEditUserProps = ({
   );
 
   const openRemoveUserModal = useCallback(() => {
-    setIsOpenedRemoveUserModal(true);
+    setIsRemoveUserModalOpened(true);
   }, []);
 
   const closeRemoveUserModal = useCallback(() => {
-    setIsOpenedRemoveUserModal(false);
+    setIsRemoveUserModalOpened(false);
   }, []);
 
   return {
     closeRemoveUserModal,
     email,
     isActive,
-    isOpenedRemoveUserModal,
+    isRemoveUserModalOpened,
     name,
     openRemoveUserModal,
     password,

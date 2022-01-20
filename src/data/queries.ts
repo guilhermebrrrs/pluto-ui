@@ -113,6 +113,7 @@ const FIND_ALL_USER_LOCATION_BY_USER_ID = gql`
           minutes
         }
       }
+      comments
       createdAt
       placename
       updatedAt
