@@ -204,7 +204,7 @@ interface UpdateUserLocationAddressInput {
 }
 
 interface UpdateUserLocationInput {
-  userId: string;
+  _id: string;
   address: UpdateUserLocationAddressInput;
   availableDaysAndTimes: [AvailableDayAndTime];
   comments: string;

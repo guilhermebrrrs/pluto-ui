@@ -1,39 +1,53 @@
-import { useCallback, useState } from "react";
-import { UserLocation } from "types";
+import { useCallback, useEffect, useState } from "react";
+import { useMutation } from "@apollo/client";
+import {
+  DELETE_USER_LOCATION_BY_ID,
+  FIND_ALL_USER_LOCATION_BY_USER_ID,
+  UPDATE_USER_LOCATION,
+} from "data";
+import { UpdateUserLocationInput, UserLocation } from "types";
 import { useUserLocationLocalState } from "./useUserLocationLocalState";
+import { useToast } from "@chakra-ui/react";
 
 interface UseEditUserLocationHookProps {
+  cancel: () => void;
   userLocation: UserLocation;
 }
 
 const useEditUserLocationProps = ({
+  cancel,
   userLocation,
 }: UseEditUserLocationHookProps) => {
+  const toast = useToast();
+
   const {
+    address,
     availableDaysAndTimes,
     cep,
     city,
+    comments,
     complement,
     country,
-    comments,
     district,
     placename,
     number,
-    state,
     setCep,
     setCity,
-    setComplement,
     setComments,
+    setComplement,
+    setDistrict,
+    setCountry,
     setPlacename,
+    setNumber,
     setState,
     setStreet,
-    setDistrict,
-    setNumber,
+    state,
     street,
-    setCountry,
     weekDaysOptions,
     weekDayTimesOptions,
-  } = useUserLocationLocalState(userLocation.availableDaysAndTimes);
+  } = useUserLocationLocalState(userLocation);
+
+  console.log(userLocation);
 
   const [
     isRemoverUserLocationModalOpened,
@@ -50,31 +64,126 @@ const useEditUserLocationProps = ({
     []
   );
 
+  const [
+    fetchMutation,
+    {
+      data: { updateUserLocation: wasUserLocationUpdated = null } = {},
+      error: errorOnSave,
+    },
+  ] = useMutation(UPDATE_USER_LOCATION, {
+    variables: {
+      updateUserLocationInput: {
+        _id: userLocation._id,
+        address,
+        comments,
+        availableDaysAndTimes: availableDaysAndTimes.map((item) => ({
+          ...item,
+          maxTime: {
+            hour: Number(item.maxTime.hour),
+            minutes: Number(item.maxTime.minutes),
+          },
+          minTime: {
+            hour: Number(item.minTime.hour),
+            minutes: Number(item.minTime.minutes),
+          },
+        })),
+        placename,
+      } as UpdateUserLocationInput,
+    },
+    refetchQueries: [FIND_ALL_USER_LOCATION_BY_USER_ID],
+  });
+
+  const [
+    fetchDelete,
+    {
+      data: { deleteUserLocationById: wasUserLocationDeleted = null } = {},
+      error: errorOnDelete,
+    },
+  ] = useMutation(DELETE_USER_LOCATION_BY_ID, {
+    variables: { id: userLocation._id },
+    refetchQueries: [FIND_ALL_USER_LOCATION_BY_USER_ID],
+  });
+
+  const handleUpdate = useCallback(() => fetchMutation(), [fetchMutation]);
+
+  const handleDelete = useCallback(() => fetchDelete(), [fetchDelete]);
+
+  useEffect(() => {
+    if (wasUserLocationUpdated) {
+      cancel();
+      toast({
+        title: "Dados salvos!",
+        description: "Dados salvos com sucesso!.",
+        status: "success",
+        duration: 7500,
+        isClosable: true,
+      });
+    }
+  }, [cancel, toast, wasUserLocationUpdated]);
+
+  useEffect(() => {
+    if (wasUserLocationDeleted) {
+      cancel();
+      toast({
+        title: "Local removido!",
+        description: "Local removido com sucesso!.",
+        status: "success",
+        duration: 7500,
+        isClosable: true,
+      });
+    }
+  }, [cancel, toast, wasUserLocationDeleted]);
+
+  useEffect(() => {
+    if (errorOnDelete) {
+      toast({
+        title: "Erro!",
+        description: "Não foi possível remover este local!",
+        status: "error",
+        duration: 7500,
+        isClosable: true,
+      });
+    }
+  }, [errorOnDelete, toast]);
+
+  useEffect(() => {
+    if (errorOnSave) {
+      toast({
+        title: "erro!",
+        description: "Não foi possível salvar as modificações!",
+        status: "error",
+        duration: 7500,
+        isClosable: true,
+      });
+    }
+  }, [errorOnSave, toast]);
+
   return {
-    availableDaysAndTimes,
     cep,
     city,
     closeRemoverUserLocationModal,
+    comments,
     complement,
     country,
-    comments,
     district,
+    handleDelete,
+    handleUpdate,
     isRemoverUserLocationModalOpened,
     number,
     openRemoverUserLocationModal,
     placename,
-    state,
     setCep,
     setCity,
     setComplement,
     setComments,
+    setCountry,
+    setDistrict,
     setPlacename,
     setState,
     setStreet,
-    setDistrict,
     setNumber,
+    state,
     street,
-    setCountry,
     weekDaysOptions,
     weekDayTimesOptions,
   };

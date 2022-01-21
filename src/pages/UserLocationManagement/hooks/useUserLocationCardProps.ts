@@ -10,10 +10,10 @@ const useUserLocationCardProps = ({
   selectedUserLocation,
   setSelectedUserLocation,
 }: useEditUserLocationHookProps) => {
-  const setUserLocation = useCallback(
-    () => setSelectedUserLocation(selectedUserLocation),
-    [selectedUserLocation, setSelectedUserLocation]
-  );
+  const setUserLocation = useCallback(() => {
+    selectedUserLocation &&
+      setSelectedUserLocation({ ...selectedUserLocation });
+  }, [selectedUserLocation, setSelectedUserLocation]);
 
   return { setUserLocation };
 };

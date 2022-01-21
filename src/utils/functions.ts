@@ -16,7 +16,9 @@ const capitalizeString = (item: string) =>
 const initApolloClient = () => {
   return new ApolloClient({
     link: createHttpLink({ uri: `${process.env.REACT_APP_GRAPHQL_URL}` }),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      addTypename: false,
+    }),
     connectToDevTools: process.env.REACT_APP_ENV === "development",
   });
 };

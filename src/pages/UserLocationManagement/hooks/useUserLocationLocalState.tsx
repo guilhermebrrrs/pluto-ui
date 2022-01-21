@@ -1,85 +1,174 @@
-import { AvailableDayAndTime, AvailableTime, WeekDays } from "types";
+import {
+  Address,
+  AvailableDayAndTime,
+  AvailableTime,
+  UserLocation,
+  WeekDays,
+} from "types";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { Checkbox, Flex, Input, InputGroup, Text } from "@chakra-ui/react";
-import { definitions, getWeekDayLabel } from "utils";
+import { capitalizeName, definitions, getWeekDayLabel } from "utils";
 
-const useUserLocationLocalState = (
-  availableDaysAndTimeObj?: AvailableDayAndTime[]
-) => {
-  const [cep, setCepState] = useState<string>("");
-  const [city, setCityState] = useState<string>("");
-  const [comments, setCommentsState] = useState<string>("");
-  const [complement, setComplementState] = useState<string>("");
-  const [country, setCountryState] = useState<string>("");
-  const [district, setDistrictState] = useState<string>("");
-  const [number, setNumberState] = useState<string>("");
-  const [placename, setPlacenameState] = useState<string>("");
-  const [state, setStateState] = useState<string>("");
-  const [street, setStreetState] = useState<string>("");
+const useUserLocationLocalState = (userLocation?: UserLocation) => {
+  const [cep, setCepState] = useState<string>(userLocation?.address?.cep || "");
+  const [city, setCityState] = useState<string>(
+    userLocation?.address?.city || ""
+  );
+  const [comments, setCommentsState] = useState<string>(
+    userLocation?.comments || ""
+  );
+  const [complement, setComplementState] = useState<string>(
+    userLocation?.address?.complement || ""
+  );
+  const [country, setCountryState] = useState<string>(
+    userLocation?.address?.country || ""
+  );
+  const [district, setDistrictState] = useState<string>(
+    userLocation?.address?.district || ""
+  );
+  const [number, setNumberState] = useState<string>(
+    userLocation?.address?.number || ""
+  );
+  const [placename, setPlacenameState] = useState<string>(
+    userLocation?.placename || ""
+  );
+  const [state, setStateState] = useState<string>(
+    userLocation?.address?.state || ""
+  );
+  const [street, setStreetState] = useState<string>(
+    userLocation?.address?.street || ""
+  );
+
+  const address = useMemo(
+    () =>
+      ({
+        _id: userLocation?.address?._id,
+        cep: cep.trim(),
+        state: capitalizeName(state),
+        city: capitalizeName(city),
+        country: capitalizeName(country),
+        number: number.trim(),
+        street: capitalizeName(street),
+        district: capitalizeName(district),
+        complement: complement.trim(),
+      } as Address),
+    [
+      cep,
+      city,
+      complement,
+      country,
+      district,
+      number,
+      state,
+      street,
+      userLocation,
+    ]
+  );
 
   const setCep = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setCepState(value),
     []
   );
-
   const setCity = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setCityState(value),
     []
   );
-
   const setComments = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLTextAreaElement>) =>
       setCommentsState(value),
     []
   );
-
   const setComplement = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setComplementState(value),
     []
   );
-
   const setCountry = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setCountryState(value),
     []
   );
-
   const setDistrict = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setDistrictState(value),
     []
   );
-
   const setNumber = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setNumberState(value),
     []
   );
-
   const setPlacename = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setPlacenameState(value),
     []
   );
-
   const setState = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setStateState(value),
     []
   );
-
   const setStreet = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setStreetState(value),
     []
   );
 
+  const transformHourNumber = useCallback(
+    (number: string | number) =>
+      Number(number) <= 9
+        ? `0${Number(number)}`
+        : Number(number) > 23
+        ? 23
+        : Number(number),
+    []
+  );
+
+  const transformMinutesNumber = useCallback(
+    (number: string | number) =>
+      Number(number) <= 9
+        ? `0${Number(number)}`
+        : Number(number) > 59
+        ? 59
+        : Number(number),
+    []
+  );
+
   const [availableDaysAndTimes, setAvailableDaysAndTimesState] = useState<
     AvailableDayAndTime[]
-  >(availableDaysAndTimeObj ? [...availableDaysAndTimeObj] : []);
+  >(
+    userLocation?.availableDaysAndTimes
+      ? [
+          ...userLocation?.availableDaysAndTimes.map((item) => ({
+            ...item,
+            maxTime: {
+              hour: transformHourNumber(item.maxTime.hour),
+              minutes: transformMinutesNumber(item.maxTime.minutes),
+            } as AvailableTime,
+            minTime: {
+              hour: transformHourNumber(item.minTime.hour),
+              minutes: transformMinutesNumber(item.minTime.minutes),
+            } as AvailableTime,
+          })),
+        ]
+      : []
+  );
+
+  const resetAllStates = useCallback(() => {
+    setAvailableDaysAndTimesState([]);
+    setCepState("");
+    setCityState("");
+    setCommentsState("");
+    setComplementState("");
+    setCountryState("");
+    setDistrictState("");
+    setNumberState("");
+    setPlacenameState("");
+    setStateState("");
+    setStreetState("");
+  }, []);
 
   const setAvailableDays = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
@@ -112,26 +201,6 @@ const useUserLocationLocalState = (
         (availableDayAndTime) => availableDayAndTime.weekDay === weekDay
       ),
     [availableDaysAndTimes]
-  );
-
-  const transformHourNumber = useCallback(
-    (number: string | number) =>
-      Number(number) <= 9
-        ? `0${Number(number)}`
-        : Number(number) > 23
-        ? 23
-        : Number(number),
-    []
-  );
-
-  const transformMinutesNumber = useCallback(
-    (number: string | number) =>
-      Number(number) <= 9
-        ? `0${Number(number)}`
-        : Number(number) > 59
-        ? 59
-        : Number(number),
-    []
   );
 
   const setAvailableMaxTimeHour = useCallback(
@@ -217,6 +286,7 @@ const useUserLocationLocalState = (
           <Checkbox
             borderColor="gray.500"
             colorScheme="green"
+            isChecked={!!getPropertyFromAvailableDaysAndTimesArray(weekDay)}
             key={weekDay}
             onChange={setAvailableDays}
             value={weekDay}
@@ -225,7 +295,7 @@ const useUserLocationLocalState = (
           </Checkbox>
         </Flex>
       )),
-    [setAvailableDays]
+    [getPropertyFromAvailableDaysAndTimesArray, setAvailableDays]
   );
 
   const weekDayTimesOptions = useMemo(
@@ -330,6 +400,7 @@ const useUserLocationLocalState = (
   );
 
   return {
+    address,
     availableDaysAndTimes,
     cep,
     city,
@@ -339,6 +410,7 @@ const useUserLocationLocalState = (
     district,
     number,
     placename,
+    resetAllStates,
     street,
     state,
     setCep,

@@ -44,6 +44,12 @@ const DELETE_ORGANIZATION_USER_BY_ID = gql`
   }
 `;
 
+const DELETE_USER_LOCATION_BY_ID = gql`
+  mutation ($id: ID!) {
+    deleteUserLocationById(id: $id)
+  }
+`;
+
 const UPDATE_ORGANIZATION_USER_PERSONAL_DATA = gql`
   mutation (
     $updateOrganizationUserPersonalDataInput: UpdateOrganizationUserPersonalDataInput
@@ -54,11 +60,19 @@ const UPDATE_ORGANIZATION_USER_PERSONAL_DATA = gql`
   }
 `;
 
+const UPDATE_USER_LOCATION = gql`
+  mutation ($updateUserLocationInput: UpdateUserLocationInput) {
+    updateUserLocation(updateUserLocationInput: $updateUserLocationInput)
+  }
+`;
+
 export {
   CREATE_ORGANIZATION,
   CREATE_ORGANIZATION_USER,
   CREATE_USER,
   CREATE_USER_LOCATION,
   DELETE_ORGANIZATION_USER_BY_ID,
+  DELETE_USER_LOCATION_BY_ID,
   UPDATE_ORGANIZATION_USER_PERSONAL_DATA,
+  UPDATE_USER_LOCATION,
 };

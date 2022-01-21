@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 import { definitions } from "utils";
 import { UserLocation } from "types";
 import { EditUserLocation, UserLocationCard } from "./";
@@ -8,9 +8,10 @@ import { useListingUserLocationsProps } from "../hooks";
 const ListingUserLocations: FunctionComponent = () => {
   const {
     cancelEdit,
+    loading,
     selectedUserLocation,
     setSelectedUserLocation,
-    userLocations,
+    sortedUserLocations,
   } = useListingUserLocationsProps();
 
   return (
@@ -27,9 +28,18 @@ const ListingUserLocations: FunctionComponent = () => {
       width="100%"
     >
       <Flex flex={1} flexDirection="column" maxHeight="100%" overflowY="auto">
-        {userLocations?.length > 0 ? (
+        {loading ? (
+          <Flex
+            alignItems={definitions.alignItems.center}
+            height="30%"
+            justifyContent={definitions.justifyContent.center}
+            width="100%"
+          >
+            <Spinner size="lg" colorScheme="green" />
+          </Flex>
+        ) : sortedUserLocations?.length > 0 ? (
           <Flex flexDirection="column" gap={definitions.spacing.small}>
-            {userLocations.map((userLocation: UserLocation) => (
+            {sortedUserLocations.map((userLocation: UserLocation) => (
               <UserLocationCard
                 key={userLocation._id}
                 selectedUserLocation={userLocation}
@@ -39,7 +49,7 @@ const ListingUserLocations: FunctionComponent = () => {
           </Flex>
         ) : (
           <Text fontFamily={definitions.fontFamily.default}>
-            Nenhum local cadastrado para este usuário.
+            Nenhum local cadastrado.
           </Text>
         )}
       </Flex>

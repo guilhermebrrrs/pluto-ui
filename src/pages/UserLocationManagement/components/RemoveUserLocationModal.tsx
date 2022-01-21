@@ -15,7 +15,6 @@ import { MdWarningAmber } from "react-icons/md";
 import { definitions } from "utils";
 
 interface RemoveUserLocationModalProps {
-  cancel: () => void;
   isOpen: boolean;
   onClose: () => void;
   removeUserLocation: () => void;
@@ -23,7 +22,7 @@ interface RemoveUserLocationModalProps {
 
 const RemoveUserLocationModal: FunctionComponent<
   RemoveUserLocationModalProps
-> = ({ cancel, isOpen, onClose, removeUserLocation }) => (
+> = ({ isOpen, onClose, removeUserLocation }) => (
   <Modal isCentered isOpen={isOpen} onClose={onClose}>
     <ModalOverlay />
     <ModalContent>
@@ -66,7 +65,7 @@ const RemoveUserLocationModal: FunctionComponent<
           </Button>
           <Button
             colorScheme="blackAlpha"
-            onClick={() => {}}
+            onClick={removeUserLocation}
             _hover={{ backgroundColor: "gray.500" }}
           >
             Remover Local

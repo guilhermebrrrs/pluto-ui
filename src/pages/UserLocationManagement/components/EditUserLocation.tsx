@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, memo } from "react";
 import {
   Button,
   Flex,
@@ -24,12 +24,34 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
   selectedUserLocation,
 }) => {
   const {
+    cep,
+    city,
     closeRemoverUserLocationModal,
+    comments,
+    complement,
+    country,
+    district,
+    handleDelete,
+    handleUpdate,
     isRemoverUserLocationModalOpened,
+    number,
     openRemoverUserLocationModal,
+    placename,
+    setCep,
+    setCity,
+    setComplement,
+    setComments,
+    setCountry,
+    setDistrict,
+    setPlacename,
+    setState,
+    setStreet,
+    setNumber,
+    state,
+    street,
     weekDaysOptions,
     weekDayTimesOptions,
-  } = useEditUserLocationProps({ userLocation: selectedUserLocation });
+  } = useEditUserLocationProps({ cancel, userLocation: selectedUserLocation });
 
   return (
     <>
@@ -37,7 +59,6 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
         <Flex
           flexDirection="column"
           gap={definitions.spacing.small}
-          paddingRight={definitions.spacing.small}
           overflowY="auto"
           width="100%"
         >
@@ -67,8 +88,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
                     focusBorderColor="gray.700"
                     margin="1px"
                     placeholder="Nome de Local"
-                    onChange={() => {}}
-                    value={undefined}
+                    onChange={setPlacename}
+                    value={placename}
                     width="100%"
                   />
                 </InputGroup>
@@ -81,8 +102,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
                     focusBorderColor="gray.700"
                     margin="1px"
                     placeholder="Logradouro"
-                    onChange={() => {}}
-                    value={undefined}
+                    onChange={setStreet}
+                    value={street}
                     width="100%"
                   />
                 </InputGroup>
@@ -95,8 +116,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
                     focusBorderColor="gray.700"
                     margin="1px"
                     placeholder="Complemento"
-                    onChange={() => {}}
-                    value={undefined}
+                    onChange={setComplement}
+                    value={complement}
                     width="100%"
                   />
                 </InputGroup>
@@ -109,8 +130,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
                     focusBorderColor="gray.700"
                     margin="1px"
                     placeholder="CEP"
-                    onChange={() => {}}
-                    value={undefined}
+                    onChange={setCep}
+                    value={cep}
                     width="100%"
                   />
                 </InputGroup>
@@ -123,8 +144,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
                     focusBorderColor="gray.700"
                     margin="1px"
                     placeholder="Bairro"
-                    onChange={() => {}}
-                    value={undefined}
+                    onChange={setDistrict}
+                    value={district}
                     width="100%"
                   />
                 </InputGroup>
@@ -137,8 +158,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
                     focusBorderColor="gray.700"
                     margin="1px"
                     placeholder="Número"
-                    onChange={() => {}}
-                    value={undefined}
+                    onChange={setNumber}
+                    value={number}
                     width="100%"
                   />
                 </InputGroup>
@@ -151,8 +172,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
                     focusBorderColor="gray.700"
                     margin="1px"
                     placeholder="Cidade"
-                    onChange={() => {}}
-                    value={undefined}
+                    onChange={setCity}
+                    value={city}
                     width="100%"
                   />
                 </InputGroup>
@@ -165,8 +186,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
                     focusBorderColor="gray.700"
                     margin="1px"
                     placeholder="Estado"
-                    onChange={() => {}}
-                    value={undefined}
+                    onChange={setState}
+                    value={state}
                     width="100%"
                   />
                 </InputGroup>
@@ -179,8 +200,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
                     focusBorderColor="gray.700"
                     margin="1px"
                     placeholder="País"
-                    onChange={() => {}}
-                    value={undefined}
+                    onChange={setCountry}
+                    value={country}
                     width="100%"
                   />
                 </InputGroup>
@@ -270,6 +291,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
                 backgroundColor="gray.100"
                 height="350px"
                 resize="none"
+                onChange={setComments}
+                value={comments}
                 width="100%"
               />
             </Flex>
@@ -284,7 +307,7 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
             onClick={openRemoverUserLocationModal}
             _hover={{ backgroundColor: "red.500" }}
           >
-            Remover Usuário
+            Remover Local
           </Button>
           <Flex gap={definitions.spacing.small}>
             <Button
@@ -296,7 +319,7 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
             </Button>
             <Button
               colorScheme="blackAlpha"
-              onClick={() => {}}
+              onClick={handleUpdate}
               _hover={{ backgroundColor: "green.500" }}
             >
               Salvar Mudanças
@@ -305,13 +328,12 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
         </Flex>
       </Flex>
       <RemoveUserLocationModal
-        cancel={cancel}
         isOpen={isRemoverUserLocationModalOpened}
         onClose={closeRemoverUserLocationModal}
-        removeUserLocation={() => {}}
+        removeUserLocation={handleDelete}
       />
     </>
   );
 };
 
-export default EditUserLocation;
+export default memo(EditUserLocation);

@@ -52,7 +52,7 @@ const useLoginColetasProps = () => {
     { data: { authenticateOrganization = {} as Organization } = {} },
   ] = useLazyQuery(AUTHENTICATE_ORGANIZATION, {
     variables: {
-      autheticateOrganizationInput: {
+      authenticateOrganizationInput: {
         organizationEmail,
         password,
       } as AuthenticateOrganizationInput,

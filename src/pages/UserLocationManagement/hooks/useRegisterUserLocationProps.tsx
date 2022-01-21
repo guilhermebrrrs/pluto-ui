@@ -22,6 +22,7 @@ const useRegisterUserLocationProps = () => {
     country,
     district,
     number,
+    resetAllStates,
     setCep,
     setCity,
     setComplement,
@@ -52,7 +53,6 @@ const useRegisterUserLocationProps = () => {
           country: country.trim(),
           complement: complement.trim(),
           district: district.trim(),
-          comments: comments.trim(),
           number: number.trim(),
           street: street.trim(),
           state: state.trim(),
@@ -71,6 +71,7 @@ const useRegisterUserLocationProps = () => {
               },
             } as AvailableDayAndTime)
         ),
+        comments: comments.trim(),
         placename,
         userId: loggedUser?._id,
       },
@@ -132,10 +133,12 @@ const useRegisterUserLocationProps = () => {
         duration: 7500,
         isClosable: true,
       });
-  }, [error, toast, wasUserLocationCreated]);
+  }, [error, toast]);
 
   useEffect(() => {
-    if (wasUserLocationCreated)
+    console.log("wasUserLocationCreated", wasUserLocationCreated);
+
+    if (wasUserLocationCreated) {
       toast({
         title: "Cadastro concluído!",
         description: "O local será listado na lista de locais.",
@@ -143,7 +146,9 @@ const useRegisterUserLocationProps = () => {
         duration: 7500,
         isClosable: true,
       });
-  }, [toast, wasUserLocationCreated]);
+      resetAllStates();
+    }
+  }, [resetAllStates, toast, wasUserLocationCreated]);
 
   return {
     cep,
