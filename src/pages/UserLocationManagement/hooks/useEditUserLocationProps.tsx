@@ -31,6 +31,7 @@ const useEditUserLocationProps = ({
     district,
     placename,
     number,
+    resetAllStates,
     setCep,
     setCity,
     setComments,
@@ -46,8 +47,6 @@ const useEditUserLocationProps = ({
     weekDaysOptions,
     weekDayTimesOptions,
   } = useUserLocationLocalState(userLocation);
-
-  console.log(userLocation);
 
   const [
     isRemoverUserLocationModalOpened,
@@ -157,6 +156,8 @@ const useEditUserLocationProps = ({
       });
     }
   }, [errorOnSave, toast]);
+
+  useEffect(() => resetAllStates(userLocation), [resetAllStates, userLocation]);
 
   return {
     cep,

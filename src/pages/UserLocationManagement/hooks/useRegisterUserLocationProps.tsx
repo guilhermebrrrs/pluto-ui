@@ -2,10 +2,7 @@ import { useCallback, useContext, useEffect, useMemo } from "react";
 import { useMutation } from "@apollo/client";
 import { useToast } from "@chakra-ui/react";
 import { AppAuthenticationContext } from "contexts";
-import {
-  CREATE_USER_LOCATION,
-  FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID,
-} from "data";
+import { CREATE_USER_LOCATION, FIND_ALL_USER_LOCATION_BY_USER_ID } from "data";
 import { AvailableDayAndTime } from "types";
 import { isSomeItemOfArrayNullOrBlank } from "utils";
 import { useUserLocationLocalState } from "./useUserLocationLocalState";
@@ -76,7 +73,7 @@ const useRegisterUserLocationProps = () => {
         userId: loggedUser?._id,
       },
     },
-    refetchQueries: [FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID],
+    refetchQueries: [FIND_ALL_USER_LOCATION_BY_USER_ID],
   });
 
   const isFieldsInvalid = useMemo(
@@ -136,8 +133,6 @@ const useRegisterUserLocationProps = () => {
   }, [error, toast]);
 
   useEffect(() => {
-    console.log("wasUserLocationCreated", wasUserLocationCreated);
-
     if (wasUserLocationCreated) {
       toast({
         title: "Cadastro concluído!",

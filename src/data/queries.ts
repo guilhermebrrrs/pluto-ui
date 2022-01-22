@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
 
 const AUTHENTICATE_ORGANIZATION = gql`
-  query ($autheticateOrganizationInput: AuthenticateOrganizationInput) {
+  query ($authenticateOrganizationInput: AuthenticateOrganizationInput) {
     authenticateOrganization(
-      authenticateOrganizationInput: $autheticateOrganizationInput
+      authenticateOrganizationInput: $authenticateOrganizationInput
     ) {
       _id
       cpfCnpj

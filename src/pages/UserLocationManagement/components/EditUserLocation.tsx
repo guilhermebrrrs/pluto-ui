@@ -53,6 +53,8 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
     weekDayTimesOptions,
   } = useEditUserLocationProps({ cancel, userLocation: selectedUserLocation });
 
+  // TODO: verify problems when change fields for user location editing
+  // TODO: try implementation and usage of react hook form
   return (
     <>
       <Flex flexDirection="column" gap={definitions.spacing.small} width="100%">

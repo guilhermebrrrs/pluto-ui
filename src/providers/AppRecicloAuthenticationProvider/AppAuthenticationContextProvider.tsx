@@ -1,14 +1,14 @@
 import { FunctionComponent, useState } from "react";
 import { AppAuthenticationContext } from "contexts";
 import { AppType, OrganizationUser, User } from "types";
-import { APP_TYPE, getFromLocalStorage, LOGGED_USER } from "utils";
+import { DATA_APP_TYPE, DATA_LOGGED_USER, getFromLocalStorage } from "utils";
 
 const AppAuthenticationContextProvider: FunctionComponent = ({ children }) => {
   const [app, setApp] = useState<AppType | null>(
-    () => getFromLocalStorage(APP_TYPE) ?? null
+    () => getFromLocalStorage(DATA_APP_TYPE) ?? null
   );
   const [loggedUser, setLoggedUser] = useState<User | OrganizationUser | null>(
-    () => getFromLocalStorage(LOGGED_USER) ?? null
+    () => getFromLocalStorage(DATA_LOGGED_USER) ?? null
   );
 
   return (

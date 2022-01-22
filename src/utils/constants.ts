@@ -1,4 +1,4 @@
-const APP_TYPE = "appType";
-const LOGGED_USER = "user";
+const DATA_APP_TYPE = "appType";
+const DATA_LOGGED_USER = "user";
 
-export { APP_TYPE, LOGGED_USER };
+export { DATA_APP_TYPE, DATA_LOGGED_USER };

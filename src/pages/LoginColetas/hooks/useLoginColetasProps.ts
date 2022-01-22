@@ -20,7 +20,7 @@ import {
   Organization,
   OrganizationUser,
 } from "types";
-import { APP_TYPE, LOGGED_USER, setIntoLocalStorage } from "utils";
+import { DATA_APP_TYPE, DATA_LOGGED_USER, setIntoLocalStorage } from "utils";
 
 const useLoginColetasProps = () => {
   const toast = useToast();
@@ -96,9 +96,9 @@ const useLoginColetasProps = () => {
 
     if (isValid) {
       setApp && setApp(AppType.APP_COLETAS);
-      setIntoLocalStorage(APP_TYPE, AppType.APP_COLETAS);
+      setIntoLocalStorage(DATA_APP_TYPE, AppType.APP_COLETAS);
       setIntoLocalStorage(
-        LOGGED_USER,
+        DATA_LOGGED_USER,
         authenticateOrganization ?? authenticateOrganizationUser
       );
       setLoggedUser &&

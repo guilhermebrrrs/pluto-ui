@@ -11,7 +11,7 @@ import { useToast } from "@chakra-ui/react";
 import { AppAuthenticationContext } from "contexts";
 import { AUTHENTICATE_USER } from "data";
 import { AppType, AuthenticateUserInput, User } from "types";
-import { setIntoLocalStorage, LOGGED_USER, APP_TYPE } from "utils";
+import { DATA_LOGGED_USER, DATA_APP_TYPE, setIntoLocalStorage } from "utils";
 
 const useLoginRecicloProps = () => {
   const toast = useToast();
@@ -59,8 +59,8 @@ const useLoginRecicloProps = () => {
     if (isValid) {
       setLoggedUser && setLoggedUser(user as User);
       setApp && setApp(AppType.APP_RECICLO);
-      setIntoLocalStorage(APP_TYPE, AppType.APP_RECICLO);
-      setIntoLocalStorage(LOGGED_USER, user);
+      setIntoLocalStorage(DATA_APP_TYPE, AppType.APP_RECICLO);
+      setIntoLocalStorage(DATA_LOGGED_USER, user);
       navigate("/app/reciclo/dashboard");
       setLoading(false);
       setTriggerRedirect(false);

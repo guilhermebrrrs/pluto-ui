@@ -117,7 +117,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
   );
 
   const transformHourNumber = useCallback(
-    (number: string | number) =>
+    (number: string | number | null | undefined = 0) =>
       Number(number) <= 9
         ? `0${Number(number)}`
         : Number(number) > 23
@@ -127,7 +127,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
   );
 
   const transformMinutesNumber = useCallback(
-    (number: string | number) =>
+    (number: string | number | null | undefined = 0) =>
       Number(number) <= 9
         ? `0${Number(number)}`
         : Number(number) > 59
@@ -138,36 +138,27 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
 
   const [availableDaysAndTimes, setAvailableDaysAndTimesState] = useState<
     AvailableDayAndTime[]
-  >(
-    userLocation?.availableDaysAndTimes
-      ? [
-          ...userLocation?.availableDaysAndTimes.map((item) => ({
-            ...item,
-            maxTime: {
-              hour: transformHourNumber(item.maxTime.hour),
-              minutes: transformMinutesNumber(item.maxTime.minutes),
-            } as AvailableTime,
-            minTime: {
-              hour: transformHourNumber(item.minTime.hour),
-              minutes: transformMinutesNumber(item.minTime.minutes),
-            } as AvailableTime,
-          })),
-        ]
+  >(() =>
+    !!userLocation?.availableDaysAndTimes
+      ? userLocation?.availableDaysAndTimes.slice(0)
       : []
   );
 
-  const resetAllStates = useCallback(() => {
+  const resetAllStates = useCallback((userLocation?: UserLocation | null) => {
     setAvailableDaysAndTimesState([]);
-    setCepState("");
-    setCityState("");
-    setCommentsState("");
-    setComplementState("");
-    setCountryState("");
-    setDistrictState("");
-    setNumberState("");
-    setPlacenameState("");
-    setStateState("");
-    setStreetState("");
+    setCepState(userLocation?.address?.cep || "");
+    setCityState(userLocation?.address?.city || "");
+    setCommentsState(userLocation?.comments || "");
+    setComplementState(userLocation?.address?.complement || "");
+    setCountryState(userLocation?.address?.country || "");
+    setDistrictState(userLocation?.address?.district || "");
+    setNumberState(userLocation?.address?.number || "");
+    setPlacenameState(userLocation?.placename || "");
+    setStateState(userLocation?.address?.state || "");
+    setStreetState(userLocation?.address?.street || "");
+    setAvailableDaysAndTimesState(
+      userLocation?.availableDaysAndTimes.slice(0) || []
+    );
   }, []);
 
   const setAvailableDays = useCallback(
@@ -181,8 +172,8 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
               ...availableDaysAndTimes,
               {
                 weekDay: value as WeekDays,
-                maxTime: { hour: "18", minutes: "00" } as AvailableTime,
-                minTime: { hour: "08", minutes: "00" } as AvailableTime,
+                maxTime: { hour: 18, minutes: 0 } as AvailableTime,
+                minTime: { hour: 8, minutes: 0 } as AvailableTime,
               },
             ]
           : [...availableDaysAndTimes].filter(
@@ -206,69 +197,69 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
   const setAvailableMaxTimeHour = useCallback(
     (weekDay: WeekDays) =>
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        const arr = [...availableDaysAndTimes];
-
-        arr.map(
-          (item) =>
-            item.weekDay === (weekDay as WeekDays) &&
-            (item.maxTime.hour =
-              value !== "" ? transformHourNumber(Number(value)) : "")
+        let arr = [
+          ...availableDaysAndTimes,
+        ] as unknown as AvailableDayAndTime[];
+        let availableDayAndTimeObj = arr.find(
+          (item) => item.weekDay === weekDay
         );
+        arr.filter((item) => item.weekDay !== availableDayAndTimeObj?.weekDay);
+        availableDayAndTimeObj &&
+          (availableDayAndTimeObj.maxTime.hour =
+            value !== "" ? Number(value) : "");
+        availableDayAndTimeObj && arr.push(availableDayAndTimeObj);
 
         setAvailableDaysAndTimesState(arr);
       },
-    [availableDaysAndTimes, transformHourNumber]
+    [availableDaysAndTimes]
   );
 
   const setAvailableMaxTimeMinutes = useCallback(
     (weekDay: WeekDays) =>
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        const arr = [...availableDaysAndTimes];
+        const arr = availableDaysAndTimes.slice(0);
 
         arr.map(
           (item) =>
             item.weekDay === (weekDay as WeekDays) &&
-            (item.maxTime.minutes =
-              value !== "" ? transformMinutesNumber(Number(value)) : "")
+            (item.maxTime.minutes = value !== "" ? Number(value) : "")
         );
 
         setAvailableDaysAndTimesState(arr);
       },
-    [availableDaysAndTimes, transformMinutesNumber]
+    [availableDaysAndTimes]
   );
 
   const setAvailableMinTimeHour = useCallback(
     (weekDay: WeekDays) =>
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        const arr = [...availableDaysAndTimes];
+        const arr = availableDaysAndTimes.slice(0);
 
         arr.map(
           (item) =>
             item.weekDay === (weekDay as WeekDays) &&
-            (item.minTime.hour =
-              value !== "" ? transformHourNumber(Number(value)) : "")
+            (item.minTime.hour = value !== "" ? Number(value) : "")
         );
 
         setAvailableDaysAndTimesState(arr);
       },
-    [availableDaysAndTimes, transformHourNumber]
+    [availableDaysAndTimes]
   );
 
   const setAvailableMinTimeMinutes = useCallback(
     (weekDay: WeekDays) =>
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        const arr = [...availableDaysAndTimes];
+        const arr = availableDaysAndTimes.slice(0);
 
         arr.map(
           (item) =>
             item.weekDay === (weekDay as WeekDays) &&
-            (item.minTime.minutes =
-              value !== "" ? transformMinutesNumber(Number(value)) : "")
+            (item.minTime.minutes = value !== "" ? Number(value) : "")
         );
 
         setAvailableDaysAndTimesState(arr);
       },
-    [availableDaysAndTimes, transformMinutesNumber]
+    [availableDaysAndTimes]
   );
 
   const isDisabled = useCallback(
@@ -321,8 +312,10 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
               value={
                 isDisabled(weekDay)
                   ? ""
-                  : getPropertyFromAvailableDaysAndTimesArray(weekDay)?.minTime
-                      ?.hour
+                  : transformHourNumber(
+                      getPropertyFromAvailableDaysAndTimesArray(weekDay)
+                        ?.minTime?.hour
+                    )
               }
               width="45px"
             />
@@ -341,8 +334,10 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
               value={
                 isDisabled(weekDay)
                   ? ""
-                  : getPropertyFromAvailableDaysAndTimesArray(weekDay)?.minTime
-                      ?.minutes
+                  : transformMinutesNumber(
+                      getPropertyFromAvailableDaysAndTimesArray(weekDay)
+                        ?.minTime?.minutes
+                    )
               }
               width="45px"
             />
@@ -361,8 +356,10 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
               value={
                 isDisabled(weekDay)
                   ? ""
-                  : getPropertyFromAvailableDaysAndTimesArray(weekDay)?.maxTime
-                      ?.hour
+                  : transformHourNumber(
+                      getPropertyFromAvailableDaysAndTimesArray(weekDay)
+                        ?.maxTime?.hour
+                    )
               }
               width="45px"
             />
@@ -381,8 +378,10 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
               value={
                 isDisabled(weekDay)
                   ? ""
-                  : getPropertyFromAvailableDaysAndTimesArray(weekDay)?.maxTime
-                      ?.minutes
+                  : transformMinutesNumber(
+                      getPropertyFromAvailableDaysAndTimesArray(weekDay)
+                        ?.maxTime?.minutes
+                    )
               }
               width="45px"
             />
@@ -396,6 +395,8 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
       setAvailableMaxTimeMinutes,
       setAvailableMinTimeHour,
       setAvailableMinTimeMinutes,
+      transformHourNumber,
+      transformMinutesNumber,
     ]
   );
 
@@ -413,6 +414,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
     resetAllStates,
     street,
     state,
+    setAvailableDays,
     setCep,
     setCity,
     setComments,

@@ -1,4 +1,4 @@
-export { APP_TYPE, LOGGED_USER } from "./constants";
+export { DATA_APP_TYPE, DATA_LOGGED_USER } from "./constants";
 export { definitions } from "./definitions";
 
 export {
@@ -17,5 +17,6 @@ export {
   clearLocalStorage,
   getFromLocalStorage,
   removeFromLocalStorage,
+  removeMultipleFromLocalStorage,
   setIntoLocalStorage,
 } from "./localStorageUtils";
