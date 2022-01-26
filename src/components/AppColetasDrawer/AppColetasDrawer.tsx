@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { useAppColetasDrawerProps } from "./hooks";
 import {
   Button,
   Drawer,
@@ -8,9 +8,9 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
+import { FunctionComponent } from "react";
 import { OrganizationUser } from "types";
 import { definitions } from "utils";
-import { useAppColetasDrawerProps } from "./hooks";
 
 interface AppRecicloDrawerProps {
   closeDrawer: () => void;
@@ -88,7 +88,7 @@ const AppColetasDrawer: FunctionComponent<AppRecicloDrawerProps> = ({
               <Text>Tela Inicial</Text>
             </Button>
             <Button colorScheme="green" disabled width="100%">
-              <Text>Solicitações</Text>
+              <Text>Solicitações de Coletas</Text>
             </Button>
             <Button colorScheme="green" disabled width="100%">
               <Text>Rotas</Text>

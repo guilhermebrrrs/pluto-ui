@@ -7,6 +7,7 @@ export { LoginColetas } from "./LoginColetas";
 export { LoginReciclo } from "./LoginReciclo";
 export { OrganizationUserManagement } from "./OrganizationUserManagement";
 export { PageNotFound } from "./PageNotFound";
+export { RecicloCollectionRequestManagement } from "./RecicloCollectionRequestManagement";
 export { Register } from "./Register";
 export { RegisterColetasOrganization } from "./RegisterColetasOrganization";
 export { RegisterReciclo } from "./RegisterReciclo";

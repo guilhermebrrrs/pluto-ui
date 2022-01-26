@@ -23,7 +23,8 @@ const AppRecicloDrawer: FunctionComponent<AppRecicloDrawerProps> = ({
   isOpen,
   loggedUser,
 }) => {
-  const { toDashboard, toLocations } = useAppRecicloDrawerProps(closeDrawer);
+  const { toCollectionRequests, toDashboard, toLocations } =
+    useAppRecicloDrawerProps(closeDrawer);
 
   return (
     <Drawer placement="left" isOpen={isOpen} onClose={closeDrawer}>
@@ -87,8 +88,12 @@ const AppRecicloDrawer: FunctionComponent<AppRecicloDrawerProps> = ({
             <Button colorScheme="green" onClick={toDashboard} width="100%">
               <Text>Tela Inicial</Text>
             </Button>
-            <Button colorScheme="green" disabled width="100%">
-              <Text>Solicitações</Text>
+            <Button
+              colorScheme="green"
+              onClick={toCollectionRequests}
+              width="100%"
+            >
+              <Text>Solicitações de Coletas</Text>
             </Button>
             <Button colorScheme="green" onClick={toLocations} width="100%">
               <Text>Locais</Text>

@@ -1,3 +1,5 @@
+import { Checkbox, Flex, Input, InputGroup, Text } from "@chakra-ui/react";
+import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import {
   Address,
   AvailableDayAndTime,
@@ -5,8 +7,6 @@ import {
   UserLocation,
   WeekDays,
 } from "types";
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
-import { Checkbox, Flex, Input, InputGroup, Text } from "@chakra-ui/react";
 import { capitalizeName, definitions, getWeekDayLabel } from "utils";
 
 const useUserLocationLocalState = (userLocation?: UserLocation) => {
@@ -140,7 +140,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
     AvailableDayAndTime[]
   >(() =>
     !!userLocation?.availableDaysAndTimes
-      ? userLocation?.availableDaysAndTimes.slice(0)
+      ? [...userLocation?.availableDaysAndTimes]
       : []
   );
 
@@ -194,20 +194,21 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
     [availableDaysAndTimes]
   );
 
+  /* TODO: functions setAvailableMaxTimeHour, setAvailableMaxTimeMinutes, setAvailableMinTimeHour
+   *       and setAvailableMinTimeMinutes aren't working well
+   *       In EditUserLocation component a weekday must be unselected and then selected again
+   *       to these functions work correctly
+   */
   const setAvailableMaxTimeHour = useCallback(
     (weekDay: WeekDays) =>
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        let arr = [
-          ...availableDaysAndTimes,
-        ] as unknown as AvailableDayAndTime[];
-        let availableDayAndTimeObj = arr.find(
-          (item) => item.weekDay === weekDay
+        const arr = [...availableDaysAndTimes];
+
+        arr.map(
+          (item) =>
+            item.weekDay === (weekDay as WeekDays) &&
+            (item.maxTime.hour = value !== "" ? Number(value) : "")
         );
-        arr.filter((item) => item.weekDay !== availableDayAndTimeObj?.weekDay);
-        availableDayAndTimeObj &&
-          (availableDayAndTimeObj.maxTime.hour =
-            value !== "" ? Number(value) : "");
-        availableDayAndTimeObj && arr.push(availableDayAndTimeObj);
 
         setAvailableDaysAndTimesState(arr);
       },
@@ -217,7 +218,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
   const setAvailableMaxTimeMinutes = useCallback(
     (weekDay: WeekDays) =>
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        const arr = availableDaysAndTimes.slice(0);
+        const arr = [...availableDaysAndTimes];
 
         arr.map(
           (item) =>
@@ -233,7 +234,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
   const setAvailableMinTimeHour = useCallback(
     (weekDay: WeekDays) =>
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        const arr = availableDaysAndTimes.slice(0);
+        const arr = [...availableDaysAndTimes];
 
         arr.map(
           (item) =>
@@ -249,7 +250,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
   const setAvailableMinTimeMinutes = useCallback(
     (weekDay: WeekDays) =>
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-        const arr = availableDaysAndTimes.slice(0);
+        const arr = [...availableDaysAndTimes];
 
         arr.map(
           (item) =>

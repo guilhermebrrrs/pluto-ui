@@ -4,6 +4,11 @@ import { useNavigate } from "react-router";
 const useAppRecicloDrawerProps = (closeDrawer: () => void) => {
   const navigate = useNavigate();
 
+  const toCollectionRequests = useCallback(() => {
+    navigate("/app/reciclo/collectionrequests");
+    closeDrawer();
+  }, [closeDrawer, navigate]);
+
   const toDashboard = useCallback(() => {
     navigate("/app/reciclo/dashboard");
     closeDrawer();
@@ -14,7 +19,7 @@ const useAppRecicloDrawerProps = (closeDrawer: () => void) => {
     closeDrawer();
   }, [closeDrawer, navigate]);
 
-  return { toDashboard, toLocations };
+  return { toCollectionRequests, toDashboard, toLocations };
 };
 
 export { useAppRecicloDrawerProps };

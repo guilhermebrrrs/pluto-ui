@@ -1,11 +1,4 @@
-import { FunctionComponent } from "react";
-import { Link as RTDLink } from "react-router-dom";
-import {
-  MdContentPaste,
-  MdOutlineEmail,
-  MdOutlineGroups,
-  MdSentimentVerySatisfied,
-} from "react-icons/md";
+import { useRegisterColetasOrganizationProps } from "./hooks";
 import { LockIcon } from "@chakra-ui/icons";
 import {
   Button,
@@ -21,8 +14,15 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import { Waves } from "components";
+import { FunctionComponent } from "react";
+import {
+  MdContentPaste,
+  MdOutlineEmail,
+  MdOutlineGroups,
+  MdSentimentVerySatisfied,
+} from "react-icons/md";
+import { Link as RTDLink } from "react-router-dom";
 import { definitions } from "utils";
-import { useRegisterColetasOrganizationProps } from "./hooks";
 
 const RegisterColetasOrganization: FunctionComponent = () => {
   const {
@@ -114,6 +114,7 @@ const RegisterColetasOrganization: FunctionComponent = () => {
                     onChange={setOrganizationName}
                     value={organizationName}
                     width="400px"
+                    _focus={{ backgroundColor: "gray.50" }}
                   />
                 </InputGroup>
                 <InputGroup>
@@ -128,6 +129,7 @@ const RegisterColetasOrganization: FunctionComponent = () => {
                     onChange={setCpfCnpj}
                     value={cpfCnpj}
                     width="400px"
+                    _focus={{ backgroundColor: "gray.50" }}
                   />
                 </InputGroup>
                 <Select
@@ -137,6 +139,7 @@ const RegisterColetasOrganization: FunctionComponent = () => {
                   placeholder="Selecione um tipo de organização ..."
                   value={organizationType as string}
                   variant="outline"
+                  _focus={{ backgroundColor: "gray.50" }}
                 >
                   {organizationTypeOptions}
                 </Select>
@@ -152,6 +155,7 @@ const RegisterColetasOrganization: FunctionComponent = () => {
                     onChange={setEmail}
                     value={email}
                     width="400px"
+                    _focus={{ backgroundColor: "gray.50" }}
                   />
                 </InputGroup>
                 <InputGroup>
@@ -164,6 +168,7 @@ const RegisterColetasOrganization: FunctionComponent = () => {
                     type={showPassword ? "text" : "password"}
                     value={password}
                     width="400px"
+                    _focus={{ backgroundColor: "gray.50" }}
                   />
                   <InputRightElement color="gray.600">
                     <Tooltip label={passwordInputLabel}>

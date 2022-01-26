@@ -1,6 +1,3 @@
-import { FunctionComponent } from "react";
-import { Route, Routes } from "react-router";
-import { BrowserRouter } from "react-router-dom";
 import { AppMainLayout } from "components";
 import {
   DashboardColetas,
@@ -15,7 +12,11 @@ import {
   RegisterColetasOrganization,
   RegisterReciclo,
   UserLocationManagement,
+  RecicloCollectionRequestManagement,
 } from "pages";
+import { FunctionComponent } from "react";
+import { Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 
 const AppRouter: FunctionComponent = () => (
   <BrowserRouter>
@@ -27,6 +28,10 @@ const AppRouter: FunctionComponent = () => (
           <Route
             path="/app/coletas/usuarios"
             element={<OrganizationUserManagement />}
+          />
+          <Route
+            path="/app/reciclo/collectionrequests"
+            element={<RecicloCollectionRequestManagement />}
           />
           <Route path="/app/reciclo/dashboard" element={<DashboardReciclo />} />
           <Route
