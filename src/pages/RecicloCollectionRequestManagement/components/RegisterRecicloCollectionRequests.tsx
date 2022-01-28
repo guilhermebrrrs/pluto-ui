@@ -69,6 +69,7 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
             <Flex
               flexDirection="column"
               gap={definitions.spacing.micro}
+              height="100%"
               width="100%"
             >
               <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
@@ -81,6 +82,8 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
                 borderWidth="1px"
                 flexDirection="column"
                 gap={definitions.spacing.small}
+                height="calc(100vh - 436px)"
+                overflowY="auto"
                 padding={definitions.spacing.small}
                 width="100%"
               >
@@ -126,7 +129,7 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
               </Flex>
             </Flex>
           </Flex>
-          <Flex backgroundColor="gray.500" height="100%" width="2px" />
+          <Flex backgroundColor="gray.500" height="stretch" width="2px" />
           <Flex
             flex={1}
             flexDirection="column"
@@ -140,7 +143,7 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
               backgroundColor="gray.50"
               placeholder="Se julgar necessário escreva aqui detalhes importantes para notificar os coletores que realizarão a coleta."
               resize="none"
-              height="100%"
+              height="calc(100vh - 358px)"
               width="100%"
             />
           </Flex>

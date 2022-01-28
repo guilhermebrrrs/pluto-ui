@@ -4,7 +4,10 @@ export { definitions } from "./definitions";
 export {
   capitalizeName,
   capitalizeString,
+  getMaterialTypeBorderColor,
+  getMaterialTypeColor,
   getMaterialTypeLabel,
+  getMaterialTypeTextColor,
   getWeekDayLabel,
   initApolloClient,
   isNullOrBlank,

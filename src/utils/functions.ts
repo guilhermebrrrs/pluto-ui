@@ -13,6 +13,54 @@ const capitalizeName = (item: string) => {
 const capitalizeString = (item: string) =>
   item.charAt(0).toLocaleUpperCase() + item.substring(1).toLocaleLowerCase();
 
+const getMaterialTypeBorderColor = (materialType: MaterialType) =>
+  ({
+    GLASS: "green.600",
+    HAZARDOUS_MATERIALS: "orange.400",
+    HOSPITAL_WASTE: "gray.900",
+    METALS: "yellow.500",
+    NON_RECYCLABLE: "grey.500",
+    ORGANIC_WASTE: "yellow.900",
+    OTHERS: "grey.900",
+    PAPERS: "blue.500",
+    PLASTICS: "red.500",
+    RADIOACTIVE_MATERIALS: "purple.600",
+    SEVERALS: "grey.500",
+    WOODS: "gray.800",
+  }[materialType.toString()]);
+
+const getMaterialTypeColor = (materialType: MaterialType) =>
+  ({
+    GLASS: "green.600",
+    HAZARDOUS_MATERIALS: "orange.400",
+    HOSPITAL_WASTE: "gray.50",
+    METALS: "yellow.500",
+    NON_RECYCLABLE: "grey.500",
+    ORGANIC_WASTE: "yellow.900",
+    OTHERS: "grey.500",
+    PAPERS: "blue.500",
+    PLASTICS: "red.500",
+    RADIOACTIVE_MATERIALS: "purple.600",
+    SEVERALS: "grey.900",
+    WOODS: "gray.800",
+  }[materialType.toString()]);
+
+const getMaterialTypeTextColor = (materialType: MaterialType) =>
+  ({
+    GLASS: "gray.50",
+    HAZARDOUS_MATERIALS: "gray.50",
+    HOSPITAL_WASTE: "gray.900",
+    METALS: "gray.50",
+    NON_RECYCLABLE: "gray.50",
+    ORGANIC_WASTE: "gray.50",
+    OTHERS: "gray.900",
+    PAPERS: "gray.50",
+    PLASTICS: "gray.50",
+    RADIOACTIVE_MATERIALS: "gray.50",
+    SEVERALS: "gray.900",
+    WOODS: "gray.50",
+  }[materialType.toString()]);
+
 const getMaterialTypeLabel = (materialType: MaterialType) =>
   ({
     GLASS: "Vidros",
@@ -79,7 +127,10 @@ const transformEnumValueToCapitalizeString = (item: string) =>
 export {
   capitalizeName,
   capitalizeString,
+  getMaterialTypeBorderColor,
+  getMaterialTypeColor,
   getMaterialTypeLabel,
+  getMaterialTypeTextColor,
   getWeekDayLabel,
   initApolloClient,
   isNullOrBlank,

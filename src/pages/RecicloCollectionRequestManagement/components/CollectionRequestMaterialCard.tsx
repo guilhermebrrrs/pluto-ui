@@ -3,7 +3,13 @@ import { Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { CollectionRequestMaterial } from "types";
-import { definitions, getMaterialTypeLabel } from "utils";
+import {
+  definitions,
+  getMaterialTypeBorderColor,
+  getMaterialTypeColor,
+  getMaterialTypeLabel,
+  getMaterialTypeTextColor,
+} from "utils";
 
 interface CollectionRequestMaterialCardProps {
   collectionRequestMaterial: CollectionRequestMaterial;
@@ -38,14 +44,48 @@ const CollectionRequestMaterialCard: FunctionComponent<
       _hover={{ backgroundColor: "gray.50" }}
     >
       <Flex flex={1} flexDirection="column" gap={definitions.spacing.smaller}>
+        <Flex
+          alignItems={definitions.alignItems.center}
+          gap={definitions.spacing.micro}
+        >
+          <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
+            Tipo:
+          </Text>
+          <Flex
+            alignItems={definitions.alignItems.center}
+            backgroundColor={getMaterialTypeColor(
+              collectionRequestMaterial.materialType!
+            )}
+            borderColor={getMaterialTypeBorderColor(
+              collectionRequestMaterial.materialType!
+            )}
+            borderRadius="200px"
+            borderWidth="2px"
+            justifyContent={definitions.justifyContent.center}
+            padding={`${definitions.spacing.micro} ${definitions.spacing.smaller}`}
+          >
+            <Text
+              color={getMaterialTypeTextColor(
+                collectionRequestMaterial.materialType!
+              )}
+              fontFamily="Lato"
+              fontWeight={definitions.fontWeight.bold}
+            >
+              {getMaterialTypeLabel(collectionRequestMaterial.materialType!)}
+            </Text>
+          </Flex>
+        </Flex>
         <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
-          Tipo: {getMaterialTypeLabel(collectionRequestMaterial.materialType!)}
-        </Text>
-        <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
-          Peso:{" "}
-          {`${collectionRequestMaterial.amount} ${
-            collectionRequestMaterial.amount === 1 ? "Kg" : "Kgs"
-          }`}
+          {collectionRequestMaterial.amount ? (
+            <>
+              Peso:{" "}
+              {`${collectionRequestMaterial.amount} ${
+                collectionRequestMaterial.amount === 1 ? "Kg" : "Kgs"
+              }`}
+            </>
+          ) : (
+            "Sem peso inserido"
+          )}
         </Text>
       </Flex>
       <Tooltip label="Editar">

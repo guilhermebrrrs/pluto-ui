@@ -93,6 +93,19 @@ interface CollectionRequestMaterial extends DateMetadata {
   materialType?: MaterialType;
 }
 
+interface CreateCollectionRequestInput {
+  collectionRequestMaterial: CreateCollectionRequestMaterialInput[];
+  details?: string;
+  locationId: string;
+  userId: string;
+}
+
+interface CreateCollectionRequestMaterialInput {
+  amount?: number;
+  description?: string;
+  materialType: MaterialType;
+}
+
 interface CreateOrganizationInput {
   email: string;
   cpfCnpj?: string;
@@ -246,6 +259,8 @@ export type {
   CollectionPoint,
   CollectionRequest,
   CollectionRequestMaterial,
+  CreateCollectionRequestInput,
+  CreateCollectionRequestMaterialInput,
   CreateOrganizationInput,
   CreateOrganizationUserInput,
   CreateUserInput,
