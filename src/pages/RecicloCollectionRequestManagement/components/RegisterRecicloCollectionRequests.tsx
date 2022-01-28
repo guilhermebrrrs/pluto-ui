@@ -3,7 +3,7 @@ import {
   CollectionRequestMaterialModal,
 } from "./index";
 import { useRegisterRecicloCollectionRequestsProps } from "../hooks";
-import { Button, Flex, Select, Text } from "@chakra-ui/react";
+import { Button, Flex, Select, Text, Textarea } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
 import { MdAdd } from "react-icons/md";
 import { definitions } from "utils";
@@ -11,8 +11,11 @@ import { definitions } from "utils";
 const RegisterRecicloCollectionRequests: FunctionComponent = () => {
   const {
     addCollectionRequestMaterial,
+    availableMaterialTypes,
+    cleanSelectedCollectionRequestMaterialState,
     closeCollectionRequestMaterialModal,
     collectionRequestMaterials,
+    editCollectionRequestMaterial,
     isCollectionRequestMaterialModalOpen,
     removeCollectionRequestMaterial,
     openCollectionRequestMaterialModal,
@@ -29,101 +32,139 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
         borderRadius="5px"
         borderWidth="2px"
         borderTopRadius={0}
+        flexDirection="column"
         gap={definitions.spacing.small}
         height="calc(100vh - 220px)"
         maxHeight="calc(100vh - 220px)"
         padding={definitions.spacing.small}
         width="100%"
       >
-        <Flex
-          flex={1}
-          flexDirection="column"
-          gap={definitions.spacing.smallest}
-          maxHeight="100%"
-          overflowY="auto"
-        >
+        <Flex flex={1} gap={definitions.spacing.small} width="100%">
           <Flex
+            flex={1}
             flexDirection="column"
-            gap={definitions.spacing.micro}
-            width="100%"
+            gap={definitions.spacing.smallest}
+            maxHeight="100%"
+            overflowY="auto"
           >
-            <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
-              Local
-            </Text>
-            <Select
-              backgroundColor="gray.50"
-              borderColor="gray.300"
-              focusBorderColor="gray.700"
-              padding="1px"
-              placeholder="Selecione um local"
-              width="100%"
-            >
-              {userLocationsOptions}
-            </Select>
-          </Flex>
-          <Flex
-            flexDirection="column"
-            gap={definitions.spacing.micro}
-            width="100%"
-          >
-            <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
-              Seleção de Materiais
-            </Text>
             <Flex
-              backgroundColor="gray.50"
-              borderColor="gray.300"
-              borderRadius="8px"
-              borderWidth="1px"
               flexDirection="column"
-              gap={definitions.spacing.smaller}
-              padding={`${definitions.spacing.smallest} ${definitions.spacing.small}`}
+              gap={definitions.spacing.micro}
               width="100%"
             >
-              <Button
-                colorScheme="green"
-                gap={definitions.spacing.micro}
-                onClick={openCollectionRequestMaterialModal}
-                width="fit-content"
+              <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
+                Local
+              </Text>
+              <Select
+                backgroundColor="gray.50"
+                borderColor="gray.300"
+                focusBorderColor="gray.700"
+                padding="1px"
+                placeholder="Selecione um local"
+                width="100%"
               >
-                <MdAdd size="24px" />
-                <Text>Adicionar Material</Text>
-              </Button>
-              {collectionRequestMaterials!.length > 0 ? (
-                <>
-                  {collectionRequestMaterials!.map(
-                    (collectionRequestMaterial) => (
-                      <CollectionRequestMaterialCard
-                        collectionRequestMaterial={collectionRequestMaterial}
-                        openCollectionRequestMaterialModal={
-                          openCollectionRequestMaterialModal
-                        }
-                        setSelectedCollectionRequestMaterial={
-                          setSelectedCollectionRequestMaterial
-                        }
-                      />
-                    )
-                  )}
-                </>
-              ) : (
-                <Flex
-                  justifyContent={definitions.justifyContent.center}
-                  width="100%"
+                {userLocationsOptions}
+              </Select>
+            </Flex>
+            <Flex
+              flexDirection="column"
+              gap={definitions.spacing.micro}
+              width="100%"
+            >
+              <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
+                Seleção de Materiais
+              </Text>
+              <Flex
+                backgroundColor="gray.50"
+                borderColor="gray.300"
+                borderRadius="8px"
+                borderWidth="1px"
+                flexDirection="column"
+                gap={definitions.spacing.small}
+                padding={definitions.spacing.small}
+                width="100%"
+              >
+                <Button
+                  colorScheme="green"
+                  gap={definitions.spacing.micro}
+                  onClick={openCollectionRequestMaterialModal}
+                  width="fit-content"
                 >
-                  <Text>Nenhum Material Inserido.</Text>
-                </Flex>
-              )}
+                  <MdAdd size="24px" />
+                  <Text>Adicionar Material</Text>
+                </Button>
+                {collectionRequestMaterials!.length > 0 ? (
+                  <>
+                    {collectionRequestMaterials!.map(
+                      (collectionRequestMaterial) => (
+                        <CollectionRequestMaterialCard
+                          collectionRequestMaterial={collectionRequestMaterial}
+                          key={collectionRequestMaterial.materialType}
+                          openCollectionRequestMaterialModal={
+                            openCollectionRequestMaterialModal
+                          }
+                          setSelectedCollectionRequestMaterial={
+                            setSelectedCollectionRequestMaterial
+                          }
+                        />
+                      )
+                    )}
+                  </>
+                ) : (
+                  <Flex
+                    justifyContent={definitions.justifyContent.center}
+                    width="100%"
+                  >
+                    <Text
+                      fontFamily="Lato"
+                      fontWeight={definitions.fontWeight.bold}
+                    >
+                      Nenhum Material Inserido.
+                    </Text>
+                  </Flex>
+                )}
+              </Flex>
             </Flex>
           </Flex>
+          <Flex backgroundColor="gray.500" height="100%" width="2px" />
+          <Flex
+            flex={1}
+            flexDirection="column"
+            gap={definitions.spacing.micro}
+            height="100%"
+          >
+            <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
+              Detalhes
+            </Text>
+            <Textarea
+              backgroundColor="gray.50"
+              placeholder="Se julgar necessário escreva aqui detalhes importantes para notificar os coletores que realizarão a coleta."
+              resize="none"
+              height="100%"
+              width="100%"
+            />
+          </Flex>
         </Flex>
-        <Flex backgroundColor="gray.500" height="100%" width="2px" />
-        <Flex flex={1} height="100%">
-          <Text>Teste</Text>
+        <Flex backgroundColor="gray.500" height="2px" width="100%" />
+        <Flex justifyContent={definitions.justifyContent.flexEnd} width="100%">
+          <Button colorScheme="green">
+            <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
+              Cadastrar Solicitação de Coleta
+            </Text>
+          </Button>
         </Flex>
       </Flex>
       <CollectionRequestMaterialModal
+        addCollectionRequestMaterial={addCollectionRequestMaterial}
+        availableMaterialTypes={availableMaterialTypes}
+        cleanSelectedCollectionRequestMaterialState={
+          cleanSelectedCollectionRequestMaterialState
+        }
         collectionRequestMaterial={selectedCollectionRequestMaterial}
+        editCollectionRequestMaterial={editCollectionRequestMaterial}
         isOpen={isCollectionRequestMaterialModalOpen}
-        onClose={closeCollectionRequestMaterialModal}
+        close={closeCollectionRequestMaterialModal}
+        removeCollectionRequestMaterial={removeCollectionRequestMaterial}
       />
     </>
   );

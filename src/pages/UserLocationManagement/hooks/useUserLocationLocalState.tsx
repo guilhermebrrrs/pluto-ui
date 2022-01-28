@@ -204,7 +204,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         const arr = [...availableDaysAndTimes];
 
-        arr.map(
+        arr.forEach(
           (item) =>
             item.weekDay === (weekDay as WeekDays) &&
             (item.maxTime.hour = value !== "" ? Number(value) : "")
@@ -220,7 +220,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         const arr = [...availableDaysAndTimes];
 
-        arr.map(
+        arr.forEach(
           (item) =>
             item.weekDay === (weekDay as WeekDays) &&
             (item.maxTime.minutes = value !== "" ? Number(value) : "")
@@ -236,7 +236,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         const arr = [...availableDaysAndTimes];
 
-        arr.map(
+        arr.forEach(
           (item) =>
             item.weekDay === (weekDay as WeekDays) &&
             (item.minTime.hour = value !== "" ? Number(value) : "")
@@ -252,7 +252,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
       ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
         const arr = [...availableDaysAndTimes];
 
-        arr.map(
+        arr.forEach(
           (item) =>
             item.weekDay === (weekDay as WeekDays) &&
             (item.minTime.minutes = value !== "" ? Number(value) : "")
