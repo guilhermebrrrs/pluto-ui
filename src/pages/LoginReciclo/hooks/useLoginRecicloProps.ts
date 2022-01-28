@@ -93,6 +93,7 @@ const useLoginRecicloProps = () => {
       return;
     }
 
+    setTriggerRedirect(false);
     setLoading(false);
     toast({
       title: "Não foi possível efetuar login.",
