@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { CollectionRequestMaterial, MaterialType } from "types";
 import { getMaterialTypeLabel, sortByString } from "utils";
 
@@ -32,7 +32,9 @@ const useCollectionRequestMaterialModalProps = ({
     selectedCollectionRequestMaterial,
     setSelectedCollectionRequestMaterial,
   ] = useState<CollectionRequestMaterial | null>(
-    collectionRequestMaterial || ({} as CollectionRequestMaterial)
+    !!collectionRequestMaterial
+      ? { ...collectionRequestMaterial }
+      : ({} as CollectionRequestMaterial)
   );
 
   const materialTypeOptions = useMemo(
@@ -47,7 +49,7 @@ const useCollectionRequestMaterialModalProps = ({
         .map((availableMaterialType) => (
           <option
             key={availableMaterialType.toString()}
-            value={availableMaterialType}
+            value={JSON.stringify(availableMaterialType)}
           >
             {getMaterialTypeLabel(availableMaterialType)}
           </option>
@@ -88,6 +90,8 @@ const useCollectionRequestMaterialModalProps = ({
       );
       close();
     }
+
+    setSelectedCollectionRequestMaterial(null);
   }, [
     addCollectionRequestMaterial,
     collectionRequestMaterial,
@@ -96,6 +100,11 @@ const useCollectionRequestMaterialModalProps = ({
     selectedCollectionRequestMaterial,
   ]);
 
+  const amount = useMemo(
+    () => selectedCollectionRequestMaterial?.amount,
+    [selectedCollectionRequestMaterial]
+  );
+
   const setAmount = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setSelectedCollectionRequestMaterial((previousState) => ({
@@ -103,6 +112,11 @@ const useCollectionRequestMaterialModalProps = ({
         amount: Number(value),
       })),
     []
+  );
+
+  const description = useMemo(
+    () => selectedCollectionRequestMaterial?.description,
+    [selectedCollectionRequestMaterial]
   );
 
   const setDescription = useCallback(
@@ -114,22 +128,32 @@ const useCollectionRequestMaterialModalProps = ({
     []
   );
 
+  const materialType = useMemo(
+    () => JSON.stringify(selectedCollectionRequestMaterial?.materialType),
+    [selectedCollectionRequestMaterial]
+  );
+
   const setMaterialType = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLSelectElement>) =>
       setSelectedCollectionRequestMaterial((previousState) => ({
         ...previousState,
-        materialType: value as MaterialType,
+        materialType: JSON.parse(value),
       })),
     []
   );
 
+  useEffect(
+    () => setSelectedCollectionRequestMaterial(collectionRequestMaterial!),
+    [collectionRequestMaterial]
+  );
+
   return {
-    amount: collectionRequestMaterial?.amount,
-    description: collectionRequestMaterial?.description,
+    amount,
+    description,
     handleCleanStateAndCloseModal,
     handleRemoveAndCloseModal,
     handleSaveOrEditCollectionRequestMaterial,
-    materialType: collectionRequestMaterial?.materialType,
+    materialType,
     materialTypeOptions,
     setAmount,
     setDescription,

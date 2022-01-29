@@ -66,7 +66,7 @@ type CollectionRequest {
   createdAt: String
   createdBy: User
   details: String
-  locations: UserLocation
+  location: UserLocation
   organization: Organization
   updatedAt: String
 }
@@ -143,6 +143,7 @@ type Query {
   authenticateOrganization(authenticateOrganizationInput: AuthenticateOrganizationInput): Organization
   authenticateOrganizationUser(authenticateOrganizationUserInput: AuthenticateOrganizationUserInput): OrganizationUser
   authenticateUser(authenticateUserInput: AuthenticateUserInput): User
+  findAllCollectionRequestsByUserId(id: ID!): [CollectionRequest]
   findAllOrganizationUsers: [OrganizationUser]
   findAllOrganizationUsersByOrganizationId(id: ID!): [OrganizationUser]
   findAllOrganizations: [Organization]

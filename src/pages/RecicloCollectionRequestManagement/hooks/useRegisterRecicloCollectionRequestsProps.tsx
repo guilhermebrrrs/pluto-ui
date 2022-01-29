@@ -63,20 +63,27 @@ const useRegisterRecicloCollectionRequestsProps = () => {
         ...previousState,
         collectionRequestMaterials: arr,
       }));
+
+      setSelectedCollectionRequestMaterial(null);
     },
     [collectionRequest]
   );
 
   const availableMaterialTypes = useMemo(() => {
-    const materialTypes = Object.values(MaterialType) as MaterialType[];
+    let materialTypes = [...(Object.values(MaterialType) as MaterialType[])];
 
     (collectionRequest?.collectionRequestMaterials || [])?.map(
       ({ materialType }: CollectionRequestMaterial) =>
-        materialType && materialTypes.filter((item) => item !== materialType)
+        (materialTypes = [
+          ...materialTypes.filter((item) => item !== materialType),
+        ])
     );
 
+    !!selectedCollectionRequestMaterial?.materialType &&
+      materialTypes.push(selectedCollectionRequestMaterial?.materialType!);
+
     return materialTypes;
-  }, [collectionRequest]);
+  }, [collectionRequest, selectedCollectionRequestMaterial]);
 
   const cleanSelectedCollectionRequestMaterialState = useCallback(
     () => setSelectedCollectionRequestMaterial(null),
@@ -108,15 +115,11 @@ const useRegisterRecicloCollectionRequestsProps = () => {
         : ([] as CollectionRequestMaterial[]);
 
       if (arr && arr?.length > 0) {
-        console.log(arr);
-
         arr = [...arr].filter(
           (item) =>
             item.materialType?.toString() !==
             oldCollectionRequestMaterial.materialType?.toString()
         );
-
-        console.log(arr);
 
         arr?.push(collectionRequestMaterial);
 
@@ -124,6 +127,8 @@ const useRegisterRecicloCollectionRequestsProps = () => {
           ...previousState,
           collectionRequestMaterials: arr,
         }));
+
+        setSelectedCollectionRequestMaterial(null);
       }
     },
     [collectionRequest]
@@ -194,20 +199,25 @@ const useRegisterRecicloCollectionRequestsProps = () => {
     [userLocations]
   );
 
-  const [fetchMutation, { data: wasSaved = null, error }] = useMutation(
-    CREATE_COLLECTION_REQUEST,
+  const [
+    fetchMutation,
     {
-      variables: {
-        createCollectionRequestInput: {
-          collectionRequestMaterials:
-            collectionRequest?.collectionRequestMaterials,
-          details,
-          locationId: collectionRequest?.location?._id,
-          userId: (loggedUser as User)?._id,
-        },
+      data: {
+        createCollectionRequest: wasSaved = undefined as boolean | undefined,
+      } = {},
+      error,
+    },
+  ] = useMutation(CREATE_COLLECTION_REQUEST, {
+    variables: {
+      createCollectionRequestInput: {
+        collectionRequestMaterials:
+          collectionRequest?.collectionRequestMaterials,
+        details,
+        locationId: collectionRequest?.location?._id,
+        userId: (loggedUser as User)?._id,
       },
-    }
-  );
+    },
+  });
 
   const handleRegisterCollectionRequest = useCallback(
     () => fetchMutation(),
@@ -215,7 +225,7 @@ const useRegisterRecicloCollectionRequestsProps = () => {
   );
 
   useEffect(() => {
-    if (wasSaved) {
+    if (wasSaved === true) {
       toast({
         title: "Solicitação de coleta registrada!",
         description: "Solicitação de coleta registrada com sucesso!.",
@@ -231,7 +241,7 @@ const useRegisterRecicloCollectionRequestsProps = () => {
   }, [toast, wasSaved]);
 
   useEffect(() => {
-    if (error) {
+    if (error || wasSaved === false) {
       toast({
         title: "Erro!",
         description: "Não foi possível salvar a solicitação de coleta.",
@@ -240,7 +250,7 @@ const useRegisterRecicloCollectionRequestsProps = () => {
         isClosable: true,
       });
     }
-  }, [error, toast]);
+  }, [error, toast, wasSaved]);
 
   useEffect(() => {
     (loggedUser as User)?._id && fetchQuery();

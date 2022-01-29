@@ -60,6 +60,22 @@ const AUTHENTICATE_USER = gql`
   }
 `;
 
+const FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID = gql`
+  query ($id: ID!) {
+    findAllCollectionRequestsByUserId(id: $id) {
+      _id
+      collectionRequestMaterials {
+        _id
+        amount
+        description
+        materialType
+      }
+      collectionStatus
+      details
+    }
+  }
+`;
+
 const FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID = gql`
   query ($id: ID!) {
     findAllOrganizationUsersByOrganizationId(id: $id) {
@@ -125,6 +141,7 @@ export {
   AUTHENTICATE_ORGANIZATION,
   AUTHENTICATE_ORGANIZATION_USER,
   AUTHENTICATE_USER,
+  FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID,
   FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID,
   FIND_ALL_USER_LOCATION_BY_USER_ID,
 };
