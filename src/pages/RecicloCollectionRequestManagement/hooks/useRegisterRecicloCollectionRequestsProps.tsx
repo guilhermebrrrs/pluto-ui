@@ -1,7 +1,18 @@
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { useToast } from "@chakra-ui/react";
 import { AppAuthenticationContext } from "contexts";
-import { FIND_ALL_USER_LOCATION_BY_USER_ID } from "data";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import {
+  CREATE_COLLECTION_REQUEST,
+  FIND_ALL_USER_LOCATION_BY_USER_ID,
+} from "data";
+import {
+  ChangeEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   CollectionRequest,
   CollectionRequestMaterial,
@@ -12,6 +23,7 @@ import {
 
 const useRegisterRecicloCollectionRequestsProps = () => {
   const { loggedUser } = useContext(AppAuthenticationContext);
+  const toast = useToast();
 
   const [collectionRequest, setCollectionRequestState] =
     useState<CollectionRequest | null>({
@@ -64,7 +76,7 @@ const useRegisterRecicloCollectionRequestsProps = () => {
     );
 
     return materialTypes;
-  }, [collectionRequest?.collectionRequestMaterials]);
+  }, [collectionRequest]);
 
   const cleanSelectedCollectionRequestMaterialState = useCallback(
     () => setSelectedCollectionRequestMaterial(null),
@@ -81,18 +93,38 @@ const useRegisterRecicloCollectionRequestsProps = () => {
     [collectionRequest]
   );
 
+  const details = useMemo(
+    () => collectionRequest?.details,
+    [collectionRequest]
+  );
+
   const editCollectionRequestMaterial = useCallback(
-    (collectionRequestMaterial: CollectionRequestMaterial) => {
-      const arr = collectionRequest?.collectionRequestMaterials?.filter(
-        (item) => item.materialType !== collectionRequestMaterial.materialType
-      );
+    (
+      oldCollectionRequestMaterial: CollectionRequestMaterial,
+      collectionRequestMaterial: CollectionRequestMaterial
+    ) => {
+      let arr = !!collectionRequest?.collectionRequestMaterials
+        ? [...collectionRequest?.collectionRequestMaterials]
+        : ([] as CollectionRequestMaterial[]);
 
-      arr?.push(collectionRequestMaterial);
+      if (arr && arr?.length > 0) {
+        console.log(arr);
 
-      setCollectionRequestState((previousState) => ({
-        ...previousState,
-        collectionRequestMaterials: arr,
-      }));
+        arr = [...arr].filter(
+          (item) =>
+            item.materialType?.toString() !==
+            oldCollectionRequestMaterial.materialType?.toString()
+        );
+
+        console.log(arr);
+
+        arr?.push(collectionRequestMaterial);
+
+        setCollectionRequestState((previousState) => ({
+          ...previousState,
+          collectionRequestMaterials: arr,
+        }));
+      }
     },
     [collectionRequest]
   );
@@ -124,16 +156,91 @@ const useRegisterRecicloCollectionRequestsProps = () => {
     []
   );
 
+  const setDetails = useCallback(
+    ({ target: { value } }: ChangeEvent<HTMLTextAreaElement>) =>
+      setCollectionRequestState((previousState) => ({
+        ...previousState,
+        details: value,
+      })),
+    []
+  );
+
+  const setUserLocation = useCallback(
+    ({ target: { value } }: ChangeEvent<HTMLSelectElement>) =>
+      value &&
+      setCollectionRequestState((previousState) => ({
+        ...previousState,
+        location: JSON.parse(value),
+      })),
+    []
+  );
+
+  const userLocation = useMemo(
+    () =>
+      !!collectionRequest?.location
+        ? JSON.stringify(collectionRequest?.location)
+        : undefined,
+    [collectionRequest]
+  );
+
   const userLocationsOptions = useMemo(
     () =>
-      [...userLocations].map((item) => (
+      [...userLocations].map((item: UserLocation) => (
         <option
           key={item._id}
-          value={item._id}
+          value={JSON.stringify(item)}
         >{`(${item.placename}) ${item.address?.street}, ${item.address?.number} - ${item.address?.district} - ${item.address?.city}, ${item.address?.state}`}</option>
       )),
     [userLocations]
   );
+
+  const [fetchMutation, { data: wasSaved = null, error }] = useMutation(
+    CREATE_COLLECTION_REQUEST,
+    {
+      variables: {
+        createCollectionRequestInput: {
+          collectionRequestMaterials:
+            collectionRequest?.collectionRequestMaterials,
+          details,
+          locationId: collectionRequest?.location?._id,
+          userId: (loggedUser as User)?._id,
+        },
+      },
+    }
+  );
+
+  const handleRegisterCollectionRequest = useCallback(
+    () => fetchMutation(),
+    [fetchMutation]
+  );
+
+  useEffect(() => {
+    if (wasSaved) {
+      toast({
+        title: "Solicitação de coleta registrada!",
+        description: "Solicitação de coleta registrada com sucesso!.",
+        status: "success",
+        duration: 7500,
+        isClosable: true,
+      });
+
+      setCollectionRequestState({
+        collectionRequestMaterials: [] as CollectionRequestMaterial[],
+      } as CollectionRequest);
+    }
+  }, [toast, wasSaved]);
+
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Erro!",
+        description: "Não foi possível salvar a solicitação de coleta.",
+        status: "error",
+        duration: 7500,
+        isClosable: true,
+      });
+    }
+  }, [error, toast]);
 
   useEffect(() => {
     (loggedUser as User)?._id && fetchQuery();
@@ -145,12 +252,17 @@ const useRegisterRecicloCollectionRequestsProps = () => {
     cleanSelectedCollectionRequestMaterialState,
     closeCollectionRequestMaterialModal,
     collectionRequestMaterials,
+    details,
     editCollectionRequestMaterial,
+    handleRegisterCollectionRequest,
     isCollectionRequestMaterialModalOpen,
     removeCollectionRequestMaterial,
     openCollectionRequestMaterialModal,
     selectedCollectionRequestMaterial,
+    setDetails,
+    setUserLocation,
     setSelectedCollectionRequestMaterial,
+    userLocation,
     userLocationsOptions,
   };
 };

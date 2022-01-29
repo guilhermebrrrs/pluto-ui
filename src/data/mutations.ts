@@ -1,5 +1,13 @@
 import { gql } from "@apollo/client";
 
+const CREATE_COLLECTION_REQUEST = gql`
+  mutation ($createCollectionRequestInput: CreateCollectionRequestInput) {
+    createCollectionRequest(
+      createCollectionRequestInput: $createCollectionRequestInput
+    )
+  }
+`;
+
 const CREATE_ORGANIZATION = gql`
   mutation ($createOrganizationInput: CreateOrganizationInput) {
     createOrganization(createOrganizationInput: $createOrganizationInput) {
@@ -67,6 +75,7 @@ const UPDATE_USER_LOCATION = gql`
 `;
 
 export {
+  CREATE_COLLECTION_REQUEST,
   CREATE_ORGANIZATION,
   CREATE_ORGANIZATION_USER,
   CREATE_USER,

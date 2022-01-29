@@ -15,12 +15,17 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
     cleanSelectedCollectionRequestMaterialState,
     closeCollectionRequestMaterialModal,
     collectionRequestMaterials,
+    details,
     editCollectionRequestMaterial,
+    handleRegisterCollectionRequest,
     isCollectionRequestMaterialModalOpen,
     removeCollectionRequestMaterial,
     openCollectionRequestMaterialModal,
     selectedCollectionRequestMaterial,
+    setDetails,
+    setUserLocation,
     setSelectedCollectionRequestMaterial,
+    userLocation,
     userLocationsOptions,
   } = useRegisterRecicloCollectionRequestsProps();
 
@@ -59,8 +64,10 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
                 backgroundColor="gray.50"
                 borderColor="gray.300"
                 focusBorderColor="gray.700"
+                onChange={setUserLocation}
                 padding="1px"
                 placeholder="Selecione um local"
+                value={userLocation}
                 width="100%"
               >
                 {userLocationsOptions}
@@ -90,6 +97,8 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
                 <Button
                   colorScheme="green"
                   gap={definitions.spacing.micro}
+                  isDisabled={!userLocation}
+                  minHeight="40px"
                   onClick={openCollectionRequestMaterialModal}
                   width="fit-content"
                 >
@@ -141,16 +150,18 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
             </Text>
             <Textarea
               backgroundColor="gray.50"
+              height="calc(100vh - 358px)"
+              onChange={setDetails}
               placeholder="Se julgar necessário escreva aqui detalhes importantes para notificar os coletores que realizarão a coleta."
               resize="none"
-              height="calc(100vh - 358px)"
+              value={details}
               width="100%"
             />
           </Flex>
         </Flex>
         <Flex backgroundColor="gray.500" height="2px" width="100%" />
         <Flex justifyContent={definitions.justifyContent.flexEnd} width="100%">
-          <Button colorScheme="green">
+          <Button colorScheme="green" onClick={handleRegisterCollectionRequest}>
             <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
               Cadastrar Solicitação de Coleta
             </Text>

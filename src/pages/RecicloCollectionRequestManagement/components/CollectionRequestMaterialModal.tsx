@@ -28,6 +28,7 @@ interface CollectionRequestMaterialModalProps {
   close: () => void;
   collectionRequestMaterial?: CollectionRequestMaterial | null;
   editCollectionRequestMaterial: (
+    oldCollectionRequestMaterial: CollectionRequestMaterial,
     collectionRequestMaterial: CollectionRequestMaterial
   ) => void;
   isOpen: boolean;

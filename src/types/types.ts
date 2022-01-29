@@ -34,6 +34,17 @@ interface AuthenticateUserInput {
   password: string;
 }
 
+interface AvailableDayAndTimeInput {
+  weekDay: WeekDays;
+  maxTime: AvailableTimeInput;
+  minTime: AvailableTimeInput;
+}
+
+interface AvailableTimeInput {
+  hour: number;
+  minutes: number;
+}
+
 interface AvailableDayAndTime {
   weekDay: WeekDays;
   maxTime: AvailableTime;
@@ -94,7 +105,7 @@ interface CollectionRequestMaterial extends DateMetadata {
 }
 
 interface CreateCollectionRequestInput {
-  collectionRequestMaterial: CreateCollectionRequestMaterialInput[];
+  collectionRequestMaterials: CreateCollectionRequestMaterialInput[];
   details?: string;
   locationId: string;
   userId: string;
@@ -138,20 +149,23 @@ interface CreateUserLocationAddressInput {
   street: string;
 }
 
+interface CreateUserLocationAvailableDaysAndTimesInput {
+  weekDay: WeekDays;
+  maxTime: CreateUserLocationAvailableTimeInput;
+  minTime: CreateUserLocationAvailableTimeInput;
+}
+
+interface CreateUserLocationAvailableTimeInput {
+  hour: number;
+  minutes: number;
+}
+
 interface CreateUserLocationInput {
   userId: string;
   address: CreateUserLocationAddressInput;
-  availableDaysAndTimes: [AvailableDayAndTime];
+  availableDaysAndTimes: [CreateUserLocationAvailableDaysAndTimesInput];
   comments: string;
   placename: string;
-}
-
-interface CreateOrganizationInput {
-  email: string;
-  cpfCnpj?: string;
-  name: string;
-  password: string;
-  organizationType: OrganizationType;
 }
 
 interface DateMetadata {
@@ -254,7 +268,9 @@ export type {
   AuthenticateOrganizationUserInput,
   AuthenticateUserInput,
   AvailableDayAndTime,
+  AvailableDayAndTimeInput,
   AvailableTime,
+  AvailableTimeInput,
   CollectionPath,
   CollectionPoint,
   CollectionRequest,
@@ -265,12 +281,14 @@ export type {
   CreateOrganizationUserInput,
   CreateUserInput,
   CreateUserLocationAddressInput,
+  CreateUserLocationAvailableDaysAndTimesInput,
+  CreateUserLocationAvailableTimeInput,
   CreateUserLocationInput,
   Organization,
   OrganizationRegistrationValidation,
-  OrganizationUserRegistrationValidation,
   OrganizationUser,
   OrganizationUserPersonalDataInput,
+  OrganizationUserRegistrationValidation,
   UpdateOrganizationUserPersonalDataInput,
   UpdateUserLocationAddressInput,
   UpdateUserLocationInput,

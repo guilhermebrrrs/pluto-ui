@@ -11,6 +11,7 @@ interface UseCollectionRequestMaterialModalHookProps {
   close: () => void;
   collectionRequestMaterial?: CollectionRequestMaterial | null | undefined;
   editCollectionRequestMaterial: (
+    oldCollectionRequestMaterial: CollectionRequestMaterial,
     collectionRequestMaterial: CollectionRequestMaterial
   ) => void;
   removeCollectionRequestMaterial: (
@@ -79,10 +80,14 @@ const useCollectionRequestMaterialModalProps = ({
   const handleSaveOrEditCollectionRequestMaterial = useCallback(() => {
     if (!collectionRequestMaterial) {
       addCollectionRequestMaterial(selectedCollectionRequestMaterial!);
+      close();
+    } else {
+      editCollectionRequestMaterial(
+        collectionRequestMaterial,
+        selectedCollectionRequestMaterial!
+      );
+      close();
     }
-
-    editCollectionRequestMaterial(selectedCollectionRequestMaterial!);
-    close();
   }, [
     addCollectionRequestMaterial,
     collectionRequestMaterial,
