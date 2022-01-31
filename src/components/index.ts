@@ -3,6 +3,7 @@ export { AppBarContent } from "./AppBarContent";
 export { AppColetasDrawer } from "./AppColetasDrawer";
 export { AppMainLayout } from "./AppRecicloMainLayout";
 export { AppRecicloDrawer } from "./AppRecicloDrawer";
+export { CardContainer } from "./CardContainer";
 export { GlobalStyles } from "./GlobalStyles";
 export { PasswordInput } from "./PasswordInput";
 export { Waves } from "./Waves";

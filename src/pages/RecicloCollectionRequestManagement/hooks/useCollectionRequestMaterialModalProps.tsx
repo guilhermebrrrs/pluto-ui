@@ -129,7 +129,7 @@ const useCollectionRequestMaterialModalProps = ({
   );
 
   const materialType = useMemo(
-    () => JSON.stringify(selectedCollectionRequestMaterial?.materialType),
+    () => JSON.stringify(selectedCollectionRequestMaterial?.materialType || ""),
     [selectedCollectionRequestMaterial]
   );
 

@@ -3,6 +3,7 @@ import { useToast } from "@chakra-ui/react";
 import { AppAuthenticationContext } from "contexts";
 import {
   CREATE_COLLECTION_REQUEST,
+  FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID_AND_IS_IN_STATUS_ARRAY,
   FIND_ALL_USER_LOCATION_BY_USER_ID,
 } from "data";
 import {
@@ -217,6 +218,9 @@ const useRegisterRecicloCollectionRequestsProps = () => {
         userId: (loggedUser as User)?._id,
       },
     },
+    refetchQueries: [
+      FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID_AND_IS_IN_STATUS_ARRAY,
+    ],
   });
 
   const handleRegisterCollectionRequest = useCallback(

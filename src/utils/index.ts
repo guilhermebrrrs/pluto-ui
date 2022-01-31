@@ -4,6 +4,7 @@ export { definitions } from "./definitions";
 export {
   capitalizeName,
   capitalizeString,
+  getCollectionStatusLabel,
   getMaterialTypeBorderColor,
   getMaterialTypeColor,
   getMaterialTypeLabel,

@@ -1,5 +1,5 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from "@apollo/client";
-import { MaterialType } from "../types";
+import { CollectionStatus, MaterialType } from "types";
 
 const capitalizeName = (item: string) => {
   item = item.trim();
@@ -12,6 +12,16 @@ const capitalizeName = (item: string) => {
 
 const capitalizeString = (item: string) =>
   item.charAt(0).toLocaleUpperCase() + item.substring(1).toLocaleLowerCase();
+
+const getCollectionStatusLabel = (collectionStatus: CollectionStatus) =>
+  ({
+    ACCEPTED: "Aberta",
+    CANCELED: "Cancelada",
+    COMPLETED: "Finalizada",
+    NOT_STARTED: "Não iniciada",
+    OPENED: "Aberta",
+    PAUSED: "Pausada",
+  }[collectionStatus.toString()]);
 
 const getMaterialTypeBorderColor = (materialType: MaterialType) =>
   ({
@@ -43,7 +53,7 @@ const getMaterialTypeColor = (materialType: MaterialType) =>
     RADIOACTIVE_MATERIALS: "purple.600",
     SEVERALS: "gray.100",
     WOODS: "gray.800",
-  }[materialType.toString()]);
+  }[materialType]);
 
 const getMaterialTypeTextColor = (materialType: MaterialType) =>
   ({
@@ -59,7 +69,7 @@ const getMaterialTypeTextColor = (materialType: MaterialType) =>
     RADIOACTIVE_MATERIALS: "gray.50",
     SEVERALS: "gray.900",
     WOODS: "gray.50",
-  }[materialType.toString()]);
+  }[materialType]);
 
 const getMaterialTypeLabel = (materialType: MaterialType) =>
   ({
@@ -75,7 +85,7 @@ const getMaterialTypeLabel = (materialType: MaterialType) =>
     RADIOACTIVE_MATERIALS: "Materiais Radioativos",
     SEVERALS: "Diversos",
     WOODS: "Madeiras",
-  }[materialType.toString()]);
+  }[materialType]);
 
 const getWeekDayLabel = (weekDay: string) =>
   ({
@@ -127,6 +137,7 @@ const transformEnumValueToCapitalizeString = (item: string) =>
 export {
   capitalizeName,
   capitalizeString,
+  getCollectionStatusLabel,
   getMaterialTypeBorderColor,
   getMaterialTypeColor,
   getMaterialTypeLabel,

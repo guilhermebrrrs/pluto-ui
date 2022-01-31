@@ -60,9 +60,12 @@ const AUTHENTICATE_USER = gql`
   }
 `;
 
-const FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID = gql`
-  query ($id: ID!) {
-    findAllCollectionRequestsByUserId(id: $id) {
+const FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID_AND_IS_IN_STATUS_ARRAY = gql`
+  query ($id: ID!, $statusArray: [CollectionStatus!]!) {
+    findAllCollectionRequestsByUserIdAndIsInStatusArray(
+      id: $id
+      statusArray: $statusArray
+    ) {
       _id
       collectionRequestMaterials {
         _id
@@ -72,6 +75,36 @@ const FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID = gql`
       }
       collectionStatus
       details
+      location {
+        address {
+          _id
+          cep
+          city
+          complement
+          country
+          district
+          number
+          state
+          street
+        }
+        availableDaysAndTimes {
+          maxTime {
+            hour
+            minutes
+          }
+          minTime {
+            hour
+            minutes
+          }
+          weekDay
+        }
+        comments
+        placename
+      }
+      organization {
+        email
+        name
+      }
     }
   }
 `;
@@ -141,7 +174,7 @@ export {
   AUTHENTICATE_ORGANIZATION,
   AUTHENTICATE_ORGANIZATION_USER,
   AUTHENTICATE_USER,
-  FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID,
+  FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID_AND_IS_IN_STATUS_ARRAY,
   FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID,
   FIND_ALL_USER_LOCATION_BY_USER_ID,
 };

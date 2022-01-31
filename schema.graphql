@@ -144,6 +144,7 @@ type Query {
   authenticateOrganizationUser(authenticateOrganizationUserInput: AuthenticateOrganizationUserInput): OrganizationUser
   authenticateUser(authenticateUserInput: AuthenticateUserInput): User
   findAllCollectionRequestsByUserId(id: ID!): [CollectionRequest]
+  findAllCollectionRequestsByUserIdAndIsInStatusArray(id: ID!, statusArray: [CollectionStatus]): [CollectionRequest]
   findAllOrganizationUsers: [OrganizationUser]
   findAllOrganizationUsersByOrganizationId(id: ID!): [OrganizationUser]
   findAllOrganizations: [Organization]
