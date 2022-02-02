@@ -24,6 +24,8 @@ const useListingRecicloCollectionRequestsProps = () => {
     CollectionStatus.OPENED,
   ] as CollectionStatus[]);
   const [globalFilter, setGLobalFilterState] = useState<string>("");
+  const [selectedCollectionRequest, setSelectedCollectionRequest] =
+    useState<CollectionRequest | null>(null);
 
   const [
     fetchQuery,
@@ -39,7 +41,7 @@ const useListingRecicloCollectionRequestsProps = () => {
     { variables: { id: (loggedUser as User)?._id, statusArray } }
   );
 
-  const setGLobalFilter = useCallback(
+  const setGlobalFilter = useCallback(
     ({ target: { value } }: ChangeEvent<HTMLInputElement>) =>
       setGLobalFilterState(value),
     []
@@ -90,15 +92,20 @@ const useListingRecicloCollectionRequestsProps = () => {
     );
   }, [collectionRequests, globalFilter]);
 
+  const cancel = useCallback(() => setSelectedCollectionRequest(null), []);
+
   useEffect(() => {
     fetchQuery().then();
   }, [fetchQuery, statusArray]);
 
   return {
+    cancel,
     filteredCollectionRequests,
     globalFilter,
     loading,
-    setGLobalFilter,
+    selectedCollectionRequest,
+    setGlobalFilter,
+    setSelectedCollectionRequest,
     setStatusArrayValuesToCompletedOrCanceledThenFetchQuery,
     setStatusArrayValuesToOpenedThenFetchQuery,
     setStatusArrayValuesToInProgressThenFetchQuery,

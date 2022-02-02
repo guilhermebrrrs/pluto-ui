@@ -1,15 +1,10 @@
 import { useCollectionRequestMaterialCard } from "../hooks";
 import { Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
+import { MaterialTypeContainer } from "components";
 import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { CollectionRequestMaterial } from "types";
-import {
-  definitions,
-  getMaterialTypeBorderColor,
-  getMaterialTypeColor,
-  getMaterialTypeLabel,
-  getMaterialTypeTextColor,
-} from "utils";
+import { definitions } from "utils";
 
 interface CollectionRequestMaterialCardProps {
   collectionRequestMaterial: CollectionRequestMaterial;
@@ -51,35 +46,20 @@ const CollectionRequestMaterialCard: FunctionComponent<
           <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
             Tipo:
           </Text>
-          <Flex
-            alignItems={definitions.alignItems.center}
-            backgroundColor={getMaterialTypeColor(
-              collectionRequestMaterial.materialType!
-            )}
-            borderColor={getMaterialTypeBorderColor(
-              collectionRequestMaterial.materialType!
-            )}
-            borderRadius="200px"
-            borderWidth="2px"
-            justifyContent={definitions.justifyContent.center}
-            padding={`${definitions.spacing.micro} ${definitions.spacing.smaller}`}
-          >
-            <Text
-              color={getMaterialTypeTextColor(
-                collectionRequestMaterial.materialType!
-              )}
-              fontFamily="Lato"
-              fontWeight={definitions.fontWeight.bold}
-            >
-              {getMaterialTypeLabel(collectionRequestMaterial.materialType!)}
+          {collectionRequestMaterial.materialType ? (
+            <MaterialTypeContainer
+              materialType={collectionRequestMaterial.materialType!}
+            />
+          ) : (
+            <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
+              Sem Material Selecionado
             </Text>
-          </Flex>
+          )}
         </Flex>
         <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
           {collectionRequestMaterial.amount ? (
             <>
-              Peso:{" "}
-              {`${collectionRequestMaterial.amount} ${
+              {`Peso: ${collectionRequestMaterial.amount} ${
                 collectionRequestMaterial.amount === 1 ? "Kg" : "Kgs"
               }`}
             </>

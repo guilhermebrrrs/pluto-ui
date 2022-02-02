@@ -5,5 +5,6 @@ export { AppMainLayout } from "./AppRecicloMainLayout";
 export { AppRecicloDrawer } from "./AppRecicloDrawer";
 export { CardContainer } from "./CardContainer";
 export { GlobalStyles } from "./GlobalStyles";
+export { MaterialTypeContainer } from "./MaterialTypeContainer";
 export { PasswordInput } from "./PasswordInput";
 export { Waves } from "./Waves";

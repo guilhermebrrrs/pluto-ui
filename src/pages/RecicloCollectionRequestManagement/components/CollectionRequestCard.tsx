@@ -1,17 +1,27 @@
+import { useCollectionRequestCardProps } from "../hooks";
 import { Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import { CardContainer } from "components";
-import { FunctionComponent } from "react";
+import { Dispatch, FunctionComponent, SetStateAction } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { CollectionRequest } from "types";
 import { definitions, getCollectionStatusLabel } from "utils";
 
 interface CollectionRequestCardProps {
   collectionRequest: CollectionRequest;
+  setSelectedCollectionRequest: Dispatch<
+    SetStateAction<CollectionRequest | null>
+  >;
 }
 
 const CollectionRequestCard: FunctionComponent<CollectionRequestCardProps> = ({
   collectionRequest,
+  setSelectedCollectionRequest,
 }) => {
+  const { setCollectionRequest } = useCollectionRequestCardProps({
+    collectionRequest,
+    setSelectedCollectionRequest,
+  });
+
   return (
     <CardContainer>
       <Flex
@@ -40,7 +50,7 @@ const CollectionRequestCard: FunctionComponent<CollectionRequestCardProps> = ({
           <IconButton
             aria-label="exibir detalhes"
             colorScheme="blackAlpha"
-            onClick={() => {}}
+            onClick={setCollectionRequest}
             size="sm"
             _hover={{ backgroundColor: "green.500" }}
           >

@@ -63,14 +63,19 @@ const RegisterUserLocation: FunctionComponent = () => {
           overflowY="auto"
           maxHeight="100%"
         >
-          <Flex justifyContent={definitions.justifyContent.center} width="100%">
+          <Flex
+            alignItems={definitions.alignItems.center}
+            flexDirection="column"
+            width="100%"
+          >
             <Text
-              fontFamily="Lato"
-              fontSize={definitions.fontSize.small}
+              alignSelf={definitions.justifyContent.center}
+              fontFamily={definitions.fontFamily.default}
               fontWeight={definitions.fontWeight.bold}
             >
               Dados do Local
             </Text>
+            <Flex backgroundColor="gray.500" height="1px" width="100%" />
           </Flex>
           <Grid
             gap={definitions.spacing.smallest}
@@ -211,14 +216,19 @@ const RegisterUserLocation: FunctionComponent = () => {
           gap={definitions.spacing.small}
           height="100%"
         >
-          <Flex justifyContent={definitions.justifyContent.center} width="100%">
+          <Flex
+            alignItems={definitions.alignItems.center}
+            flexDirection="column"
+            width="100%"
+          >
             <Text
-              fontFamily="Lato"
-              fontSize={definitions.fontSize.small}
+              alignSelf={definitions.justifyContent.center}
+              fontFamily={definitions.fontFamily.default}
               fontWeight={definitions.fontWeight.bold}
             >
               Disponibilidade
             </Text>
+            <Flex backgroundColor="gray.500" height="1px" width="100%" />
           </Flex>
           <Flex gap={definitions.spacing.small}>
             <Flex
@@ -266,19 +276,20 @@ const RegisterUserLocation: FunctionComponent = () => {
               </Flex>
             </Flex>
           </Flex>
-          <Flex
-            flex={1}
-            flexDirection="column"
-            gap={definitions.spacing.smallest}
-          >
-            <Flex width="100%">
+          <Flex flex={1} flexDirection="column" gap={definitions.spacing.small}>
+            <Flex
+              alignItems={definitions.alignItems.center}
+              flexDirection="column"
+              width="100%"
+            >
               <Text
-                fontFamily="Lato"
-                fontSize={definitions.fontSize.small}
+                alignSelf={definitions.justifyContent.center}
+                fontFamily={definitions.fontFamily.default}
                 fontWeight={definitions.fontWeight.bold}
               >
                 Observações
               </Text>
+              <Flex backgroundColor="gray.500" height="1px" width="100%" />
             </Flex>
             <Textarea
               backgroundColor="gray.100"

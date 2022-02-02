@@ -1,8 +1,11 @@
-import { FunctionComponent } from "react";
+import { useDashboardRecicloProps } from "./hooks";
 import { Button, Flex, Text } from "@chakra-ui/react";
+import { FunctionComponent } from "react";
 import { definitions } from "utils";
 
 const DashboardReciclo: FunctionComponent = () => {
+  const { toCollectionRequests } = useDashboardRecicloProps();
+
   return (
     <Flex
       flexDirection="column"
@@ -138,7 +141,7 @@ const DashboardReciclo: FunctionComponent = () => {
               >
                 Hoje serão realizadas algumas coletas
               </Text>
-              <Button colorScheme="green">
+              <Button colorScheme="green" onClick={toCollectionRequests}>
                 <Text>Ir para Solicitações</Text>
               </Button>
             </Flex>

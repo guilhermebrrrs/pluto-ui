@@ -5,7 +5,7 @@ import {
 import { useRegisterRecicloCollectionRequestsProps } from "../hooks";
 import { Button, Flex, Select, Text, Textarea } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
-import { MdAdd } from "react-icons/md";
+import { MdAdd, MdDelete } from "react-icons/md";
 import { definitions } from "utils";
 
 const RegisterRecicloCollectionRequests: FunctionComponent = () => {
@@ -94,17 +94,37 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
                 padding={definitions.spacing.small}
                 width="100%"
               >
-                <Button
-                  colorScheme="green"
-                  gap={definitions.spacing.micro}
-                  isDisabled={!userLocation}
-                  minHeight="40px"
-                  onClick={openCollectionRequestMaterialModal}
-                  width="fit-content"
+                <Flex
+                  justifyContent={definitions.justifyContent.spaceBetween}
+                  width="100%"
                 >
-                  <MdAdd size="24px" />
-                  <Text>Adicionar Material</Text>
-                </Button>
+                  <Button
+                    colorScheme="green"
+                    gap={definitions.spacing.micro}
+                    isDisabled={!userLocation}
+                    minHeight="40px"
+                    onClick={openCollectionRequestMaterialModal}
+                    width="fit-content"
+                  >
+                    <MdAdd size="24px" />
+                    <Text>Adicionar Material</Text>
+                  </Button>
+                  <Button
+                    colorScheme="red"
+                    gap={definitions.spacing.micro}
+                    isDisabled={
+                      !userLocation ||
+                      (!!collectionRequestMaterials &&
+                        collectionRequestMaterials?.length <= 0)
+                    }
+                    minHeight="40px"
+                    onClick={openCollectionRequestMaterialModal}
+                    width="fit-content"
+                  >
+                    <MdDelete size="24px" />
+                    <Text>Limpar seleção</Text>
+                  </Button>
+                </Flex>
                 {collectionRequestMaterials!.length > 0 ? (
                   <>
                     {collectionRequestMaterials!.map(

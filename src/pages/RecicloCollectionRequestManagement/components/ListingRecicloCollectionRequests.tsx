@@ -1,4 +1,4 @@
-import { CollectionRequestCard } from "./index";
+import { CollectionRequestCard, CollectionRequestDetails } from "./";
 import { useListingRecicloCollectionRequestsProps } from "../hooks";
 import {
   Flex,
@@ -13,15 +13,18 @@ import {
 } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
 import { MdOutlineSearch } from "react-icons/md";
-import { definitions } from "utils";
 import { CollectionRequest } from "types";
+import { definitions } from "utils";
 
 const ListingRecicloCollectionRequests: FunctionComponent = () => {
   const {
+    cancel,
     filteredCollectionRequests,
     globalFilter,
     loading,
-    setGLobalFilter,
+    selectedCollectionRequest,
+    setGlobalFilter,
+    setSelectedCollectionRequest,
     setStatusArrayValuesToCompletedOrCanceledThenFetchQuery,
     setStatusArrayValuesToInProgressThenFetchQuery,
     setStatusArrayValuesToOpenedThenFetchQuery,
@@ -103,7 +106,7 @@ const ListingRecicloCollectionRequests: FunctionComponent = () => {
             borderColor="gray.300"
             focusBorderColor="gray.700"
             placeholder="Procurar..."
-            onChange={setGLobalFilter}
+            onChange={setGlobalFilter}
             value={globalFilter}
             width="100%"
           />
@@ -129,6 +132,7 @@ const ListingRecicloCollectionRequests: FunctionComponent = () => {
                 (collectionRequest: CollectionRequest) => (
                   <CollectionRequestCard
                     collectionRequest={collectionRequest}
+                    setSelectedCollectionRequest={setSelectedCollectionRequest}
                   />
                 )
               )}
@@ -149,7 +153,12 @@ const ListingRecicloCollectionRequests: FunctionComponent = () => {
       </Flex>
       <Flex backgroundColor="gray.500" height="100%" width="2px" />
       <Flex flex={1} height="100%">
-        <Text>Teste</Text>
+        {selectedCollectionRequest && (
+          <CollectionRequestDetails
+            cancel={cancel}
+            collectionRequest={selectedCollectionRequest}
+          />
+        )}
       </Flex>
     </Flex>
   );

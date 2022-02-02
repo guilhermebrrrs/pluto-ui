@@ -53,8 +53,6 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
     weekDayTimesOptions,
   } = useEditUserLocationProps({ cancel, userLocation: selectedUserLocation });
 
-  // TODO: verify problems when change fields for user location editing
-  // TODO: try implementation and usage of react hook form
   return (
     <>
       <Flex flexDirection="column" gap={definitions.spacing.small} width="100%">
@@ -70,14 +68,20 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
             gap={definitions.spacing.small}
             width="100%"
           >
-            <Text
-              alignSelf={definitions.justifyContent.center}
-              fontFamily={definitions.fontFamily.default}
-              fontWeight={definitions.fontWeight.bold}
+            <Flex
+              alignItems={definitions.alignItems.center}
+              flexDirection="column"
+              width="100%"
             >
-              Editar Informações de {selectedUserLocation.placename}
-            </Text>
-            <Flex backgroundColor="gray.500" height="2px" width="100%" />
+              <Text
+                alignSelf={definitions.justifyContent.center}
+                fontFamily={definitions.fontFamily.default}
+                fontWeight={definitions.fontWeight.bold}
+              >
+                Editar Informações de {selectedUserLocation.placename}
+              </Text>
+              <Flex backgroundColor="gray.500" height="1px" width="100%" />
+            </Flex>
             <Grid
               gap={definitions.spacing.smallest}
               templateColumns="repeat(5, 1fr)"
@@ -217,16 +221,18 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
             height="100%"
           >
             <Flex
-              justifyContent={definitions.justifyContent.center}
+              alignItems={definitions.alignItems.center}
+              flexDirection="column"
               width="100%"
             >
               <Text
-                fontFamily="Lato"
-                fontSize={definitions.fontSize.small}
+                alignSelf={definitions.justifyContent.center}
+                fontFamily={definitions.fontFamily.default}
                 fontWeight={definitions.fontWeight.bold}
               >
                 Disponibilidade
               </Text>
+              <Flex backgroundColor="gray.500" height="1px" width="100%" />
             </Flex>
             <Flex gap={definitions.spacing.small}>
               <Flex
@@ -278,16 +284,21 @@ const EditUserLocation: FunctionComponent<EditUserLocationProps> = ({
             <Flex
               flex={1}
               flexDirection="column"
-              gap={definitions.spacing.smallest}
+              gap={definitions.spacing.small}
             >
-              <Flex width="100%">
+              <Flex
+                alignItems={definitions.alignItems.center}
+                flexDirection="column"
+                width="100%"
+              >
                 <Text
-                  fontFamily="Lato"
-                  fontSize={definitions.fontSize.small}
+                  alignSelf={definitions.justifyContent.center}
+                  fontFamily={definitions.fontFamily.default}
                   fontWeight={definitions.fontWeight.bold}
                 >
                   Observações
                 </Text>
+                <Flex backgroundColor="gray.500" height="1px" width="100%" />
               </Flex>
               <Textarea
                 backgroundColor="gray.100"
