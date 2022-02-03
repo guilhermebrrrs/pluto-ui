@@ -12,19 +12,20 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
   const {
     addCollectionRequestMaterial,
     availableMaterialTypes,
+    cleanAllCollectionMaterials,
     cleanSelectedCollectionRequestMaterialState,
     closeCollectionRequestMaterialModal,
-    collectionRequestMaterials,
+    collectionRequestMaterialsArray,
     details,
     editCollectionRequestMaterial,
     handleRegisterCollectionRequest,
     isCollectionRequestMaterialModalOpen,
-    removeCollectionRequestMaterial,
     openCollectionRequestMaterialModal,
+    removeCollectionRequestMaterial,
     selectedCollectionRequestMaterial,
     setDetails,
-    setUserLocation,
     setSelectedCollectionRequestMaterial,
+    setUserLocation,
     userLocation,
     userLocationsOptions,
   } = useRegisterRecicloCollectionRequestsProps();
@@ -114,20 +115,20 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
                     gap={definitions.spacing.micro}
                     isDisabled={
                       !userLocation ||
-                      (!!collectionRequestMaterials &&
-                        collectionRequestMaterials?.length <= 0)
+                      (!!collectionRequestMaterialsArray &&
+                        collectionRequestMaterialsArray?.length <= 0)
                     }
                     minHeight="40px"
-                    onClick={openCollectionRequestMaterialModal}
+                    onClick={cleanAllCollectionMaterials}
                     width="fit-content"
                   >
                     <MdDelete size="24px" />
                     <Text>Limpar seleção</Text>
                   </Button>
                 </Flex>
-                {collectionRequestMaterials!.length > 0 ? (
+                {collectionRequestMaterialsArray.length > 0 ? (
                   <>
-                    {collectionRequestMaterials!.map(
+                    {collectionRequestMaterialsArray.map(
                       (collectionRequestMaterial) => (
                         <CollectionRequestMaterialCard
                           collectionRequestMaterial={collectionRequestMaterial}
@@ -181,7 +182,11 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
         </Flex>
         <Flex backgroundColor="gray.500" height="2px" width="100%" />
         <Flex justifyContent={definitions.justifyContent.flexEnd} width="100%">
-          <Button colorScheme="green" onClick={handleRegisterCollectionRequest}>
+          <Button
+            colorScheme="blackAlpha"
+            onClick={handleRegisterCollectionRequest}
+            _hover={{ bg: "green.500" }}
+          >
             <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
               Cadastrar Solicitação de Coleta
             </Text>
@@ -194,10 +199,10 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
         cleanSelectedCollectionRequestMaterialState={
           cleanSelectedCollectionRequestMaterialState
         }
+        close={closeCollectionRequestMaterialModal}
         collectionRequestMaterial={selectedCollectionRequestMaterial}
         editCollectionRequestMaterial={editCollectionRequestMaterial}
         isOpen={isCollectionRequestMaterialModalOpen}
-        close={closeCollectionRequestMaterialModal}
         removeCollectionRequestMaterial={removeCollectionRequestMaterial}
       />
     </>

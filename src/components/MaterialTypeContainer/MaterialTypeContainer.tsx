@@ -22,6 +22,7 @@ const MaterialTypeContainer: FunctionComponent<MaterialTypeContainerProps> = ({
     borderColor={getMaterialTypeBorderColor(materialType!)}
     borderRadius="200px"
     borderWidth="2px"
+    height="36px"
     justifyContent={definitions.justifyContent.center}
     padding={`${definitions.spacing.micro} ${definitions.spacing.smaller}`}
   >

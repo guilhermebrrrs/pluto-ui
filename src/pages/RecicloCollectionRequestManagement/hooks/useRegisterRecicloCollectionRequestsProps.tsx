@@ -21,6 +21,7 @@ import {
   User,
   UserLocation,
 } from "types";
+import { getMaterialTypeLabel, sortByString } from "../../../utils";
 
 const useRegisterRecicloCollectionRequestsProps = () => {
   const { loggedUser } = useContext(AppAuthenticationContext);
@@ -86,6 +87,15 @@ const useRegisterRecicloCollectionRequestsProps = () => {
     return materialTypes;
   }, [collectionRequest, selectedCollectionRequestMaterial]);
 
+  const cleanAllCollectionMaterials = useCallback(
+    () =>
+      setCollectionRequestState((previousState) => ({
+        ...previousState,
+        collectionRequestMaterials: [] as CollectionRequestMaterial[],
+      })),
+    []
+  );
+
   const cleanSelectedCollectionRequestMaterialState = useCallback(
     () => setSelectedCollectionRequestMaterial(null),
     []
@@ -96,8 +106,20 @@ const useRegisterRecicloCollectionRequestsProps = () => {
     []
   );
 
-  const collectionRequestMaterials = useMemo(
-    () => collectionRequest?.collectionRequestMaterials,
+  const collectionRequestMaterialsArray = useMemo(
+    () =>
+      collectionRequest?.collectionRequestMaterials
+        ? [...collectionRequest?.collectionRequestMaterials].sort(
+            (
+              { materialType: type_a }: CollectionRequestMaterial,
+              { materialType: type_b }: CollectionRequestMaterial
+            ) =>
+              sortByString(
+                getMaterialTypeLabel(type_a!),
+                getMaterialTypeLabel(type_b!)
+              )
+          )
+        : ([] as CollectionRequestMaterial[]),
     [collectionRequest]
   );
 
@@ -263,19 +285,20 @@ const useRegisterRecicloCollectionRequestsProps = () => {
   return {
     addCollectionRequestMaterial,
     availableMaterialTypes,
+    cleanAllCollectionMaterials,
     cleanSelectedCollectionRequestMaterialState,
     closeCollectionRequestMaterialModal,
-    collectionRequestMaterials,
+    collectionRequestMaterialsArray,
     details,
     editCollectionRequestMaterial,
     handleRegisterCollectionRequest,
     isCollectionRequestMaterialModalOpen,
-    removeCollectionRequestMaterial,
     openCollectionRequestMaterialModal,
+    removeCollectionRequestMaterial,
     selectedCollectionRequestMaterial,
     setDetails,
-    setUserLocation,
     setSelectedCollectionRequestMaterial,
+    setUserLocation,
     userLocation,
     userLocationsOptions,
   };
