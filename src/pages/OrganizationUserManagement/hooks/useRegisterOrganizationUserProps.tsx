@@ -38,11 +38,12 @@ const useRegisterOrganizationUserProps = () => {
   }, [loggedUser]);
 
   const [
-    fetchMutation,
+    executeMutation,
     {
       data: {
         createOrganizationUser = {} as OrganizationUserRegistrationValidation,
       } = {},
+      reset,
     },
   ] = useMutation(CREATE_ORGANIZATION_USER, {
     variables: {
@@ -117,8 +118,9 @@ const useRegisterOrganizationUserProps = () => {
       });
       return;
     }
-    await fetchMutation();
-  }, [fetchMutation, isFieldsInvalid, toast]);
+    await executeMutation();
+    reset();
+  }, [executeMutation, isFieldsInvalid, reset, toast]);
 
   useEffect(() => {
     if (createOrganizationUser?.registrationSucceeded) {

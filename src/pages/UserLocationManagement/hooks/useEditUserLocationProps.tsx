@@ -64,10 +64,11 @@ const useEditUserLocationProps = ({
   );
 
   const [
-    fetchMutation,
+    executeSaveMutation,
     {
       data: { updateUserLocation: wasUserLocationUpdated = null } = {},
       error: errorOnSave,
+      reset: resetSaveMutation,
     },
   ] = useMutation(UPDATE_USER_LOCATION, {
     variables: {
@@ -93,19 +94,26 @@ const useEditUserLocationProps = ({
   });
 
   const [
-    fetchDelete,
+    executeDelete,
     {
       data: { deleteUserLocationById: wasUserLocationDeleted = null } = {},
       error: errorOnDelete,
+      reset: resetDeleteMutation,
     },
   ] = useMutation(DELETE_USER_LOCATION_BY_ID, {
     variables: { id: userLocation._id },
     refetchQueries: [FIND_ALL_USER_LOCATION_BY_USER_ID],
   });
 
-  const handleUpdate = useCallback(() => fetchMutation(), [fetchMutation]);
+  const handleUpdate = useCallback(async () => {
+    await executeSaveMutation();
+    resetSaveMutation();
+  }, [executeSaveMutation, resetSaveMutation]);
 
-  const handleDelete = useCallback(() => fetchDelete(), [fetchDelete]);
+  const handleDelete = useCallback(async () => {
+    await executeDelete();
+    resetDeleteMutation();
+  }, [executeDelete, resetDeleteMutation]);
 
   useEffect(() => {
     if (wasUserLocationUpdated) {

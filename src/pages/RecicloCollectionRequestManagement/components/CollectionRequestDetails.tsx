@@ -40,17 +40,11 @@ const CollectionRequestDetails: FunctionComponent<
         gap={definitions.spacing.smallest}
         width="100%"
       >
-        <Flex
-          justifyContent={definitions.alignItems.end}
-          width="100%"
-          padding={`0 ${definitions.spacing.smallest}`}
-        >
-          <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
-            {`Status: ${getCollectionStatusLabel(
-              collectionRequest.collectionStatus!
-            )}`}
-          </Text>
-        </Flex>
+        <Text fontFamily="Lato" fontWeight={definitions.fontWeight.bold}>
+          {`Status: ${getCollectionStatusLabel(
+            collectionRequest.collectionStatus!
+          )}`}
+        </Text>
         <Text
           fontFamily="Lato"
           fontWeight={definitions.fontWeight.bold}

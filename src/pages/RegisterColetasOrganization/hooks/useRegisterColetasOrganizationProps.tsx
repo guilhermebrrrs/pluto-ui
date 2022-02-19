@@ -27,11 +27,12 @@ const useRegisterColetasOrganizationProps = () => {
   const navigate = useNavigate();
 
   const [
-    fetchMutation,
+    executeMutation,
     {
       data: {
         createOrganization = {} as OrganizationRegistrationValidation,
       } = {},
+      reset,
     },
   ] = useMutation(CREATE_ORGANIZATION, {
     variables: {
@@ -144,8 +145,9 @@ const useRegisterColetasOrganizationProps = () => {
       });
       return;
     }
-    await fetchMutation();
-  }, [fetchMutation, isFieldsInvalid, toast]);
+    await executeMutation();
+    reset();
+  }, [executeMutation, isFieldsInvalid, reset, toast]);
 
   useEffect(() => {
     if (createOrganization?.registrationSucceeded)

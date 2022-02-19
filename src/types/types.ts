@@ -1,4 +1,5 @@
 import {
+  CollectionPathStatus,
   CollectionStatus,
   MaterialType,
   OrganizationType,
@@ -68,7 +69,7 @@ interface CollectionPath extends DateMetadata {
   _id?: string;
   collectionPoints?: CollectionPoint[];
   collectionPathResponsibleOrganizationUser?: OrganizationUser;
-  collectionPathStatus?: CollectionStatus;
+  collectionPathStatus?: CollectionPathStatus;
   description?: string;
   estimatedTimeInMinutes?: number;
   name?: string;
@@ -80,13 +81,14 @@ interface CollectionPoint extends DateMetadata {
   collectionPath?: CollectionPath;
   collectionRequest?: CollectionRequest;
   destination?: CollectionPoint;
+  location?: UserLocation;
   origin?: CollectionPoint;
 }
 
 interface CollectionRequest extends DateMetadata {
   _id?: string;
-  acceptedBy?: OrganizationUser;
-  canceledOrCompletedBy?: OrganizationUser | User;
+  acceptedBy?: Organization | OrganizationUser;
+  canceledOrCompletedBy?: Organization | OrganizationUser | User;
   createdBy?: User;
   collectionPoint?: CollectionPoint;
   collectionRequestMaterials?: CollectionRequestMaterial[];
@@ -102,6 +104,12 @@ interface CollectionRequestMaterial extends DateMetadata {
   collectionRequest?: CollectionRequest;
   description?: string;
   materialType?: MaterialType;
+}
+
+interface CreateCollectionPathInput {
+  description?: string;
+  name: string;
+  organizationId: string;
 }
 
 interface CreateCollectionRequestInput {
@@ -194,6 +202,7 @@ interface OrganizationUserRegistrationValidation {
 interface Organization extends BaseUser {
   _id?: string;
   collectionRequests?: CollectionRequest[];
+  collectionPaths?: CollectionPath[];
   cpfCnpj?: string;
   organizationType: OrganizationType;
   users?: OrganizationUser[];
@@ -275,6 +284,7 @@ export type {
   CollectionPoint,
   CollectionRequest,
   CollectionRequestMaterial,
+  CreateCollectionPathInput,
   CreateCollectionRequestInput,
   CreateCollectionRequestMaterialInput,
   CreateOrganizationInput,

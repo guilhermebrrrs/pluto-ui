@@ -16,8 +16,11 @@ const useRegisterRecicloProps = () => {
   const [password, setPasswordState] = useState<string>("");
 
   const [
-    fetchMutation,
-    { data: { createUser: wasUserCreated = null as boolean | null } = {} },
+    executeMutation,
+    {
+      data: { createUser: wasUserCreated = null as boolean | null } = {},
+      reset,
+    },
   ] = useMutation(CREATE_USER, {
     variables: {
       createUserInput: {
@@ -77,8 +80,9 @@ const useRegisterRecicloProps = () => {
       });
       return;
     }
-    await fetchMutation();
-  }, [fetchMutation, toast, isFieldsInvalid]);
+    await executeMutation();
+    reset();
+  }, [isFieldsInvalid, executeMutation, reset, toast]);
 
   useEffect(() => {
     if (wasUserCreated) setTimeout(() => navigate("/login/reciclo"), 10000);

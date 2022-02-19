@@ -3,6 +3,13 @@ enum AppType {
   APP_RECICLO,
 }
 
+enum CollectionPathStatus {
+  COMPLETED = "COMPLETED",
+  CANCELED = "CANCELED",
+  IN_DEFINITION = "IN_DEFINITION",
+  READY = "READY",
+}
+
 enum CollectionStatus {
   ACCEPTED = "ACCEPTED",
   CANCELED = "CANCELED",
@@ -43,4 +50,11 @@ enum WeekDays {
   SATURDAY = "SATURDAY",
 }
 
-export { AppType, CollectionStatus, MaterialType, OrganizationType, WeekDays };
+export {
+  AppType,
+  CollectionPathStatus,
+  CollectionStatus,
+  MaterialType,
+  OrganizationType,
+  WeekDays,
+};

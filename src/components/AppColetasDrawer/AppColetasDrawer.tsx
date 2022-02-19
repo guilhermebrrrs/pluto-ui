@@ -23,7 +23,8 @@ const AppColetasDrawer: FunctionComponent<AppRecicloDrawerProps> = ({
   isOpen,
   loggedUser,
 }) => {
-  const { toDashboard, toListingUsers } = useAppColetasDrawerProps(closeDrawer);
+  const { toCollectionPaths, toDashboard, toListingUsers } =
+    useAppColetasDrawerProps(closeDrawer);
 
   return (
     <Drawer placement="left" isOpen={isOpen} onClose={closeDrawer}>
@@ -87,11 +88,15 @@ const AppColetasDrawer: FunctionComponent<AppRecicloDrawerProps> = ({
             <Button colorScheme="green" onClick={toDashboard} width="100%">
               <Text>Tela Inicial</Text>
             </Button>
-            <Button colorScheme="green" disabled width="100%">
-              <Text>Solicitações de Coletas</Text>
+            <Button
+              colorScheme="green"
+              onClick={toCollectionPaths}
+              width="100%"
+            >
+              <Text>Rotas</Text>
             </Button>
             <Button colorScheme="green" disabled width="100%">
-              <Text>Rotas</Text>
+              <Text>Solicitações de Coletas</Text>
             </Button>
             <Button colorScheme="green" onClick={toListingUsers} width="100%">
               <Text>Usuários</Text>

@@ -223,12 +223,13 @@ const useRegisterRecicloCollectionRequestsProps = () => {
   );
 
   const [
-    fetchMutation,
+    executeMutation,
     {
       data: {
         createCollectionRequest: wasSaved = undefined as boolean | undefined,
       } = {},
       error,
+      reset,
     },
   ] = useMutation(CREATE_COLLECTION_REQUEST, {
     variables: {
@@ -245,10 +246,10 @@ const useRegisterRecicloCollectionRequestsProps = () => {
     ],
   });
 
-  const handleRegisterCollectionRequest = useCallback(
-    () => fetchMutation(),
-    [fetchMutation]
-  );
+  const handleRegisterCollectionRequest = useCallback(async () => {
+    await executeMutation();
+    reset();
+  }, [executeMutation, reset]);
 
   useEffect(() => {
     if (wasSaved === true) {

@@ -67,10 +67,11 @@ const useEditUserProps = ({
   );
 
   const [
-    fetchSaveMutation,
+    executeSaveMutation,
     {
       data: { updateOrganizationUserPersonalData: wasSaved = null } = {},
       error: errorOnSave,
+      reset: resetSaveMutation,
     },
   ] = useMutation(UPDATE_ORGANIZATION_USER_PERSONAL_DATA, {
     variables: {
@@ -88,10 +89,11 @@ const useEditUserProps = ({
   });
 
   const [
-    fetchDeleteMutation,
+    executeDeleteMutation,
     {
       data: { deleteOrganizationUserById: wasDeleted = null } = {},
       error: errorOnDelete,
+      reset: resetDeleteMutation,
     },
   ] = useMutation(DELETE_ORGANIZATION_USER_BY_ID, {
     variables: { id: selectedOrganizationUser?._id },
@@ -153,15 +155,15 @@ const useEditUserProps = ({
     }
   }, [wasDeleted, toast, cancelEdit]);
 
-  const removerUser = useCallback(
-    () => fetchDeleteMutation(),
-    [fetchDeleteMutation]
-  );
+  const removerUser = useCallback(async () => {
+    await executeDeleteMutation();
+    resetDeleteMutation();
+  }, [executeDeleteMutation, resetDeleteMutation]);
 
-  const saveChanges = useCallback(
-    () => fetchSaveMutation(),
-    [fetchSaveMutation]
-  );
+  const saveChanges = useCallback(async () => {
+    await executeSaveMutation();
+    resetSaveMutation();
+  }, [executeSaveMutation, resetSaveMutation]);
 
   const openRemoveUserModal = useCallback(() => {
     setIsRemoveUserModalOpened(true);

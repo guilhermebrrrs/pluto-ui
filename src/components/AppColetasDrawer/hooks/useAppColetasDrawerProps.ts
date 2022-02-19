@@ -1,8 +1,13 @@
-import { useNavigate } from "react-router";
 import { useCallback } from "react";
+import { useNavigate } from "react-router";
 
 const useAppColetasDrawerProps = (closeDrawer: () => void) => {
   const navigate = useNavigate();
+
+  const toCollectionPaths = useCallback(() => {
+    navigate("/app/coletas/rotas");
+    closeDrawer();
+  }, [closeDrawer, navigate]);
 
   const toDashboard = useCallback(() => {
     navigate("/app/coletas/dashboard");
@@ -14,7 +19,7 @@ const useAppColetasDrawerProps = (closeDrawer: () => void) => {
     closeDrawer();
   }, [closeDrawer, navigate]);
 
-  return { toDashboard, toListingUsers };
+  return { toCollectionPaths, toDashboard, toListingUsers };
 };
 
 export { useAppColetasDrawerProps };

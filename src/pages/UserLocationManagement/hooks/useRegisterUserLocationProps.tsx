@@ -39,8 +39,12 @@ const useRegisterUserLocationProps = () => {
   } = useUserLocationLocalState();
 
   const [
-    fetchMutation,
-    { data: { createUserLocation: wasUserLocationCreated = null } = {}, error },
+    executeMutation,
+    {
+      data: { createUserLocation: wasUserLocationCreated = null } = {},
+      error,
+      reset,
+    },
   ] = useMutation(CREATE_USER_LOCATION, {
     variables: {
       createUserLocationInput: {
@@ -118,8 +122,9 @@ const useRegisterUserLocationProps = () => {
       return;
     }
 
-    await fetchMutation();
-  }, [fetchMutation, isFieldsInvalid, toast]);
+    await executeMutation();
+    reset();
+  }, [executeMutation, isFieldsInvalid, reset, toast]);
 
   useEffect(() => {
     if (error)
