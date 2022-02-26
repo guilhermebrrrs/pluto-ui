@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import { useRegisterUserLocationProps } from "../hooks";
 import {
   Button,
   Flex,
@@ -8,21 +8,29 @@ import {
   InputGroup,
   Text,
   Textarea,
+  useOutsideClick,
 } from "@chakra-ui/react";
+import { Fragment, FunctionComponent, useRef } from "react";
 import { definitions } from "utils";
-import { useRegisterUserLocationProps } from "../hooks";
+import { HereMapsGeocodingLocation } from "types";
 
 const RegisterUserLocation: FunctionComponent = () => {
+  const inputRef = useRef(null);
+
   const {
     cep,
     city,
     comments,
     complement,
     country,
-    handleRegister,
-    placename,
     district,
+    geocodingLocations,
+    handleRegister,
+    isFocused,
     number,
+    onBlur,
+    onFocus,
+    placename,
     setCep,
     setCity,
     setComments,
@@ -38,6 +46,13 @@ const RegisterUserLocation: FunctionComponent = () => {
     weekDaysOptions,
     weekDayTimesOptions,
   } = useRegisterUserLocationProps();
+
+  useOutsideClick({
+    ref: inputRef,
+    handler: () => {
+      isFocused && onBlur();
+    },
+  });
 
   return (
     <Flex
@@ -96,17 +111,68 @@ const RegisterUserLocation: FunctionComponent = () => {
               </InputGroup>
             </GridItem>
             <GridItem colSpan={5}>
-              <InputGroup>
+              <InputGroup ref={inputRef}>
                 <Input
                   backgroundColor="gray.50"
                   borderColor="gray.300"
                   focusBorderColor="gray.700"
                   margin="1px"
-                  placeholder="Logradouro"
                   onChange={setStreet}
+                  onFocus={onFocus}
+                  placeholder="Logradouro"
+                  position="relative"
                   value={street}
                   width="100%"
                 />
+                {isFocused && geocodingLocations?.length > 0 && (
+                  <Flex
+                    backgroundColor="gray.50"
+                    borderColor="gray.500"
+                    borderRadius="5px"
+                    borderWidth="2px"
+                    flexDirection="column"
+                    left="0"
+                    position="absolute"
+                    padding={definitions.spacing.micro}
+                    top="50px"
+                    width="100%"
+                    zIndex="10"
+                    maxHeight="250px"
+                    overflowY="auto"
+                  >
+                    {geocodingLocations?.map(
+                      (
+                        {
+                          address: { city, district, state, street } = {},
+                          id,
+                        }: HereMapsGeocodingLocation,
+                        index: number
+                      ) => (
+                        <Fragment key={id}>
+                          <Flex
+                            cursor="pointer"
+                            padding={definitions.spacing.micro}
+                            onClick={() => console.log("ckicou")}
+                            _hover={{ backgroundColor: "gray.200" }}
+                          >
+                            <Text fontSize={definitions.fontSize.smaller}>{`${
+                              street ?? "n/a"
+                            }, ${district ?? "n/a"} - ${city ?? "n/a"} ${
+                              state ?? "n/a"
+                            }`}</Text>
+                          </Flex>
+                          {index < geocodingLocations.length - 1 && (
+                            <Flex
+                              backgroundColor="gray.500"
+                              height="1px"
+                              width="100"
+                            />
+                          )}
+                        </Fragment>
+                      )
+                    )}
+                  </Flex>
+                )}
               </InputGroup>
             </GridItem>
             <GridItem colSpan={4}>

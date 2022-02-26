@@ -13,6 +13,7 @@ export {
   initApolloClient,
   isNullOrBlank,
   isSomeItemOfArrayNullOrBlank,
+  removeAccentuation,
   sortByString,
   transformEnumValueToCapitalizeString,
 } from "./functions";

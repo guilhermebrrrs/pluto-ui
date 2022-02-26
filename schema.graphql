@@ -84,6 +84,83 @@ type CollectionRequestMaterial {
   updatedAt: String
 }
 
+type GraphHopperGeocodingLocation {
+  city: String
+  country: String
+  houseNumber: String
+  name: String
+  osm_id: String
+  osm_key: String
+  osm_type: String
+  point: GraphHopperGeocodingPoint
+  postcode: String
+  state: String
+  street: String
+}
+
+type GraphHopperGeocodingPoint {
+  lat: Float
+  lng: Float
+}
+
+type GraphHopperGeocodingResponseSchema {
+  hits: [GraphHopperGeocodingLocation]
+  took: Int
+}
+
+type HereMapsGeocodingAddress {
+  city: String
+  countryCode: String
+  countryName: String
+  county: String
+  district: String
+  houseNumber: String
+  label: String
+  postalCode: String
+  state: String
+  stateCode: String
+  street: String
+}
+
+type HereMapsGeocodingFieldScore {
+  city: Int
+  houseNumber: Int
+  streets: [Int]
+}
+
+type HereMapsGeocodingLocation {
+  access: [HereMapsGeocodingPosition]
+  address: HereMapsGeocodingAddress
+  houseNumberType: String
+  id: String
+  mapView: HereMapsGeocodingMapView
+  position: HereMapsGeocodingPosition
+  resultType: String
+  scoring: HereMapsGeocodingScoring
+  title: String
+}
+
+type HereMapsGeocodingMapView {
+  east: Float
+  north: Float
+  south: Float
+  west: Float
+}
+
+type HereMapsGeocodingPosition {
+  lat: Float
+  lng: Float
+}
+
+type HereMapsGeocodingResponseSchema {
+  items: [HereMapsGeocodingLocation]
+}
+
+type HereMapsGeocodingScoring {
+  fieldScore: HereMapsGeocodingFieldScore
+  queryScore: Int
+}
+
 type Mutation {
   createCollectionPath(createCollectionPathInput: CreateCollectionPathInput): Boolean
   createCollectionRequest(createCollectionRequestInput: CreateCollectionRequestInput): Boolean
@@ -154,6 +231,7 @@ type Query {
   findAllOrganizations: [Organization]
   findAllUserLocationsByUserId(id: ID!): [UserLocation]
   findAllUsers: [User]
+  findGeocodingLocation(typedLocation: String): HereMapsGeocodingResponseSchema
   findUserById(id: ID!): User
 }
 

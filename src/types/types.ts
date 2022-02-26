@@ -181,6 +181,83 @@ interface DateMetadata {
   updatedAt?: Date;
 }
 
+interface GraphHopperGeocodingResponseSchema {
+  hits?: GraphHopperGeocodingLocation[];
+  took?: number;
+}
+
+interface GraphHopperGeocodingLocation {
+  city?: string;
+  country?: string;
+  houseNumber?: string;
+  name?: string;
+  osm_id?: string;
+  osm_key?: string;
+  osm_type?: string;
+  point?: GraphHopperGeocodingPoint;
+  postcode?: string;
+  state?: string;
+  street?: string;
+}
+
+interface GraphHopperGeocodingPoint {
+  lat?: number;
+  lng?: number;
+}
+
+interface HereMapsGeocodingAddress {
+  label?: string;
+  countryCode?: string;
+  countryName?: string;
+  stateCode?: string;
+  state?: string;
+  county?: string;
+  city?: string;
+  district?: string;
+  street?: string;
+  postalCode?: string;
+  houseNumber?: string;
+}
+
+interface HereMapsGeocodingFieldScore {
+  city?: number;
+  streets?: number[];
+  houseNumber?: number;
+}
+
+interface HereMapsGeocodingLocation {
+  title?: string;
+  id?: string;
+  resultType?: string;
+  houseNumberType?: string;
+  address?: HereMapsGeocodingAddress;
+  position?: HereMapsGeocodingPosition;
+  access?: HereMapsGeocodingPosition[];
+  mapView?: HereMapsGeocodingMapView;
+  scoring?: HereMapsGeocodingScoring;
+}
+
+interface HereMapsGeocodingMapView {
+  west?: number;
+  south?: number;
+  east?: number;
+  north?: number;
+}
+
+interface HereMapsGeocodingPosition {
+  lat?: number;
+  lng?: number;
+}
+
+interface HereMapsGeocodingResponseSchema {
+  items?: HereMapsGeocodingLocation[];
+}
+
+interface HereMapsGeocodingScoring {
+  queryScore?: number;
+  fieldScore?: HereMapsGeocodingFieldScore;
+}
+
 interface OrganizationRegistrationValidation {
   cpfCnpjAlreadyExists: boolean;
   emailAlreadyExists: boolean;
@@ -294,6 +371,16 @@ export type {
   CreateUserLocationAvailableDaysAndTimesInput,
   CreateUserLocationAvailableTimeInput,
   CreateUserLocationInput,
+  GraphHopperGeocodingLocation,
+  GraphHopperGeocodingPoint,
+  GraphHopperGeocodingResponseSchema,
+  HereMapsGeocodingAddress,
+  HereMapsGeocodingFieldScore,
+  HereMapsGeocodingLocation,
+  HereMapsGeocodingMapView,
+  HereMapsGeocodingPosition,
+  HereMapsGeocodingResponseSchema,
+  HereMapsGeocodingScoring,
   Organization,
   OrganizationRegistrationValidation,
   OrganizationUser,

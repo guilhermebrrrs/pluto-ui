@@ -170,6 +170,33 @@ const FIND_ALL_USER_LOCATION_BY_USER_ID = gql`
   }
 `;
 
+const FIND_GEOCODING_LOCATION = gql`
+  query ($typedLocation: String!) {
+    findGeocodingLocation(typedLocation: $typedLocation) {
+      items {
+        address {
+          city
+          countryCode
+          countryName
+          county
+          district
+          houseNumber
+          label
+          postalCode
+          state
+          stateCode
+          street
+        }
+        id
+        position {
+          lng
+          lat
+        }
+      }
+    }
+  }
+`;
+
 export {
   AUTHENTICATE_ORGANIZATION,
   AUTHENTICATE_ORGANIZATION_USER,
@@ -177,4 +204,5 @@ export {
   FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID_AND_IS_IN_STATUS_ARRAY,
   FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID,
   FIND_ALL_USER_LOCATION_BY_USER_ID,
+  FIND_GEOCODING_LOCATION,
 };

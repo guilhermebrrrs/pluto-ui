@@ -1,24 +1,43 @@
-import { useCallback, useContext, useEffect, useMemo } from "react";
-import { useMutation } from "@apollo/client";
+import { useUserLocationLocalState } from "./useUserLocationLocalState";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { useToast } from "@chakra-ui/react";
 import { AppAuthenticationContext } from "contexts";
-import { CREATE_USER_LOCATION, FIND_ALL_USER_LOCATION_BY_USER_ID } from "data";
+import {
+  CREATE_USER_LOCATION,
+  FIND_ALL_USER_LOCATION_BY_USER_ID,
+  FIND_GEOCODING_LOCATION,
+} from "data";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { AvailableDayAndTime } from "types";
-import { isSomeItemOfArrayNullOrBlank } from "utils";
-import { useUserLocationLocalState } from "./useUserLocationLocalState";
+import { isSomeItemOfArrayNullOrBlank, removeAccentuation } from "utils";
 
 const useRegisterUserLocationProps = () => {
+  const timeoutId = useRef<NodeJS.Timeout | null>(null);
+
   const { loggedUser } = useContext(AppAuthenticationContext);
   const toast = useToast();
+  const [isFocused, setIsFocused] = useState<boolean | null>(null);
+
+  const onFocus = useCallback(() => setIsFocused(true), []);
+  const onBlur = useCallback(() => setIsFocused(false), []);
 
   const {
     availableDaysAndTimes,
     cep,
     city,
+    comments,
     complement,
     country,
     district,
     number,
+    placename,
     resetAllStates,
     setCep,
     setCity,
@@ -27,14 +46,12 @@ const useRegisterUserLocationProps = () => {
     setDistrict,
     setNumber,
     setPlacename,
-    placename,
-    state,
     setState,
     setStreet,
+    state,
+    street,
     weekDaysOptions,
     weekDayTimesOptions,
-    street,
-    comments,
     setComments,
   } = useUserLocationLocalState();
 
@@ -79,6 +96,21 @@ const useRegisterUserLocationProps = () => {
     },
     refetchQueries: [FIND_ALL_USER_LOCATION_BY_USER_ID],
   });
+
+  const [fetchQuery, { data = {} }] = useLazyQuery(FIND_GEOCODING_LOCATION, {
+    variables: {
+      typedLocation: removeAccentuation(street),
+    },
+  });
+
+  const geocodingLocations = useMemo(
+    () => data.findGeocodingLocation?.items,
+    [data]
+  );
+
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
 
   const isFieldsInvalid = useMemo(
     () =>
@@ -150,6 +182,12 @@ const useRegisterUserLocationProps = () => {
     }
   }, [resetAllStates, toast, wasUserLocationCreated]);
 
+  useEffect(() => {
+    if (timeoutId.current) clearTimeout(timeoutId.current);
+
+    timeoutId.current = setTimeout(async () => await fetchQuery(), 1000);
+  }, [fetchQuery, street]);
+
   return {
     cep,
     city,
@@ -157,11 +195,15 @@ const useRegisterUserLocationProps = () => {
     complement,
     country,
     district,
+    geocodingLocations,
     handleRegister,
+    isFocused,
     number,
+    onBlur,
+    onFocus,
+    placename,
     street,
     state,
-    placename,
     setCep,
     setCity,
     setComments,
