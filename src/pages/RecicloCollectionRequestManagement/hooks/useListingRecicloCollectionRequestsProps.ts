@@ -9,13 +9,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import {
-  Address,
-  CollectionRequest,
-  CollectionStatus,
-  User,
-  UserLocation,
-} from "types";
+import { CollectionRequest, CollectionStatus, User } from "types";
 
 const useListingRecicloCollectionRequestsProps = () => {
   const { loggedUser } = useContext(AppAuthenticationContext);
@@ -69,26 +63,16 @@ const useListingRecicloCollectionRequestsProps = () => {
     const matchString = globalFilter.split(" ").join("|");
 
     return collectionRequests.filter(
-      ({
-        location: {
-          address: {
-            city,
-            country,
-            district,
-            number,
-            state,
-            street,
-          } = {} as Address,
-          placename,
-        } = {} as UserLocation,
-      }: CollectionRequest) =>
-        new RegExp(matchString, "ig").test(city!) ||
-        new RegExp(matchString, "ig").test(country!) ||
-        new RegExp(matchString, "ig").test(district!) ||
-        new RegExp(matchString, "ig").test(number!) ||
-        new RegExp(matchString, "ig").test(placename!) ||
-        new RegExp(matchString, "ig").test(state!) ||
-        new RegExp(matchString, "ig").test(street!)
+      (item: CollectionRequest) =>
+        new RegExp(matchString, "ig").test(item?.location?.address?.city!) ||
+        new RegExp(matchString, "ig").test(item?.location?.address?.country!) ||
+        new RegExp(matchString, "ig").test(
+          item?.location?.address?.district!
+        ) ||
+        new RegExp(matchString, "ig").test(item?.location?.address?.number!) ||
+        new RegExp(matchString, "ig").test(item?.location?.placename!) ||
+        new RegExp(matchString, "ig").test(item?.location?.address?.state!) ||
+        new RegExp(matchString, "ig").test(item?.location?.address?.street!)
     );
   }, [collectionRequests, globalFilter]);
 

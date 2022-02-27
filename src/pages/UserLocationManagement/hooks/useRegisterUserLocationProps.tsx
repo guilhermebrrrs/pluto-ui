@@ -24,6 +24,8 @@ const useRegisterUserLocationProps = () => {
   const { loggedUser } = useContext(AppAuthenticationContext);
   const toast = useToast();
   const [isFocused, setIsFocused] = useState<boolean | null>(null);
+  const [showAddressSuggestion, setShowAddressSuggestion] =
+    useState<boolean>(false);
 
   const onFocus = useCallback(() => setIsFocused(true), []);
   const onBlur = useCallback(() => setIsFocused(false), []);
@@ -33,9 +35,11 @@ const useRegisterUserLocationProps = () => {
     cep,
     city,
     comments,
+    coordinates,
     complement,
     country,
     district,
+    setLocationDataByAddressSuggestion,
     number,
     placename,
     resetAllStates,
@@ -55,6 +59,7 @@ const useRegisterUserLocationProps = () => {
     setComments,
   } = useUserLocationLocalState();
 
+  // TODO: pass coordinates to the mutation variables
   const [
     executeMutation,
     {
@@ -108,10 +113,6 @@ const useRegisterUserLocationProps = () => {
     [data]
   );
 
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
-
   const isFieldsInvalid = useMemo(
     () =>
       isSomeItemOfArrayNullOrBlank([
@@ -158,6 +159,16 @@ const useRegisterUserLocationProps = () => {
     reset();
   }, [executeMutation, isFieldsInvalid, reset, toast]);
 
+  const closeAddressSuggestion = useCallback(
+    () => setShowAddressSuggestion(false),
+    []
+  );
+
+  const openAddressSuggestion = useCallback(() => {
+    if (isFocused && (street !== "" || street !== null))
+      setShowAddressSuggestion(true);
+  }, [isFocused, street]);
+
   useEffect(() => {
     if (error)
       toast({
@@ -191,6 +202,7 @@ const useRegisterUserLocationProps = () => {
   return {
     cep,
     city,
+    closeAddressSuggestion,
     comments,
     complement,
     country,
@@ -198,9 +210,11 @@ const useRegisterUserLocationProps = () => {
     geocodingLocations,
     handleRegister,
     isFocused,
+    setLocationDataByAddressSuggestion,
     number,
     onBlur,
     onFocus,
+    openAddressSuggestion,
     placename,
     street,
     state,
@@ -214,6 +228,7 @@ const useRegisterUserLocationProps = () => {
     setStreet,
     setState,
     setPlacename,
+    showAddressSuggestion,
     weekDaysOptions,
     weekDayTimesOptions,
   };

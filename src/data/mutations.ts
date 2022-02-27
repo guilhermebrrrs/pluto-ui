@@ -52,6 +52,12 @@ const CREATE_USER_LOCATION = gql`
   }
 `;
 
+const DELETE_COLLECTION_REQUEST_BY_ID = gql`
+  mutation ($id: ID!) {
+    deleteCollectionRequestById(id: $id)
+  }
+`;
+
 const DELETE_ORGANIZATION_USER_BY_ID = gql`
   mutation ($id: ID) {
     deleteOrganizationUserById(id: $id)
@@ -87,6 +93,7 @@ export {
   CREATE_ORGANIZATION_USER,
   CREATE_USER,
   CREATE_USER_LOCATION,
+  DELETE_COLLECTION_REQUEST_BY_ID,
   DELETE_ORGANIZATION_USER_BY_ID,
   DELETE_USER_LOCATION_BY_ID,
   UPDATE_ORGANIZATION_USER_PERSONAL_DATA,

@@ -102,7 +102,9 @@ const RegisterRecicloCollectionRequests: FunctionComponent = () => {
                   <Button
                     colorScheme="green"
                     gap={definitions.spacing.micro}
-                    isDisabled={!userLocation}
+                    isDisabled={
+                      !userLocation || availableMaterialTypes?.length < 1
+                    }
                     minHeight="40px"
                     onClick={openCollectionRequestMaterialModal}
                     width="fit-content"

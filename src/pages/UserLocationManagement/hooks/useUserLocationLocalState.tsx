@@ -4,6 +4,7 @@ import {
   Address,
   AvailableDayAndTime,
   AvailableTime,
+  HereMapsGeocodingLocation,
   UserLocation,
   WeekDays,
 } from "types";
@@ -38,6 +39,10 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
   const [street, setStreetState] = useState<string>(
     userLocation?.address?.street || ""
   );
+  const [coordinates, setCoordinates] = useState<{
+    latitude?: number;
+    longitude?: number;
+  } | null>(null);
 
   const address = useMemo(
     () =>
@@ -146,19 +151,20 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
 
   const resetAllStates = useCallback((userLocation?: UserLocation | null) => {
     setAvailableDaysAndTimesState([]);
-    setCepState(userLocation?.address?.cep || "");
-    setCityState(userLocation?.address?.city || "");
-    setCommentsState(userLocation?.comments || "");
-    setComplementState(userLocation?.address?.complement || "");
-    setCountryState(userLocation?.address?.country || "");
-    setDistrictState(userLocation?.address?.district || "");
-    setNumberState(userLocation?.address?.number || "");
-    setPlacenameState(userLocation?.placename || "");
-    setStateState(userLocation?.address?.state || "");
-    setStreetState(userLocation?.address?.street || "");
+    setCepState(userLocation?.address?.cep ?? "");
+    setCityState(userLocation?.address?.city ?? "");
+    setCommentsState(userLocation?.comments ?? "");
+    setComplementState(userLocation?.address?.complement ?? "");
+    setCountryState(userLocation?.address?.country ?? "");
+    setDistrictState(userLocation?.address?.district ?? "");
+    setNumberState(userLocation?.address?.number ?? "");
+    setPlacenameState(userLocation?.placename ?? "");
+    setStateState(userLocation?.address?.state ?? "");
+    setStreetState(userLocation?.address?.street ?? "");
     setAvailableDaysAndTimesState(
-      userLocation?.availableDaysAndTimes.slice(0) || []
+      userLocation?.availableDaysAndTimes.slice(0) ?? []
     );
+    setCoordinates(null);
   }, []);
 
   const setAvailableDays = useCallback(
@@ -269,6 +275,22 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
         (availableDayAndTime) => availableDayAndTime.weekDay === weekDay
       ).length < 1,
     [availableDaysAndTimes]
+  );
+
+  const setLocationDataByAddressSuggestion = useCallback(
+    (location: HereMapsGeocodingLocation) => {
+      setCepState(location?.address?.postalCode ?? "");
+      setCityState(location?.address?.city ?? "");
+      setCountryState(location?.address?.countryName ?? "");
+      setDistrictState(location?.address?.district ?? "");
+      setStateState(location?.address?.state ?? "");
+      setStreetState(location?.address?.street ?? "");
+      setCoordinates({
+        latitude: location.position?.lat,
+        longitude: location.position?.lng,
+      });
+    },
+    []
   );
 
   const weekDaysOptions = useMemo(
@@ -408,6 +430,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
     city,
     comments,
     complement,
+    coordinates,
     country,
     district,
     number,
@@ -422,6 +445,7 @@ const useUserLocationLocalState = (userLocation?: UserLocation) => {
     setCountry,
     setComplement,
     setDistrict,
+    setLocationDataByAddressSuggestion,
     setNumber,
     setPlacename,
     setStreet,

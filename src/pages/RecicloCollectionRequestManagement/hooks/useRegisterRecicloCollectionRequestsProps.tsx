@@ -101,10 +101,10 @@ const useRegisterRecicloCollectionRequestsProps = () => {
     []
   );
 
-  const closeCollectionRequestMaterialModal = useCallback(
-    () => setIsCollectionRequestMaterialModalOpen(false),
-    []
-  );
+  const closeCollectionRequestMaterialModal = useCallback(() => {
+    setIsCollectionRequestMaterialModalOpen(false);
+    setSelectedCollectionRequestMaterial(null);
+  }, []);
 
   const collectionRequestMaterialsArray = useMemo(
     () =>

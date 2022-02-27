@@ -10,7 +10,7 @@ import {
   Textarea,
   useOutsideClick,
 } from "@chakra-ui/react";
-import { Fragment, FunctionComponent, useRef } from "react";
+import { FunctionComponent, useRef } from "react";
 import { definitions } from "utils";
 import { HereMapsGeocodingLocation } from "types";
 
@@ -20,6 +20,7 @@ const RegisterUserLocation: FunctionComponent = () => {
   const {
     cep,
     city,
+    closeAddressSuggestion,
     comments,
     complement,
     country,
@@ -27,9 +28,11 @@ const RegisterUserLocation: FunctionComponent = () => {
     geocodingLocations,
     handleRegister,
     isFocused,
+    setLocationDataByAddressSuggestion,
     number,
     onBlur,
     onFocus,
+    openAddressSuggestion,
     placename,
     setCep,
     setCity,
@@ -41,6 +44,7 @@ const RegisterUserLocation: FunctionComponent = () => {
     setPlacename,
     setState,
     setStreet,
+    showAddressSuggestion,
     state,
     street,
     weekDaysOptions,
@@ -50,7 +54,10 @@ const RegisterUserLocation: FunctionComponent = () => {
   useOutsideClick({
     ref: inputRef,
     handler: () => {
-      isFocused && onBlur();
+      if (isFocused) {
+        onBlur();
+        closeAddressSuggestion();
+      }
     },
   });
 
@@ -117,58 +124,62 @@ const RegisterUserLocation: FunctionComponent = () => {
                   borderColor="gray.300"
                   focusBorderColor="gray.700"
                   margin="1px"
-                  onChange={setStreet}
+                  onChange={(event) => {
+                    setStreet(event);
+                    openAddressSuggestion();
+                  }}
                   onFocus={onFocus}
                   placeholder="Logradouro"
                   position="relative"
                   value={street}
                   width="100%"
                 />
-                {isFocused && geocodingLocations?.length > 0 && (
+                {showAddressSuggestion && geocodingLocations?.length > 0 && (
                   <Flex
                     backgroundColor="gray.50"
                     borderColor="gray.500"
-                    borderRadius="5px"
+                    borderRadius="7px"
                     borderWidth="2px"
                     flexDirection="column"
                     left="0"
                     position="absolute"
                     padding={definitions.spacing.micro}
-                    top="50px"
+                    top="52px"
                     width="100%"
                     zIndex="10"
                     maxHeight="250px"
                     overflowY="auto"
                   >
                     {geocodingLocations?.map(
-                      (
-                        {
-                          address: { city, district, state, street } = {},
-                          id,
-                        }: HereMapsGeocodingLocation,
-                        index: number
-                      ) => (
-                        <Fragment key={id}>
+                      (location: HereMapsGeocodingLocation, index: number) => (
+                        <Flex
+                          flexDirection="column"
+                          key={location?.id}
+                          width="100%"
+                        >
                           <Flex
                             cursor="pointer"
                             padding={definitions.spacing.micro}
-                            onClick={() => console.log("ckicou")}
+                            onClick={() => {
+                              setLocationDataByAddressSuggestion(location);
+                              closeAddressSuggestion();
+                            }}
                             _hover={{ backgroundColor: "gray.200" }}
                           >
                             <Text fontSize={definitions.fontSize.smaller}>{`${
-                              street ?? "n/a"
-                            }, ${district ?? "n/a"} - ${city ?? "n/a"} ${
-                              state ?? "n/a"
-                            }`}</Text>
+                              location?.address?.street ?? "n/a"
+                            }, ${location?.address?.district ?? "n/a"} - ${
+                              location?.address?.city ?? "n/a"
+                            } ${location?.address?.state ?? "n/a"}`}</Text>
                           </Flex>
-                          {index < geocodingLocations.length - 1 && (
+                          {index < geocodingLocations?.length - 1 && (
                             <Flex
                               backgroundColor="gray.500"
                               height="1px"
-                              width="100"
+                              width="100%"
                             />
                           )}
-                        </Fragment>
+                        </Flex>
                       )
                     )}
                   </Flex>

@@ -5,9 +5,9 @@ schema {
   mutation: Mutation
 }
 
-union TypesOrganizationOrOrganizationUserOrUser = Organization | OrganizationUser | User
+union TypesOrganizationOrOrganizationUser = Organization | OrganizationUser
 
-union TypesOrganizationUserOrUser = OrganizationUser | User
+union TypesOrganizationOrOrganizationUserOrUser = Organization | OrganizationUser | User
 
 type Address {
   _id: ID
@@ -61,8 +61,8 @@ type CollectionPoint {
 
 type CollectionRequest {
   _id: ID
-  acceptedBy: TypesOrganizationOrOrganizationUserOrUser
-  canceledOrCompletedBy: TypesOrganizationUserOrUser
+  acceptedBy: TypesOrganizationOrOrganizationUser
+  canceledOrCompletedBy: TypesOrganizationOrOrganizationUserOrUser
   collectionPoint: CollectionPoint
   collectionRequestMaterials: [CollectionRequestMaterial]
   collectionStatus: CollectionStatus
@@ -168,6 +168,7 @@ type Mutation {
   createOrganizationUser(createOrganizationUserInput: CreateOrganizationUserInput): OrganizationUserRegistrationValidation
   createUser(createUserInput: CreateUserInput): Boolean
   createUserLocation(createUserLocationInput: CreateUserLocationInput): Boolean
+  deleteCollectionRequestById(id: ID!): Boolean
   deleteOrganizationUserById(id: ID): Boolean
   deleteUserLocationById(id: ID!): Boolean
   updateOrganizationUserPersonalData(updateOrganizationUserPersonalDataInput: UpdateOrganizationUserPersonalDataInput): Boolean
@@ -401,6 +402,8 @@ input CreateUserLocationInput {
   address: CreateUserLocationAddressInput!
   availableDaysAndTimes: [CreateUserLocationAvailableDaysAndTimesInput]!
   comments: String
+  latitude: Float!
+  longitude: Float!
   placename: String!
   userId: ID!
 }
