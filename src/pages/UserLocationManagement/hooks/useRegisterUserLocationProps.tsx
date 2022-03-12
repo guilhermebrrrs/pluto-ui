@@ -15,7 +15,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { AvailableDayAndTime } from "types";
+import { AvailableDayAndTime, CreateUserLocationInput } from "types";
 import { isSomeItemOfArrayNullOrBlank, removeAccentuation } from "utils";
 
 const useRegisterUserLocationProps = () => {
@@ -59,7 +59,6 @@ const useRegisterUserLocationProps = () => {
     setComments,
   } = useUserLocationLocalState();
 
-  // TODO: pass coordinates to the mutation variables
   const [
     executeMutation,
     {
@@ -96,8 +95,10 @@ const useRegisterUserLocationProps = () => {
         ),
         comments: comments.trim(),
         placename,
+        latitude: coordinates?.latitude,
+        longitude: coordinates?.longitude,
         userId: loggedUser?._id,
-      },
+      } as CreateUserLocationInput,
     },
     refetchQueries: [FIND_ALL_USER_LOCATION_BY_USER_ID],
   });
@@ -126,6 +127,8 @@ const useRegisterUserLocationProps = () => {
         placename,
         street,
         state,
+        coordinates?.latitude,
+        coordinates?.longitude,
         ...availableDaysAndTimes,
       ]),
     [
@@ -134,6 +137,7 @@ const useRegisterUserLocationProps = () => {
       city,
       comments,
       complement,
+      coordinates,
       country,
       district,
       number,
@@ -170,7 +174,7 @@ const useRegisterUserLocationProps = () => {
   }, [isFocused, street]);
 
   useEffect(() => {
-    if (error)
+    if (error) {
       toast({
         title: "Não foi possível concluir o cadastro!",
         description: "Verifique os campos e tente novamente.",
@@ -178,6 +182,7 @@ const useRegisterUserLocationProps = () => {
         duration: 7500,
         isClosable: true,
       });
+    }
   }, [error, toast]);
 
   useEffect(() => {

@@ -1,0 +1,1 @@
+export { useColetasCollectionRequestManagementProps } from "./useColetasCollectionRequestManagementProps";

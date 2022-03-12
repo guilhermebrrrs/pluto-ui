@@ -9,6 +9,11 @@ const useAppColetasDrawerProps = (closeDrawer: () => void) => {
     closeDrawer();
   }, [closeDrawer, navigate]);
 
+  const toCollectionRequests = useCallback(() => {
+    navigate("/app/coletas/collectionrequests");
+    closeDrawer();
+  }, [closeDrawer, navigate]);
+
   const toDashboard = useCallback(() => {
     navigate("/app/coletas/dashboard");
     closeDrawer();
@@ -19,7 +24,12 @@ const useAppColetasDrawerProps = (closeDrawer: () => void) => {
     closeDrawer();
   }, [closeDrawer, navigate]);
 
-  return { toCollectionPaths, toDashboard, toListingUsers };
+  return {
+    toCollectionPaths,
+    toCollectionRequests,
+    toDashboard,
+    toListingUsers,
+  };
 };
 
 export { useAppColetasDrawerProps };

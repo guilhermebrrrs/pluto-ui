@@ -1,8 +1,6 @@
 import { AppMainLayout } from "components";
-import { FunctionComponent } from "react";
-import { Route, Routes } from "react-router";
-import { BrowserRouter } from "react-router-dom";
 import {
+  ColetasCollectionRequestManagement,
   CollectionPathManagement,
   DashboardColetas,
   DashboardReciclo,
@@ -18,6 +16,9 @@ import {
   RegisterReciclo,
   UserLocationManagement,
 } from "pages";
+import { FunctionComponent } from "react";
+import { Route, Routes } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 
 const AppRouter: FunctionComponent = () => (
   <BrowserRouter>
@@ -25,6 +26,10 @@ const AppRouter: FunctionComponent = () => (
       <Route path="/">
         <Route index element={<LandingPage />} />
         <Route path="/app" element={<AppMainLayout />}>
+          <Route
+            path="/app/coletas/collectionrequests"
+            element={<ColetasCollectionRequestManagement />}
+          />
           <Route path="/app/coletas/dashboard" element={<DashboardColetas />} />
           <Route
             path="/app/coletas/rotas"

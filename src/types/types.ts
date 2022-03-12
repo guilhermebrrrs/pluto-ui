@@ -173,9 +173,9 @@ interface CreateUserLocationInput {
   address: CreateUserLocationAddressInput;
   availableDaysAndTimes: [CreateUserLocationAvailableDaysAndTimesInput];
   comments: string;
-  placename: string;
   latitude: number;
   longitude: number;
+  placename: string;
 }
 
 interface DateMetadata {

@@ -1,5 +1,26 @@
 import { gql } from "@apollo/client";
 
+const LOCATION_FRAGMENT = gql`
+  fragment LocationFragment on UserLocation {
+    _id
+    address {
+      _id
+      cep
+      city
+      complement
+      country
+      district
+      number
+      state
+      street
+    }
+    comments
+    latitude
+    longitude
+    placename
+  }
+`;
+
 const AUTHENTICATE_ORGANIZATION = gql`
   query ($authenticateOrganizationInput: AuthenticateOrganizationInput) {
     authenticateOrganization(
@@ -60,6 +81,43 @@ const AUTHENTICATE_USER = gql`
   }
 `;
 
+const FIND_ALL_COLLECTION_PATHS_BY_ORGANIZATION_ID_AND_COLLECTION_PATH_STATUS = gql`
+  ${LOCATION_FRAGMENT}
+  query ($organizationId: ID!, $collectionPathStatus: CollectionPathStatus) {
+    findAllCollectionPathsByOrganizationIdAndCollectionPathStatus(
+      organizationId: $organizationId
+      collectionPathStatus: $collectionPathStatus
+    ) {
+      _id
+      collectionPoints {
+        _id
+        destination {
+          location {
+            ...LocationFragment
+          }
+        }
+        location {
+          ...LocationFragment
+        }
+        origin {
+          location {
+            ...LocationFragment
+          }
+        }
+      }
+      collectionPathResponsibleOrganizationUser {
+        _id
+        name
+      }
+      collectionPathStatus
+      description
+      estimatedTimeInMinutes
+      name
+      totalEstimatedDistance
+    }
+  }
+`;
+
 const FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID_AND_IS_IN_STATUS_ARRAY = gql`
   query ($id: ID!, $statusArray: [CollectionStatus!]!) {
     findAllCollectionRequestsByUserIdAndIsInStatusArray(
@@ -67,6 +125,55 @@ const FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID_AND_IS_IN_STATUS_ARRAY = gql`
       statusArray: $statusArray
     ) {
       _id
+      collectionRequestMaterials {
+        _id
+        amount
+        description
+        materialType
+      }
+      collectionStatus
+      details
+      location {
+        address {
+          _id
+          cep
+          city
+          complement
+          country
+          district
+          number
+          state
+          street
+        }
+        availableDaysAndTimes {
+          maxTime {
+            hour
+            minutes
+          }
+          minTime {
+            hour
+            minutes
+          }
+          weekDay
+        }
+        comments
+        placename
+      }
+      organization {
+        email
+        name
+      }
+    }
+  }
+`;
+
+const FIND_ALL_COLLECTION_REQUESTS_IN_STATUS_ARRAY = gql`
+  query ($statusArray: [CollectionStatus!]!) {
+    findAllCollectionRequestsInStatusArray(statusArray: $statusArray) {
+      _id
+      createdBy {
+        name
+      }
       collectionRequestMaterials {
         _id
         amount
@@ -201,7 +308,9 @@ export {
   AUTHENTICATE_ORGANIZATION,
   AUTHENTICATE_ORGANIZATION_USER,
   AUTHENTICATE_USER,
+  FIND_ALL_COLLECTION_PATHS_BY_ORGANIZATION_ID_AND_COLLECTION_PATH_STATUS,
   FIND_ALL_COLLECTION_REQUESTS_BY_USER_ID_AND_IS_IN_STATUS_ARRAY,
+  FIND_ALL_COLLECTION_REQUESTS_IN_STATUS_ARRAY,
   FIND_ALL_ORGANIZATION_USERS_BY_ORGANIZATION_ID,
   FIND_ALL_USER_LOCATION_BY_USER_ID,
   FIND_GEOCODING_LOCATION,

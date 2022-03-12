@@ -225,8 +225,10 @@ type Query {
   authenticateOrganization(authenticateOrganizationInput: AuthenticateOrganizationInput): Organization
   authenticateOrganizationUser(authenticateOrganizationUserInput: AuthenticateOrganizationUserInput): OrganizationUser
   authenticateUser(authenticateUserInput: AuthenticateUserInput): User
+  findAllCollectionPathsByOrganizationIdAndCollectionPathStatus(collectionPathStatus: CollectionPathStatus, organizationId: ID!): [CollectionPath]
   findAllCollectionRequestsByUserId(id: ID!): [CollectionRequest]
   findAllCollectionRequestsByUserIdAndIsInStatusArray(id: ID!, statusArray: [CollectionStatus]): [CollectionRequest]
+  findAllCollectionRequestsInStatusArray(statusArray: [CollectionStatus]): [CollectionRequest]
   findAllOrganizationUsers: [OrganizationUser]
   findAllOrganizationUsersByOrganizationId(id: ID!): [OrganizationUser]
   findAllOrganizations: [Organization]

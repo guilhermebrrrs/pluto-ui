@@ -1,4 +1,5 @@
 export { App } from "./App";
+export { ColetasCollectionRequestManagement } from "./ColetasCollectionRequestManagement";
 export { CollectionPathManagement } from "./CollectionPathManagement";
 export { DashboardColetas } from "./DashboardColetas";
 export { DashboardReciclo } from "./DashboardReciclo";
